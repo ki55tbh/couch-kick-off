@@ -286,7 +286,7 @@ const CP = {
 const PRIME_NOTE = "Prime Video shows one Tuesday game a week; its UK pick isn't confirmed";
 // date time | home | away | comp | channels | note
 // Updated by the scheduled task on every run. status: 'ok' or 'failed'.
-const UPDATED = {last_ok:'2026-11-14T21:06', last_attempt:'2026-11-14T21:46', status:'failed', summary:'No fixture changes since the 21:04 check (3 CONCACAF Nations League YouTube games added then); today to Monday rechecked'};
+const UPDATED = {last_ok:'2026-11-14T21:49', last_attempt:'2026-11-14T21:49', status:'ok', summary:'6 Serie A games confirmed on DAZN (21 to 23 Nov); today to Monday rechecked, no other changes'};
 // Weekly accuracy audit history, written by the Monday audit task (not shown on the page). Newest last.
 // Each entry: {week:'YYYY-MM-DD', checked:N, correct:N, incorrect:N, unverified:N, fixed:N}
 const AUDITS = [];
@@ -963,14 +963,14 @@ const RAW = `
 2026-12-13 16:30|Hoffenheim|Bayern Munich|BL|PPV|Prime Video pay-per-view (every Sunday game)
 2026-12-13 18:30|Werder Bremen|Bayer Leverkusen|BL|PPV|Prime Video pay-per-view (every Sunday game)
 2026-11-21 14:00|Como|Cagliari|SA|NOTV|Saturday afternoon kick-off, so it can't be shown live in the UK
-2026-11-21 17:00|Parma|Roma|SA|DZ?|Starts inside the Saturday 3pm blackout, so live coverage may not begin until 5:15pm
-2026-11-21 19:45|Napoli|Torino|SA|DZ?
+2026-11-21 17:00|Parma|Roma|SA|DZ|Starts inside the Saturday 3pm blackout, so live coverage may not begin until 5:15pm
+2026-11-21 19:45|Napoli|Torino|SA|DZ
 2026-11-22 11:30|Juventus|Venezia|SA|TNT Sports 1,DAZN,HBO Max
-2026-11-22 14:00|Bologna|Udinese|SA|DZ?
-2026-11-22 14:00|Sassuolo|Genoa|SA|DZ?
-2026-11-22 17:00|AC Milan|Frosinone|SA|DZ?
+2026-11-22 14:00|Bologna|Udinese|SA|DZ
+2026-11-22 14:00|Sassuolo|Genoa|SA|DZ
+2026-11-22 17:00|AC Milan|Frosinone|SA|DZ
 2026-11-22 19:45|Atalanta|Inter|SA|TNT Sports 1,DAZN,HBO Max
-2026-11-23 19:45|Monza|Fiorentina|SA|DZ?
+2026-11-23 19:45|Monza|Fiorentina|SA|DZ
 2026-11-21 14:00|Lazio|Lecce|SA|NOTV|Saturday afternoon kick-off, so it can't be shown live in the UK
 2026-11-27 19:45|Venezia|Bologna|SA|DZ?
 2026-11-28 14:00|Frosinone|Parma|SA|NOTV|Saturday afternoon kick-off, so it can't be shown live in the UK
