@@ -1,0 +1,63 @@
+# Couch Kick-Off daily update (instructions for the 09:39 routine)
+
+You are updating Gareth's public website **Couch Kick-Off** (https://couchkickoff.co.uk), a guide to men's football on UK TV. Do not use em dashes in anything you write. Check the current UK date and time first (Europe/London).
+
+## Where the site lives
+
+- This repository (ki55tbh/couch-kick-off) is the only master copy. The whole site is `index.html` on branch `main`. GitHub Pages republishes the site about a minute after every push to `main`.
+- The older claude.ai artifact pages are retired: do not read or edit them.
+- Only edit the data parts of `index.html` listed below. Never change the layout, styles, scripts, the About section or the Report links.
+
+## Data format
+
+Inside the page script, these are the data parts you maintain:
+
+1. `const UPDATED = {last_ok:'YYYY-MM-DDTHH:MM', last_attempt:'YYYY-MM-DDTHH:MM', status:'ok', summary:'...'};` (UK local time, 24h). The page shows "TV picks last checked: <last_ok>", or a warning if status is 'failed'.
+2. The template string `const RAW = \`...\``. Each line is one game: `YYYY-MM-DD HH:MM|Home|Away|COMP|CHANNELS|optional note`
+3. The `const KIT={...};` club colour map, and the footer list under `<h4>Confirmed TV picks so far</h4>`.
+4. `const AUDITS = [...]` belongs to the Monday audit. Leave it alone.
+
+- Times are UK local time. Time can be TBC. COMP uses codes (PL, CH, L1, L2, UCL, UEL, UECL, SPL, CC, NL, EQ = Euro 2028 Qualifiers, LL = LaLiga, SA = Serie A, BL = Bundesliga, FA Cup etc) or a literal name such as "International Friendly".
+- CHANNELS is comma-separated. Short tokens expand via the CH map: S = "Sky Sports|NOW", SF = Sky Sports Football, SP = Sky Sports+, SME = Sky Sports Main Event + Sky Sports Football, T = "TNT Sports|HBO Max", PS = Premier Sports, DIS = Disney+, DZ = DAZN, PPV = Prime Video PPV, TBC = "TV pick TBC", NOTV = "Not on UK TV". Any other text is shown literally, e.g. "Sky Sports Main Event,Sky Sports Premier League,Sky Sports UHD 1,NOW" or "ITV1,ITVX" or "BBC One,BBC iPlayer" or "BBC ALBA,BBC iPlayer" or "S4C" or "YouTube (That's Football)". Any channel containing "YouTube" gets the red YouTube badge and appears under the YouTube and Free to watch filters.
+- EXPECTED vs CONFIRMED: a channel token ending in "?" (e.g. "PS?", "DZ?", "DIS?") means EXPECTED: the broadcaster holds the competition's UK rights (or that slot) but has not confirmed that individual match. The page shows an outlined badge with an "Expected" label. A token without "?" means the broadcaster has confirmed that specific match. Never mark a game confirmed just because the broadcaster owns the rights. Remove the "?" only when the broadcaster's own schedule, or a reliable UK TV listing such as FotMob's UK TV guide, names that specific match on that channel, and use the exact channel if listed (e.g. "Premier Sports 1"). Never list two broadcasters on one game unless a listing shows that match on both. Currently "?" is used on LaLiga (PS?, DIS?) and Serie A (DZ?).
+- Lines with an empty Away field are placeholder events (e.g. "FA Cup third round||FA Cup|...").
+- Men's football only. Team names must match existing spellings in RAW (e.g. "Manchester United", "Tottenham Hotspur", "Bournemouth", "Brighton", "West Bromwich Albion", "AC Milan", "Inter", "Bayern Munich", "Stuttgart", "Cologne", "Borussia Mönchengladbach", "Atlético Madrid", "Athletic Club", "Celta Vigo", "Deportivo La Coruña"). For national teams use "England", "Scotland", "Wales", "Northern Ireland", "Republic of Ireland" and the opponent's English country name. If you add a club or country not yet in KIT, add it there with its primary and secondary colour.
+
+Before editing, save a copy of the current RAW block so you can compare afterwards. Make edits with a short Python script or careful text replacement on `index.html`.
+
+## Priority every day
+
+Today and the next 2 days must be right. Check them against a live UK listing (FotMob UK TV guide first) for late channel changes, moved kick-offs and postponements, and fix them. On days with little time, do this and the stamp, and leave the longer-range tasks for the next run.
+
+## Tasks (today to the next 10 days for channels; any date for new picks)
+
+1. **Exact channels and confirmation**: for every game in the next 10 days whose channel is still generic (S, SF, SP, T, PS, "Sky Sports", "TNT Sports" etc.) or expected (ending "?"), look up the exact UK channels now listed (e.g. Sky Sports Main Event, Sky Sports Premier League, Sky Sports Football, Sky Sports UHD 1, Sky Sports+, TNT Sports 1, TNT Sports Ultimate, Premier Sports 1, Premier Sports 2, LaLigaTV, Prime Video, DAZN, Disney+) and use the specific names without "?" (keep NOW for Sky games and HBO Max for TNT games). Only use channels you found in a listing; otherwise leave the line as it is. Never guess.
+2. **New TV picks**: check for selections announced since the last run (Premier League, EFL on Sky, Scottish Premiership, FA Cup, Carabao Cup, Champions League Prime Video Tuesday pick, Europa/Conference League; no women's football). For PL games marked TBC, set the confirmed date, kick-off and broadcaster, or change them to NOTV with the note "Saturday 3pm kick-off, so it won't be shown live in the UK" if they stay at 3pm Saturday once that weekend's picks are out. Add newly announced televised EFL/SPFL/cup games. Replace placeholder lines with real ties once drawn and scheduled.
+   - YouTube: check https://www.fotmob.com/tv-guide/gb/youtube and other listings for men's games streamed live and officially on YouTube in the UK. In 2026/27 this mainly means 22 Bundesliga Friday night games streamed by That's Football (15) and Jamie Vardy's channel (7): when one is confirmed, add "YouTube (That's Football)" or "YouTube (Jamie Vardy)" alongside "BBC iPlayer" and shorten the note to "Free on BBC iPlayer, and on YouTube".
+3. **European leagues** (LL, SA, BL): every fixture of the season is listed. Lines with time "TBC" carry the nominal matchday date. When a league confirms dates and kick-off times, update those lines in place (UK time = CET minus 1 hour) and replace the "Matchday N, the weekend of..." note. Never add a duplicate line for the same home/away pair.
+   - LaLiga: Premier Sports shows most games. Disney+ shows the Saturday night primetime game (usually 8pm UK) exclusively, so that game is NOT on Premier Sports: use "DIS?" with note "Saturday night game, which Disney+ shows exclusively (not on Premier Sports)", and "DIS" once confirmed. Use "PS?" for other games until confirmed, then "PS" or the exact channel. Saturday games kicking off 2:45pm to 5:15pm UK: NOTV with note "Saturday 3pm blackout, so it won't be shown live in the UK", unless an official UK source shows that match live.
+   - Serie A: every game on DAZN. Use "DZ?" until DAZN or a UK listing confirms that match, then "DZ". BBC ALBA and BBC iPlayer show about one a week: when you find which, set "DZ,BBC ALBA,BBC iPlayer" or "DZ,BBC iPlayer". Saturday 2pm UK games: NOTV with note "Saturday afternoon kick-off, so it can't be shown live in the UK"; Saturday 5pm UK: DZ? or DZ with note "Starts inside the Saturday 3pm blackout, so live coverage may not begin until 5:15pm".
+   - Bundesliga: Friday 7:30pm UK game free on "BBC iPlayer" (some also on YouTube, see task 2) with note "Free on BBC iPlayer. Some Friday games are also streamed live on YouTube by That's Football or Jamie Vardy's channel; which ones isn't announced yet" until the YouTube pick is known; Saturday 5:30pm "top match" on Sky Sports (S, exact channel when listed); every Sunday game on Prime Video pay-per-view (PPV); Saturday 2:30pm games: NOTV with note "Saturday afternoon game: no UK broadcaster shows these live". Midweek rounds: check the UK broadcaster.
+   - Update the footer "Confirmed TV picks so far" bullets for these leagues with the new horizon dates.
+4. **Internationals** (men's): the Euro 2028 qualifying draw is on Sun 6 Dec 2026. After it, replace the four "Euro 2028 qualifiers, matchday N" placeholder lines (COMP EQ) with real fixtures for England, Scotland, Wales, Northern Ireland and Republic of Ireland. England: ITV1,ITVX unless a listing says otherwise. Others: the broadcaster announced. Republic of Ireland: only if a UK channel is announced, otherwise NOTV. Use times once UEFA publishes them, TBC until then. Also add Nations League quarter-final/play-off ties (25 to 30 March 2027) involving those nations, and home-nation friendlies with a UK broadcaster. During international windows also list friendlies involving major nations with COMP "International Friendly" (UK broadcaster if announced, otherwise NOTV with note "No UK broadcaster has been announced").
+5. Correct anything else that has changed (moved games, new times, postponements).
+6. Update the footer "Confirmed TV picks so far" dates if the coverage horizon moved.
+
+Good sources: FotMob UK TV guide (https://www.fotmob.com/en-GB/tv-guide/gb) and its YouTube, BBC ALBA and Disney+ pages, Sky Sports and TNT Sports fixture/TV pages, premierleague.com broadcast selection news, 101greatgoals.com, spfl.co.uk TV selections, thefa.com, englandfootball.com, uefa.com, live-footballontv.com, laliga.com, club sites (e.g. realmadrid.com), Premier Sports, DAZN UK, bundesliga.com, Italian club or calcio news sites. The openfootball repos (github.com/openfootball/espana, deutschland, italy, folder 2026-27) hold full fixture lists. Use another source rather than working around a blocked site.
+
+## Work out what changed
+
+Compare old RAW with new RAW and count: new televised fixtures confirmed; expected broadcasts confirmed ("?" removed); channel changes; time/date changes; games moved to "Not on UK TV". Put a one-line version in UPDATED.summary.
+
+## Stamp, check and publish
+
+- Success: set UPDATED.last_ok and UPDATED.last_attempt to the current UK date/time, status 'ok', summary as above (publish even with no fixture changes, so the "last checked" date is current).
+- Failure (could not reach enough sources): do NOT change RAW. Set only UPDATED.last_attempt to now and status 'failed', leaving last_ok as it was.
+- Run `python3 tools/validate.py`. If it fails, fix the problem; if you cannot, run `git checkout index.html` and publish only the failure stamp.
+- Confirm `git diff --stat` only touches index.html.
+- Commit and push: `git -c user.name="Claude" -c user.email="noreply@anthropic.com" commit -am "Daily update YYYY-MM-DD: <summary>"` then `git push origin HEAD:main`. If rejected because main moved, `git pull --rebase origin main` once and push again. If the push is refused (e.g. 403), do not retry and do not try other ways in.
+- Confirm with `git ls-remote origin main` that your commit is on main.
+
+## Finish
+
+End with a short summary as your final message: "Couch Kick-Off updated: 4 new televised fixtures confirmed, 2 channel changes, 1 kick-off time moved." plus one line naming anything notable, the commit hash, and the link https://couchkickoff.co.uk. If anything failed, say so plainly first, including whether the website was updated.
