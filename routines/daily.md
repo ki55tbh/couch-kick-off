@@ -6,7 +6,7 @@ You are updating Gareth's public website **Couch Kick-Off** (https://couchkickof
 
 - This repository (ki55tbh/couch-kick-off) is the only master copy. The whole site is `index.html` on branch `main`. GitHub Pages republishes the site about a minute after every push to `main`.
 - The older claude.ai artifact pages are retired: do not read or edit them.
-- Only edit the data parts of `index.html` listed below. Never change the layout, styles, scripts, the About section or the Report links.
+- Only edit the data parts of `index.html` listed below. Never change the layout, styles, scripts, the About section, the Report links or the Cloudflare Web Analytics snippet just before `</body>` (it counts visits; `tools/validate.py` fails if it is missing).
 
 ## Data format
 

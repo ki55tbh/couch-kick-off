@@ -2,7 +2,7 @@
 
 You are independently auditing Gareth's public website **Couch Kick-Off** (https://couchkickoff.co.uk), a guide to men's football on UK TV. Do not use em dashes in anything you write. Check the current UK date and time first (Europe/London).
 
-The site is `index.html` on branch `main` of this repository; GitHub Pages republishes it about a minute after every push. A separate daily routine (09:39 UK, instructions in `routines/daily.md`) maintains the data; this audit checks its work. Read `routines/daily.md` for the data format (UPDATED, RAW, KIT, AUDITS, channel tokens, Expected "?" tokens). Only edit those data parts; never change layout, scripts, the About section or Report links. The older claude.ai artifact pages are retired: ignore them.
+The site is `index.html` on branch `main` of this repository; GitHub Pages republishes it about a minute after every push. A separate daily routine (09:39 UK, instructions in `routines/daily.md`) maintains the data; this audit checks its work. Read `routines/daily.md` for the data format (UPDATED, RAW, KIT, AUDITS, channel tokens, Expected "?" tokens). Only edit those data parts; never change layout, scripts, the About section, Report links or the Cloudflare Web Analytics snippet just before `</body>` (`tools/validate.py` fails if it is missing). The older claude.ai artifact pages are retired: ignore them.
 
 Gareth forwards this report to another reviewer who re-checks a sample of the listed matches, so every checked match must be named with its source.
 

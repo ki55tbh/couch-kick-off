@@ -4,7 +4,7 @@
 Usage: python3 tools/validate.py            (compares with the last committed version)
 Checks: every fixture line has at least 5 fields; no duplicate fixture lines; the fixture
 count has not dropped by more than 10%; the UPDATED, KIT and AUDITS blocks and the About
-section are present; the page script parses (node --check).
+section and the Cloudflare Web Analytics snippet are present; the page script parses (node --check).
 """
 import re, subprocess, sys, tempfile
 
@@ -38,6 +38,8 @@ def main():
                       ('AUDITS', r'const AUDITS = \[.*?\];'), ('About section', r'id="about"')]:
         if len(re.findall(pat, html, re.S)) != 1:
             errors.append(f'{name} missing or duplicated')
+    if html.count('static.cloudflareinsights.com/beacon.min.js') != 1 or '1c6cd6949d724fe697ffd4b014f24d91' not in html:
+        errors.append('Cloudflare Web Analytics snippet missing or duplicated (it must stay just before </body>)')
     js = '\n'.join(re.findall(r'<script>(.*?)</script>', html, re.S))
     with tempfile.NamedTemporaryFile('w', suffix='.js', delete=False) as f:
         f.write(js)
