@@ -32,6 +32,18 @@ def main():
         if s[0] != d[0]:
             changed.append(name)
             dst = dst.replace(d[0], s[0], 1)
+    # Safety checks before anything is written
+    raw = re.search(PATTERNS['RAW'], dst, re.S).group(0)
+    lines = [l for l in raw[len('const RAW = `'):-2].strip().split('\n') if l.strip()]
+    bad = [l for l in lines if l.count('|') < 4]
+    if bad:
+        sys.exit(f'ERROR: {len(bad)} fixture lines have fewer than 5 fields, e.g. {bad[0][:80]!r}; nothing changed')
+    old_raw = re.search(PATTERNS['RAW'], open(dst_path, encoding='utf-8').read(), re.S).group(0)
+    old_n = len([l for l in old_raw.split('\n') if '|' in l])
+    if old_n and len(lines) < old_n * 0.9:
+        sys.exit(f'ERROR: fixture count would drop from {old_n} to {len(lines)} (more than 10%); nothing changed')
+    if 'id="about"' not in dst:
+        sys.exit('ERROR: the website About section is missing; nothing changed')
     open(dst_path, 'w', encoding='utf-8').write(dst)
     print('Changed blocks: ' + (', '.join(changed) if changed else 'none'))
 
