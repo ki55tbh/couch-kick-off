@@ -55,8 +55,9 @@ Compare old RAW with new RAW and count: new televised fixtures confirmed; expect
 - Failure (could not reach enough sources): do NOT change RAW. Set only UPDATED.last_attempt to now and status 'failed', leaving last_ok as it was.
 - Run `python3 tools/validate.py`. If it fails, fix the problem; if you cannot, run `git checkout index.html` and publish only the failure stamp.
 - Confirm `git diff --stat` only touches index.html.
-- Commit and push: `git -c user.name="Claude" -c user.email="noreply@anthropic.com" commit -am "Daily update YYYY-MM-DD: <summary>"` then `git push origin HEAD:main`. If rejected because main moved, `git pull --rebase origin main` once and push again. If the push is refused (e.g. 403), do not retry and do not try other ways in.
-- Confirm with `git ls-remote origin main` that your commit is on main.
+- Commit and push: `git -c user.name="Claude" -c user.email="noreply@anthropic.com" commit -am "Daily update YYYY-MM-DD: <summary>"` then `git push origin HEAD:main`. If rejected because main moved, `git pull --rebase origin main` once and push again.
+- If the push to main is refused for permissions (e.g. 403), do not retry it. Instead push the same commit once to the fallback branch: `git push --force origin HEAD:claude/live`, and report that main was refused and which branch received the update. Do not try any other way in.
+- Confirm with `git ls-remote origin main claude/live` which branch has your commit.
 
 ## Finish
 
