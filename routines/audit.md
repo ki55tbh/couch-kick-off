@@ -33,8 +33,9 @@ Go the other way round: take the official UK TV schedules for the window (Sky Sp
 - Correct each INCORRECT line from the official source (keep team spellings and formats). Promote Expected lines an official source now confirms. Never change UNABLE TO VERIFY lines and never remove a "?" without official confirmation. Never guess.
 - Update UPDATED.summary to mention the audit (e.g. "Weekly audit: 2 corrections, 1 missing game added, 5 Expected games confirmed"). Leave last_ok and last_attempt alone.
 - Append this week's entry to AUDITS (keep earlier entries): `{week:'<Monday YYYY-MM-DD>', checked:N, correct:N, incorrect:N, unverified:N, missing:N, fixed:N, expected:N, promoted:N, bcast_confirmed:N}` (expected = Expected lines audited; promoted = Expected lines confirmed this week; bcast_confirmed = audited lines whose specific broadcast an official source confirmed).
-- Rebuild the team pages: `node tools/build_pages.mjs`. It regenerates the team folders (e.g. `liverpool/index.html`), `sitemap.xml` and the team links between the TEAMPAGES markers in `index.html` from RAW. Never edit those by hand. If it fails, still publish the index.html update and report the error.
-- Run `python3 tools/validate.py` and fix any problem it reports. Confirm `git diff --stat` and `git status --short` only touch index.html, sitemap.xml and team page folders.
+- Rebuild the team pages: `node tools/build_pages.mjs`. It regenerates the team folders (e.g. `liverpool/index.html`), `sitemap.xml` and the team links between the TEAMPAGES markers in `index.html` from RAW. Never edit those by hand.
+- Run `python3 tools/validate.py`. It checks index.html AND that every team page and the sitemap exactly match RAW. If it fails, fix the problem and run both commands again. If the main data is fine but the team pages still fail after one rebuild, run `git checkout -- sitemap.xml $(git ls-files '*/index.html')`, confirm `python3 tools/validate.py --skip-team-pages` passes, publish index.html only, and say clearly in your summary that the team pages were NOT updated and why. If index.html itself fails and you cannot fix it, run `git checkout .` and do not publish; report the problem.
+- Confirm `git diff --stat` and `git status --short` only touch index.html, sitemap.xml and team page folders.
 - Commit and push: `git add -A && git -c user.name="Claude" -c user.email="noreply@anthropic.com" commit -m "Weekly audit YYYY-MM-DD: <summary>"` then `git push origin HEAD:main` (if rejected because main moved, `git pull --rebase origin main` once and push again; if refused, e.g. 403, do not retry). Confirm with `git ls-remote origin main`.
 
 ## Step 5: report (every Monday, as your final message, plain text Gareth can copy in full)
@@ -56,6 +57,7 @@ Broadcast confirmation: NN.N% (B of N listed broadcasts confirmed by an official
 Trend: last 4 weeks from AUDITS, oldest first, or "first audit"
 Daily update health: OK / PROBLEM: <what>
 Website updated by this audit: Yes (commit <hash>) / No: <why>
+Team pages: OK (<N> pages, <N> fixture rows, matching the main data) / NOT updated: <why>
 ```
 
 Then short lines for each error found, each missing game added and each unverifiable game, with sources. If coverage is below 75%, say plainly that this week's accuracy figure is weak evidence. If you could not check a main broadcaster's schedule for completeness, say which.

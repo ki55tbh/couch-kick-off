@@ -1,5 +1,6 @@
 // Builds static team pages (e.g. /liverpool/) from the fixture data in index.html.
-// Run: node tools/build_pages.mjs   (from the repo root)
+// Run: node tools/build_pages.mjs           (from the repo root) to write the pages
+//      node tools/build_pages.mjs --check   to verify the files on disk match what would be built (used by validate.py)
 // The pages are plain HTML so search engines can read them. Never edit them by hand.
 import fs from 'node:fs';
 
@@ -7,6 +8,15 @@ import fs from 'node:fs';
 const LEAGUES = ['Premier League', 'Championship', 'Scottish Premiership'];
 
 const SITE = 'https://couchkickoff.co.uk';
+const CHECK = process.argv.includes('--check');
+const problems = [];
+// Every output goes through out(): written normally, or compared with the file on disk in --check mode
+function out(path, content) {
+  if (!CHECK) { fs.writeFileSync(path, content); return; }
+  let disk = null; try { disk = fs.readFileSync(path); } catch { }
+  if (disk === null) problems.push(`${path} is missing`);
+  else if (!disk.equals(Buffer.from(content))) problems.push(`${path} is out of date`);
+}
 const src = fs.readFileSync('index.html', 'utf8');
 
 // ---- Reuse the site's own data, parsing and badge colours ----
@@ -22,7 +32,7 @@ const FREE = /BBC|ITV|STV|S4C|YouTube|England App|Channel 4|Channel 5/;
 
 // Logo as a shared file rather than base64 in every page
 const logoB64 = /<img class="logo" src="data:image\/webp;base64,([^"]+)"/.exec(src)[1];
-fs.writeFileSync('logo.webp', Buffer.from(logoB64, 'base64'));
+out('logo.webp', Buffer.from(logoB64, 'base64'));
 
 // ---- Helpers ----
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -138,16 +148,25 @@ ${months}
 }
 
 const urls = [`${SITE}/`];
+let rows = 0;
 for (const [team, slug] of TEAMS) {
-  fs.mkdirSync(slug, { recursive: true });
-  fs.writeFileSync(`${slug}/index.html`, page(team, slug));
+  const html = page(team, slug);
+  rows += (html.match(/<div class="m[ "]/g) || []).length;
+  if (!/<h1 class="th1">/.test(html) || !html.includes('1c6cd6949d724fe697ffd4b014f24d91')) problems.push(`${slug}/index.html is missing its heading or analytics snippet`);
+  if (!CHECK) fs.mkdirSync(slug, { recursive: true });
+  out(`${slug}/index.html`, html);
   urls.push(`${SITE}/${slug}/`);
 }
+if (TEAMS.length < 40) problems.push(`only ${TEAMS.length} team pages (expected about 55); the fixture data may be damaged`);
 // Team page links on the main page, between the TEAMPAGES markers
 const links = LEAGUES.map(lg => `<p class="teamlinks"><b>${lg}:</b> ` + TEAMS.filter(([t]) => LEAGUE_OF[t] === lg).map(([t, sl]) => `<a href="/${sl}/">${esc(t)}</a>`).join(' · ') + '</p>').join('\n  ');
 const A = '<!-- TEAMPAGES -->', B = '<!-- /TEAMPAGES -->';
 const i = src.indexOf(A), j = src.indexOf(B);
 if (i < 0 || j < 0) throw new Error('TEAMPAGES markers missing from index.html');
-fs.writeFileSync('index.html', src.slice(0, i + A.length) + '\n  <h4>Team pages</h4>\n  ' + links + '\n  ' + src.slice(j));
-fs.writeFileSync('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map(u => `  <url>\n    <loc>${u}</loc>\n    <changefreq>daily</changefreq>\n  </url>`).join('\n')}\n</urlset>\n`);
-console.log(`Built ${TEAMS.length} team page(s); sitemap has ${urls.length} URLs`);
+out('index.html', src.slice(0, i + A.length) + '\n  <h4>Team pages</h4>\n  ' + links + '\n  ' + src.slice(j));
+out('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map(u => `  <url>\n    <loc>${u}</loc>\n    <changefreq>daily</changefreq>\n  </url>`).join('\n')}\n</urlset>\n`);
+if (problems.length) {
+  console.log((CHECK ? 'TEAM PAGES CHECK FAILED' : 'TEAM PAGES BUILD PROBLEM') + ' (run node tools/build_pages.mjs to rebuild):\n- ' + problems.slice(0, 15).join('\n- ') + (problems.length > 15 ? `\n- ...and ${problems.length - 15} more` : ''));
+  process.exit(1);
+}
+console.log(`${CHECK ? 'Team pages OK' : 'Built'}: ${TEAMS.length} team pages, ${rows} fixture rows, sitemap has ${urls.length} URLs`);

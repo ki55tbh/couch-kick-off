@@ -53,13 +53,13 @@ Compare old RAW with new RAW and count: new televised fixtures confirmed; expect
 
 - Success: set UPDATED.last_ok and UPDATED.last_attempt to the current UK date/time, status 'ok', summary as above (publish even with no fixture changes, so the "last checked" date is current).
 - Failure (could not reach enough sources): do NOT change RAW. Set only UPDATED.last_attempt to now and status 'failed', leaving last_ok as it was.
-- Run `python3 tools/validate.py`. If it fails, fix the problem; if you cannot, run `git checkout index.html` and publish only the failure stamp.
-- Rebuild the team pages: `node tools/build_pages.mjs`. It regenerates the team folders (e.g. `liverpool/index.html`), `sitemap.xml` and the team links between the TEAMPAGES markers in `index.html` from RAW. Never edit those by hand. If it fails, still publish the index.html update and report the error.
-- Run `python3 tools/validate.py` again. Confirm `git diff --stat` and `git status --short` only touch index.html, sitemap.xml and team page folders.
+- Rebuild the team pages: `node tools/build_pages.mjs`. It regenerates the team folders (e.g. `liverpool/index.html`), `sitemap.xml` and the team links between the TEAMPAGES markers in `index.html` from RAW. Never edit those by hand.
+- Run `python3 tools/validate.py`. It checks index.html AND that every team page and the sitemap exactly match RAW. If it fails, fix the problem and run both commands again. If the main data is fine but the team pages still fail after one rebuild, run `git checkout -- sitemap.xml $(git ls-files '*/index.html')`, confirm `python3 tools/validate.py --skip-team-pages` passes, publish index.html only, and say clearly in your summary that the team pages were NOT updated and why. If index.html itself fails and you cannot fix it, run `git checkout .` and publish only the failure stamp.
+- Confirm `git diff --stat` and `git status --short` only touch index.html, sitemap.xml and team page folders.
 - Commit and push: `git add -A && git -c user.name="Claude" -c user.email="noreply@anthropic.com" commit -m "Daily update YYYY-MM-DD: <summary>"` then `git push origin HEAD:main`. If rejected because main moved, `git pull --rebase origin main` once and push again.
 - If the push to main is refused for permissions (e.g. 403), do not retry it. Instead push the same commit once to the fallback branch: `git push --force origin HEAD:claude/live`, and report that main was refused and which branch received the update. Do not try any other way in.
 - Confirm with `git ls-remote origin main claude/live` which branch has your commit.
 
 ## Finish
 
-End with a short summary as your final message: "Couch Kick-Off updated: 4 new televised fixtures confirmed, 2 channel changes, 1 kick-off time moved." plus one line naming anything notable, the commit hash, and the link https://couchkickoff.co.uk. If anything failed, say so plainly first, including whether the website was updated.
+End with a short summary (include the "Team pages OK: N team pages" line from validate.py, or say the team pages were not updated) as your final message: "Couch Kick-Off updated: 4 new televised fixtures confirmed, 2 channel changes, 1 kick-off time moved." plus one line naming anything notable, the commit hash, and the link https://couchkickoff.co.uk. If anything failed, say so plainly first, including whether the website was updated.
