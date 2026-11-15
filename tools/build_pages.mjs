@@ -17,7 +17,7 @@ function out(path, content) {
   if (disk === null) problems.push(`${path} is missing`);
   else if (!disk.equals(Buffer.from(content))) problems.push(`${path} is out of date`);
 }
-const src = fs.readFileSync('index.html', 'utf8');
+let src = fs.readFileSync('index.html', 'utf8');
 
 // ---- Reuse the site's own data, parsing and badge colours ----
 const cut = (from, to) => { const i = src.indexOf(from), j = src.indexOf(to, i); if (i < 0 || j < 0) throw new Error('Marker not found: ' + from); return src.slice(i, j); };
@@ -160,6 +160,21 @@ for (const [team, slug] of TEAMS) {
   urls.push(`${SITE}/${slug}/`);
 }
 if (TEAMS.length < 40) problems.push(`only ${TEAMS.length} team pages (expected about 55); the fixture data may be damaged`);
+// Plain-text "On UK TV today" summary on the main page (between the TODAYTV markers), so search engines
+// and AI answers can read today's televised games without running the page's script.
+const womens = c => /WSL|Women/.test(c);
+const tvList = d => data.filter(m => m.d === d && m.t !== 'TBC' && m.a && isTV(m) && !womens(m.c)).sort((x, y) => x.t.localeCompare(y.t));
+const fullDate = d => new Date(d + 'T12:00:00Z').toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
+const chanNames = m => { const c = m.ch.filter(x => x !== 'NOW' && x !== 'HBO Max'); return (c.length ? c : m.ch).map(x => m.exp.includes(x) ? `${x} (expected)` : x).join(', '); };
+let sumDay = ukToday, sumList = tvList(ukToday), sumHead = 'On UK TV today';
+if (!sumList.length) { const nd = [...new Set(data.filter(m => m.d > ukToday && m.d !== 'TBC').map(m => m.d))].sort().find(d => tvList(d).length); if (nd) { sumDay = nd; sumList = tvList(nd); sumHead = 'Next football on UK TV'; } }
+const sumHTML = `<h4 id="today">${sumHead}</h4>\n  <p>${esc(fullDate(sumDay))}${sumHead === 'On UK TV today' ? '' : ' (no televised games today)'}. ${sumList.length} televised ${sumList.length === 1 ? 'match' : 'matches'}, kick-off times UK time:</p>\n  <ul class="todaylist">\n` +
+  sumList.map(m => `    <li><b>${m.t}</b> ${esc(m.h)} v ${esc(m.a)} (${esc(m.c)}): ${esc(chanNames(m))}</li>`).join('\n') + '\n  </ul>';
+const TA = '<!-- TODAYTV -->', TB = '<!-- /TODAYTV -->';
+const ti = src.indexOf(TA), tj = src.indexOf(TB);
+if (ti < 0 || tj < 0) throw new Error('TODAYTV markers missing from index.html');
+src = src.slice(0, ti + TA.length) + '\n  ' + sumHTML + '\n  ' + src.slice(tj);
+
 // Team page links on the main page, between the TEAMPAGES markers
 const links = LEAGUES.map(lg => `<p class="teamlinks"><b>${lg}:</b> ` + TEAMS.filter(([t]) => LEAGUE_OF[t] === lg).map(([t, sl]) => `<a href="/${sl}/">${esc(t)}</a>`).join(' · ') + '</p>').join('\n  ');
 const A = '<!-- TEAMPAGES -->', B = '<!-- /TEAMPAGES -->';

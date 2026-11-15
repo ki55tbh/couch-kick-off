@@ -40,6 +40,8 @@ def main():
             errors.append(f'{name} missing or duplicated')
     if html.count('static.cloudflareinsights.com/beacon.min.js') != 1 or '1c6cd6949d724fe697ffd4b014f24d91' not in html:
         errors.append('Cloudflare Web Analytics snippet missing or duplicated (it must stay just before </body>)')
+    if html.count('<!-- TODAYTV -->') != 1 or html.count('<!-- /TODAYTV -->') != 1:
+        errors.append('TODAYTV markers missing or duplicated')
     if html.count('<!-- TEAMPAGES -->') != 1 or html.count('<!-- /TEAMPAGES -->') != 1:
         errors.append('TEAMPAGES markers missing or duplicated (team page links are written between them)')
     js = '\n'.join(re.findall(r'<script>(.*?)</script>', html, re.S))
