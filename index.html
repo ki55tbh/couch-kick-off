@@ -312,7 +312,7 @@ const CP = {
 const PRIME_NOTE = "Prime Video shows one Tuesday game a week; its UK pick isn't confirmed";
 // date time | home | away | comp | channels | note
 // Updated by the scheduled task on every run. status: 'ok' or 'failed'.
-const UPDATED = {last_ok:'2026-11-14T21:49', last_attempt:'2026-11-14T21:49', status:'ok', summary:'6 Serie A games confirmed on DAZN (21 to 23 Nov); today to Monday rechecked, no other changes'};
+const UPDATED = {last_ok:'2026-11-15T09:55', last_attempt:'2026-11-15T09:55', status:'ok', summary:'2 new televised fixtures (CONCACAF Nations League second legs on YouTube), 6 EFL games set to exact channel Sky Sports+; today to Tuesday rechecked, no other changes'};
 // Weekly accuracy audit history, written by the Monday audit task (not shown on the page). Newest last.
 // Each entry: {week:'YYYY-MM-DD', checked:N, correct:N, incorrect:N, unverified:N, fixed:N}
 const AUDITS = [];
@@ -321,6 +321,8 @@ const RAW = `
 2026-11-14 21:30|Haiti|USA|CONCACAF Nations League|YouTube (CONCACAF)|Free to watch on CONCACAF's YouTube channel
 2026-11-15 01:00|Jamaica|Mexico|CONCACAF Nations League|YouTube (CONCACAF)|Free to watch on CONCACAF's YouTube channel
 2026-11-15 23:00|Panama|Curaçao|CONCACAF Nations League|YouTube (CONCACAF)|Free to watch on CONCACAF's YouTube channel
+2026-11-18 00:00|USA|Haiti|CONCACAF Nations League|YouTube (CONCACAF)|Free to watch on CONCACAF's YouTube channel
+2026-11-18 02:30|Mexico|Jamaica|CONCACAF Nations League|YouTube (CONCACAF)|Free to watch on CONCACAF's YouTube channel
 2026-11-17 10:00|Singapore|Brazil|International Friendly|NOTV|No UK broadcaster has been announced
 2026-11-17 TBC|Argentina|Costa Rica|International Friendly|NOTV|In Córdoba. Kick-off time not announced; no UK broadcaster announced
 2026-11-29 17:30|Celta Vigo|Villarreal|LL|PS?
@@ -1224,12 +1226,12 @@ const RAW = `
 2026-11-20 19:30|Inverness CT|Ayr United|SCH|BBC Scotland,BBC iPlayer
 2026-11-21 12:30|Manchester City|Fulham|PL|TNT Sports 1,TNT Sports Ultimate,HBO Max
 2026-11-21 12:30|Millwall|QPR|CH|Sky Sports Main Event,Sky Sports Football,Sky Sports Ultra HDR,NOW
-2026-11-21 12:30|Norwich City|Cardiff City|CH|SP
-2026-11-21 12:30|Southampton|Derby County|CH|SP
-2026-11-21 12:30|Blackpool|Wigan Athletic|L1|SP
-2026-11-21 12:30|Reading|Bromley|L1|SP
-2026-11-21 12:30|Gillingham|Crewe Alexandra|L2|SP
-2026-11-21 12:30|Newport County|Swindon Town|L2|SP
+2026-11-21 12:30|Norwich City|Cardiff City|CH|Sky Sports+,NOW
+2026-11-21 12:30|Southampton|Derby County|CH|Sky Sports+,NOW
+2026-11-21 12:30|Blackpool|Wigan Athletic|L1|Sky Sports+,NOW
+2026-11-21 12:30|Reading|Bromley|L1|Sky Sports+,NOW
+2026-11-21 12:30|Gillingham|Crewe Alexandra|L2|Sky Sports+,NOW
+2026-11-21 12:30|Newport County|Swindon Town|L2|Sky Sports+,NOW
 2026-11-21 17:30|Newcastle United|Arsenal|PL|Sky Sports Main Event,Sky Sports Premier League,Sky Sports Ultra HDR,NOW
 2026-11-21 17:45|Dundee|Hearts|SPL|Premier Sports 1
 2026-11-21 20:00|Motherwell|Rangers|SPL|Sky Sports Football,NOW
