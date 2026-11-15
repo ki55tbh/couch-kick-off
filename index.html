@@ -116,6 +116,7 @@ label.tog{font-size:13px;color:var(--muted);display:flex;align-items:center;gap:
 .totop{position:fixed;right:14px;bottom:18px;z-index:50;background:var(--green);color:#fff;border:0;border-radius:999px;padding:10px 15px;font:700 14px/1 inherit;font-family:inherit;box-shadow:0 3px 10px rgba(0,0,0,.25);cursor:pointer;opacity:0;pointer-events:none;transform:translateY(8px);transition:opacity .2s,transform .2s}.totop.show{opacity:1;pointer-events:auto;transform:none}
 a.bl{text-decoration:none;display:inline-flex}.ext{font-size:9px;margin-left:4px;opacity:.85;font-weight:800;line-height:1}
 .venue{font-size:12.5px;color:var(--muted);margin-top:3px;display:flex;gap:4px;align-items:center}.venue svg{flex:none;opacity:.75}
+.myteams.collapsed{padding:10px 14px}.myteams.collapsed #mtBody{display:none}.mt-sum{display:flex;align-items:center;gap:10px}.mt-sum[hidden]{display:none}.mt-sum-l{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:700;font-size:14.5px}.mt-sum-l .st{color:var(--gold)}.mt-sum-l .sc{color:var(--muted);font-weight:600}.mt-done{margin-top:14px;text-align:right}
 .teamlinks{line-height:1.9}.teamlinks a{color:var(--green);text-decoration:none;font-weight:600;white-space:nowrap}.teamlinks a:hover{text-decoration:underline}
 .stamp .sep{color:#b9c4bd;margin:0 2px}.aboutlnk{color:var(--green);font-weight:700;text-decoration:none}.instl,.instbtn{display:none}.show-install .instl{display:inline;white-space:nowrap}.can-install .instbtn{display:inline-flex}.instlnk{color:var(--green);font-weight:700;text-decoration:none}.instbtn{align-items:center;gap:6px;margin-top:8px;background:var(--green);color:#fff;border:0;border-radius:999px;padding:9px 16px;font:700 14px/1 Inter,sans-serif;cursor:pointer}#apptip{scroll-margin-top:16px}.steps{margin:0 0 10px;padding-left:20px}.steps li{margin:0 0 8px}.instbtn{margin:0 0 14px!important}
 .dots{font-size:1.5em;line-height:0;vertical-align:-.12em;font-weight:900;padding:0 1px}.aboutlnk:hover{text-decoration:underline}
@@ -223,6 +224,8 @@ footer ul{margin:0;padding-left:18px}
 <div class="stamp" id="stamp"></div>
 <div class="layout"><aside class="side">
 <section class="myteams">
+  <div class="mt-sum" id="mtSum" hidden><span class="mt-sum-l"><span class="st">★</span> <span id="mtSumText"></span></span><button class="btn small" id="mtEdit" type="button">Edit</button></div>
+  <div id="mtBody">
   <div class="mt-head"><h3>★ My teams</h3><div class="row"><button class="btn small" id="clearTeams" hidden>Clear</button><button class="btn" id="addToggle">+ Add team</button></div></div>
   <div class="mt-list" id="mtList"></div>
   <div class="addbox" id="addBox" hidden>
@@ -234,6 +237,8 @@ footer ul{margin:0;padding-left:18px}
   <div class="mt-list" id="mcList"></div>
   <div class="compsearch" id="compSearch" hidden><input type="text" id="compInput" autocomplete="off" autocorrect="off" spellcheck="false" placeholder="Search competitions, e.g. FA Cup"></div>
   <div class="comppick" id="compPick" hidden></div>
+  <div class="mt-done" id="mtDoneRow" hidden><button class="btn" id="mtDone" type="button">Done</button></div>
+  </div>
 </section>
 
 <section class="pinned" id="pinned" hidden>
@@ -1986,14 +1991,21 @@ function renderComps(){
   $('clearComps').hidden=!st.favComps.length;
   if(!$('compPick').hidden){const cq=cnorm(($('compInput').value||'').trim());const left=ALLCOMPS.filter(c=>!isFavComp(c)&&compMatch(c,cq)); const btn=c=>`<button data-c="${esc(c)}"${COMPCOL[c]?` style="color:${COMPCOL[c]};border-color:color-mix(in srgb,${COMPCOL[c]} 35%,#fff)"`:''}>${esc(c)}</button>`; const club=left.filter(c=>!INTL.includes(c)), intl=left.filter(c=>INTL.includes(c)); $('compPick').innerHTML=left.length?(club.length?`<div class="cpg">Club</div>${club.map(btn).join('')}`:'')+(intl.length?`<div class="cpg">International</div>${intl.map(btn).join('')}`:''):(cq?'<span class="hint" style="margin:0">No competitions match that.</span>':'<span class="hint" style="margin:0">You\'ve starred every competition.</span>');}
   $('compToggle').textContent=$('compPick').hidden?(st.favComps.length?'+ Add another':'+ Add competition'):'Close';
+  if(typeof renderSum==='function')renderSum();
 }
 document.addEventListener('click',e=>{const x=e.target.closest('[data-rmc]');if(x)toggleComp(x.dataset.rmc)});
+let mtOpen=false;
+function renderSum(){const has=st.favs.length+st.favComps.length>0, collapsed=has&&!mtOpen;
+  document.querySelector('.myteams').classList.toggle('collapsed',collapsed);$('mtSum').hidden=!collapsed;$('mtDoneRow').hidden=!has;
+  $('mtSumText').innerHTML=[...st.favs.map(t=>{const c=teamColour(t);return `<span${c?` style="color:${c}"`:''}>${esc(short(t))}</span>`}),...[...st.favComps].sort((a,b)=>rank(a)-rank(b)).map(c=>`<span class="sc">${esc(c)}</span>`)].join(' <span class="sc">·</span> ')}
+document.addEventListener('click',e=>{if(e.target.closest('#mtEdit')){mtOpen=true;renderSum()}else if(e.target.closest('#mtDone')){mtOpen=false;$('addBox').hidden=true;$('compPick').hidden=true;$('compSearch').hidden=true;renderTeams();renderComps();renderSum();document.querySelector('.myteams').scrollIntoView({block:'nearest'})}});
 function renderTeams(){
   $('addToggle').textContent=$('addBox').hidden?(st.favs.length?'+ Add another':'+ Add team'):'Close';
   $('clearTeams').hidden=!st.favs.length;
   $('mtList').innerHTML = st.favs.length
     ? st.favs.map(t=>{const c=teamColour(t);return `<span class="ft${c?' col':''}"${c?` style="--c:${c}"`:''}><span class="st">★</span> ${esc(short(t))}<button data-rm="${esc(t)}" aria-label="Remove ${esc(t)}">×</button></span>`}).join('')
     : '';
+  renderSum();
 }
 function renderPinned(){
   if(!st.favs.length){$('pinned').hidden=true;return}
