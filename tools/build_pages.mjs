@@ -191,6 +191,7 @@ const codeOnly = mainHTML
   .replace(/const RAW = `[\s\S]*?`;/, '')
   .replace(/const VENUES = \{[\s\S]*?\n\};/, '')
   .replace(/const KIT=\{.*?\};/, '')
+  .replace(/const GROUNDS=\{.*?\};/, '')
   .replace(/<footer>[\s\S]*?<\/footer>/, '');
 const fp = createHash('sha1').update(codeOnly).digest('hex').slice(0, 12);
 if (!/<meta name="ck-build" content="[^"]*">/.test(mainHTML)) throw new Error('ck-build meta missing from index.html');
