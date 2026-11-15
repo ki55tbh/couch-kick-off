@@ -159,6 +159,7 @@ main>.month:first-child{margin-top:10px}
 .m.past{opacity:.45}
 .ko{font-family:Outfit,Inter,sans-serif;font-weight:700;font-size:19px;font-variant-numeric:tabular-nums;padding-top:1px;letter-spacing:-.01em}
 .ko small{display:block;font-family:Inter,sans-serif;font-size:10px;color:var(--muted);font-weight:700;letter-spacing:.06em}
+.live{display:flex;align-items:center;gap:3px;margin-top:6px;color:#15803d;font-family:Inter,sans-serif;font-size:9.5px;font-weight:800;letter-spacing:.02em;text-transform:uppercase;white-space:nowrap}.live i{width:6px;height:6px;border-radius:50%;background:#16a34a;animation:livep 1.6s ease-in-out infinite}@keyframes livep{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.7)}}@media(prefers-reduced-motion:reduce){.live i{animation:none}}
 .ko .dt{font-family:Inter,sans-serif;font-size:11px;color:var(--gold-d);font-weight:800;display:block;margin-bottom:2px}
 .teams{font-weight:800;font-size:16px;letter-spacing:-.005em}
 .tm{cursor:pointer;border-radius:4px;white-space:nowrap}
@@ -1955,6 +1956,7 @@ const isPast=m=>{if(m.d==='TBC')return false;if(m.t==='TBC'){const nd=new Date(m
   return ukToUtc(m.d,m.t).getTime()+(isKnockout(m)?3:2.25)*36e5<Date.now()};
 // Today's date in the UK (not UTC), so just after midnight in summer it's already the new day
 const todayStr=()=>{if(LDN){try{const p=ldnParts(Date.now());return `${p.year}-${p.month}-${p.day}`}catch(_){}}const n=new Date();return ukToUtc(n.toISOString().slice(0,10),'00:00')<=n?n.toISOString().slice(0,10):new Date(n-864e5).toISOString().slice(0,10)};
+const isLive=m=>m.d!=='TBC'&&m.t!=='TBC'&&!isPast(m)&&ukToUtc(m.d,m.t).getTime()<=Date.now();
 const longDate=d=>new Date(d+'T12:00:00Z').toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',timeZone:'UTC'});
 const shortDate=d=>d==='TBC'?'TBC':new Date(d+'T12:00:00Z').toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short',timeZone:'UTC'});
 // Channel badges link to the broadcaster's own site (new tab). Unknown channels stay plain badges.
@@ -1998,7 +2000,7 @@ function card(m,showDate){
   const swrap=t=>esc(t).replace(/^(Sky )?Sports (?=\S)/,'$1<span class="sw">Sports </span>');
   const badges=m.ch.map(c=>(c==='Not on UK TV'||c==='TV pick TBC')?`<span class="b ${c==='Not on UK TV'?'notv':'tbc'}">${esc(c)}</span>`:(/^Sky (Sports(?! (Football|Premier League))|Mix)/.test(c)?bWrap(c,`<span class="b skyb"><span class="s1">${esc(c.split(' ')[0])}</span><span class="s2">${swrap(c.split(' ').slice(1).join(' '))}${ext(c)}</span></span>`):(m.exp.includes(c)?bWrap(c,`<span class="b exp" style="${expStyle(c)}" title="${esc(c)} holds the rights but hasn't confirmed this match yet">${swrap(c)}${ext(c)}</span>`)+`<span class="exptag">Expected</span>`:bWrap(c,`<span class="b" style="${brandStyle(c)}">${swrap(c)}${ext(c)}</span>`)))).join('')+(m.ch.some(c=>FREE.test(c))?'<span class="freetag">FREE</span>':'');
   const pending=m.ch.includes('TV pick TBC'); const notv=m.ch.includes('Not on UK TV');
-  return `<div class="m${isFav(m)?' fav':isFavComp(m.c)?' favc':''}${m.past?' past':''}${pending?' tbcm':''}${notv?' notvm':''}"><div class="ko">${showDate?`<span class="dt">${shortDate(m.d)}</span>`:''}${m.t}${m.t==='TBC'?'':'<small>UK</small>'}</div><div>
+  return `<div class="m${isFav(m)?' fav':isFavComp(m.c)?' favc':''}${m.past?' past':''}${pending?' tbcm':''}${notv?' notvm':''}"><div class="ko">${showDate?`<span class="dt">${shortDate(m.d)}</span>`:''}${m.t}${m.t==='TBC'?'':'<small>UK</small>'}${isLive(m)&&!notv&&!pending?'<span class="live"><i></i>On now</span>':''}</div><div>
     <div class="teams">${m.a?`${teamHTML(m.h)} <span class="vaw"><span class="v">v</span>${teamHTML(m.a)}</span>`:`<span class="ev">${esc(m.h)}</span>`}</div>
     ${VENUES[m.d+'|'+m.h+'|'+m.a]?`<div class="venue"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>${esc(VENUES[m.d+'|'+m.h+'|'+m.a])}</div>`:''}<div class="comp"><span class="cp${isFavComp(m.c)?' on':''}" data-c="${esc(m.c)}" title="Tap to star this competition">${esc(m.c)}</span>${notv?`<span class="notvtag"> · ${m.c==='Premier League'?'3pm, not on UK TV':'Not on UK TV'}</span>`:''}${!showDate&&isFav(m)?'<span class="favtag">★ YOUR TEAM</span>':''}${notv&&!showDate?repLink(m):''}</div>${notv?(showDate?`<div class="ch">${repLink(m)}</div>`:''):`<div class="ch">${badges}${repLink(m)}</div>`}
     ${m.n&&!notv?`<div class="note">${esc(m.n)}</div>`:''}</div></div>`;
