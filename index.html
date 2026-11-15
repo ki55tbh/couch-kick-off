@@ -1990,7 +1990,7 @@ function renderComps(){
     : '';
   $('clearComps').hidden=!st.favComps.length;
   if(!$('compPick').hidden){const cq=cnorm(($('compInput').value||'').trim());const left=ALLCOMPS.filter(c=>!isFavComp(c)&&compMatch(c,cq)); const btn=c=>`<button data-c="${esc(c)}"${COMPCOL[c]?` style="color:${COMPCOL[c]};border-color:color-mix(in srgb,${COMPCOL[c]} 35%,#fff)"`:''}>${esc(c)}</button>`; const club=left.filter(c=>!INTL.includes(c)), intl=left.filter(c=>INTL.includes(c)); $('compPick').innerHTML=left.length?(club.length?`<div class="cpg">Club</div>${club.map(btn).join('')}`:'')+(intl.length?`<div class="cpg">International</div>${intl.map(btn).join('')}`:''):(cq?'<span class="hint" style="margin:0">No competitions match that.</span>':'<span class="hint" style="margin:0">You\'ve starred every competition.</span>');}
-  $('compToggle').textContent=$('compPick').hidden?(st.favComps.length?'+ Add another':'+ Add competition'):'Close';
+  $('compToggle').textContent=$('compPick').hidden?(st.favComps.length?'+ Add':'+ Add competition'):'Close';
   if(typeof renderSum==='function')renderSum();
 }
 document.addEventListener('click',e=>{const x=e.target.closest('[data-rmc]');if(x)toggleComp(x.dataset.rmc)});
@@ -2000,7 +2000,7 @@ function renderSum(){const has=st.favs.length+st.favComps.length>0, collapsed=ha
   $('mtSumText').innerHTML=[...st.favs.map(t=>{const c=teamColour(t);return `<span${c?` style="color:${c}"`:''}>${esc(short(t))}</span>`}),...[...st.favComps].sort((a,b)=>rank(a)-rank(b)).map(c=>`<span class="sc">${esc(c)}</span>`)].join(' <span class="sc">·</span> ')}
 document.addEventListener('click',e=>{if(e.target.closest('#mtEdit')){mtOpen=true;renderSum()}else if(e.target.closest('#mtDone')){mtOpen=false;$('addBox').hidden=true;$('compPick').hidden=true;$('compSearch').hidden=true;renderTeams();renderComps();renderSum();document.querySelector('.myteams').scrollIntoView({block:'nearest'})}});
 function renderTeams(){
-  $('addToggle').textContent=$('addBox').hidden?(st.favs.length?'+ Add another':'+ Add team'):'Close';
+  $('addToggle').textContent=$('addBox').hidden?(st.favs.length?'+ Add':'+ Add team'):'Close';
   $('clearTeams').hidden=!st.favs.length;
   $('mtList').innerHTML = st.favs.length
     ? st.favs.map(t=>{const c=teamColour(t);return `<span class="ft${c?' col':''}"${c?` style="--c:${c}"`:''}><span class="st">★</span> ${esc(short(t))}<button data-rm="${esc(t)}" aria-label="Remove ${esc(t)}">×</button></span>`}).join('')
