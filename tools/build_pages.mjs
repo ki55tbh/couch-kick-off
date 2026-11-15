@@ -52,15 +52,12 @@ function card(m, team) {
     ${m.n && !notv ? `<div class="note">${esc(m.n)}</div>` : ''}</div></div>`;
 }
 
-function jsonLd(list, team) {
-  const events = list.filter(m => m.t !== 'TBC').map(m => ({
-    '@type': 'SportsEvent', name: `${m.h} v ${m.a}`, sport: 'Football',
-    startDate: `${m.d}T${m.t}:00${ukOffset(m.d, m.t)}`,
-    homeTeam: { '@type': 'SportsTeam', name: m.h }, awayTeam: { '@type': 'SportsTeam', name: m.a },
-    superEvent: { '@type': 'SportsEvent', name: m.c },
-    description: isTV(m) ? `${m.c}. Live on UK TV: ${chanText(m, true)}.` : `${m.c}. ${m.ch.join(', ')}.`,
-  }));
-  return JSON.stringify({ '@context': 'https://schema.org', '@type': 'ItemList', name: `${team} on TV`, itemListElement: events.map((e, i) => ({ '@type': 'ListItem', position: i + 1, item: e })) }).replace(/</g, '\\u003c');
+// Breadcrumb markup only. Match-level Event markup was removed because Google requires a venue for every event,
+// which this data doesn't hold, so it flagged every match as invalid.
+function jsonLd(team, slug) {
+  return JSON.stringify({ '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Couch Kick-Off', item: `${SITE}/` },
+    { '@type': 'ListItem', position: 2, name: `${team} on TV`, item: `${SITE}/${slug}/` } ] }).replace(/</g, '\\u003c');
 }
 
 function page(team, slug) {
@@ -103,7 +100,7 @@ function page(team, slug) {
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
-<script type="application/ld+json">${jsonLd(list, team)}</script>
+<script type="application/ld+json">${jsonLd(team, slug)}</script>
 ${style}
 <style>
 .tp{max-width:720px;margin:0 auto;padding:0 14px 40px}
