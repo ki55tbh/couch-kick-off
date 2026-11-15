@@ -34,7 +34,7 @@ def main():
             errors.append(f'fixture count dropped from {len(old)} to {len(lines)} (more than 10%)')
     except Exception:
         pass
-    for name, pat in [('UPDATED', r'const UPDATED = \{.*?\};'), ('KIT', r'const KIT=\{.*?\};'),
+    for name, pat in [('UPDATED', r'const UPDATED = \{.*?\};'), ('KIT', r'const KIT=\{.*?\};'), ('VENUES', r'const VENUES = \{.*?\};'),
                       ('AUDITS', r'const AUDITS = \[.*?\];'), ('About section', r'id="about"')]:
         if len(re.findall(pat, html, re.S)) != 1:
             errors.append(f'{name} missing or duplicated')
