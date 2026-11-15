@@ -22,8 +22,6 @@
 <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <meta name="theme-color" content="#f3f6f1">
-<script>/* Installed app and Chrome on iPad draw the page in stages while it loads, which looks jumpy; hold it back until it's ready, then fade in */(function(){try{var ua=navigator.userAgent,sa=matchMedia('(display-mode: standalone)').matches||navigator.standalone===true,ipad=/iPad/.test(ua)||(/Macintosh/.test(ua)&&navigator.maxTouchPoints>1),cr=/CriOS/.test(ua)||!!window.__gCrWeb;if(sa||(ipad&&cr)){var d=document.documentElement;d.classList.add('pre');setTimeout(function(){d.classList.remove('pre')},1500)}}catch(e){}})();</script>
-<style>.pre body{opacity:0}body{transition:opacity .15s}</style>
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&family=Hind:wght@500;600;700&display=swap" rel="stylesheet">
@@ -115,7 +113,7 @@ label.tog{font-size:13px;color:var(--muted);display:flex;align-items:center;gap:
 .day-c .dn{display:block;font-family:Outfit,Inter,sans-serif;font-size:20px;font-weight:700}
 .day-c .dm{display:block;font-size:11px;color:var(--muted)}
 .day-c .dc{display:block;font-size:10.5px;color:var(--green);font-weight:700;margin-top:3px}
-.stamp{max-width:880px;margin:2px auto 0;padding:0 16px;text-align:center;font-size:14px;color:var(--muted);font-weight:500;font-family:Hind,Inter,sans-serif}
+.stamp{min-height:1.45em;max-width:880px;margin:2px auto 0;padding:0 16px;text-align:center;font-size:14px;color:var(--muted);font-weight:500;font-family:Hind,Inter,sans-serif}
 .stamp b{color:var(--text);font-weight:700}
 .stamp .ok{display:inline-block;width:7px;height:7px;border-radius:50%;background:#22c55e;margin-right:6px;vertical-align:middle}
 .stamp.fail{color:#b45309}
@@ -249,6 +247,7 @@ footer ul{margin:0;padding-left:18px}
   <div class="mt-done" id="mtDoneRow" hidden><button class="btn" id="mtDone" type="button">Done</button></div>
   </div>
 </section>
+<script>/* Show the folded favourites box straight away, so it doesn't open out and snap shut while the page loads */(function(){try{var s=JSON.parse(localStorage.getItem('fotv2')||'{}'),n=[].concat(s.favs||[],s.favComps||[]);if(!n.length)return;document.querySelector('.myteams').classList.add('collapsed');document.getElementById('mtSum').hidden=false;document.getElementById('mtSumText').textContent=n.join(' · ')}catch(e){}})();</script>
 
 <section class="pinned" id="pinned" hidden>
   <div class="pinned-box"><h3>Next up for your teams</h3><div id="pinnedList"></div></div>
@@ -2148,7 +2147,6 @@ document.addEventListener('click',e=>{const a=e.target.closest('.aboutlnk');if(!
  addEventListener('touchend',end,{passive:true});addEventListener('touchcancel',end,{passive:true});set(0)})();
 function renderAll(){renderStamp();renderTeams();renderComps();renderPinned();render()}
 renderAll();
-(()=>{const show=()=>document.documentElement.classList.remove('pre');if(!document.documentElement.classList.contains('pre'))return;const f=document.fonts&&document.fonts.ready;Promise.race([f||Promise.resolve(),new Promise(r=>setTimeout(r,400))]).then(()=>requestAnimationFrame(show))})();
 setInterval(renderAll,5*60*1000);
 </script>
 <!-- Cloudflare Web Analytics -->
