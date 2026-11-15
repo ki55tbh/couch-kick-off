@@ -2134,8 +2134,8 @@ document.addEventListener('click',e=>{const a=e.target.closest('.aboutlnk');if(!
 (()=>{let hid=0;const back=()=>{if(hid&&Date.now()-hid>30*60*1000){hid=0;location.reload()}};
  document.addEventListener('visibilitychange',()=>{if(document.hidden)hid=Date.now();else back()});
  addEventListener('pageshow',e=>{if(e.persisted){hid=hid||1;back()}})})();
-// Swipe down to refresh: in the installed app (home-screen apps have no built-in pull-to-refresh) and in Chrome on iPad (which has none either)
-(()=>{const standalone=matchMedia('(display-mode: standalone)').matches||navigator.standalone===true;const ua=navigator.userAgent;const ipad=/iPad/.test(ua)||(/Macintosh/.test(ua)&&navigator.maxTouchPoints>1);const chromeIOS=/CriOS/.test(ua)||!!window.__gCrWeb;if(!standalone&&!(ipad&&chromeIOS))return;
+// Swipe down to refresh: only where Apple devices have none of their own (installed iPhone/iPad app, Chrome on iPad). Android keeps Chrome's built-in one.
+(()=>{const standalone=matchMedia('(display-mode: standalone)').matches||navigator.standalone===true;const ua=navigator.userAgent;const ipad=/iPad/.test(ua)||(/Macintosh/.test(ua)&&navigator.maxTouchPoints>1);const chromeIOS=/CriOS/.test(ua)||!!window.__gCrWeb;const apple=ipad||/iPhone|iPod/.test(ua);if(!apple||!(standalone||(ipad&&chromeIOS)))return;
  document.documentElement.style.overscrollBehaviorY='contain';
  const el=document.createElement('div');el.className='ptr';el.innerHTML='<span class="ptr-i">↓</span>';document.body.appendChild(el);
  const MAX=110,GO=70;let y0=null,x0=0,d=0,busy=false;
