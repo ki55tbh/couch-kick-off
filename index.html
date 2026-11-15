@@ -117,7 +117,7 @@ label.tog{font-size:13px;color:var(--muted);display:flex;align-items:center;gap:
 a.bl{text-decoration:none;display:inline-flex}.ext{font-size:9px;margin-left:4px;opacity:.85;font-weight:800;line-height:1}
 .venue{font-size:12.5px;color:var(--muted);margin-top:3px;display:flex;gap:4px;align-items:center}.venue svg{flex:none;opacity:.75}
 .teamlinks{line-height:1.9}.teamlinks a{color:var(--green);text-decoration:none;font-weight:600;white-space:nowrap}.teamlinks a:hover{text-decoration:underline}
-.stamp .sep{color:#b9c4bd;margin:0 2px}.aboutlnk{color:var(--green);font-weight:700;text-decoration:none}.aboutlnk:hover{text-decoration:underline}
+.stamp .sep{color:#b9c4bd;margin:0 2px}.aboutlnk{color:var(--green);font-weight:700;text-decoration:none}.instl,.instbtn{display:none}.can-install .instl,.ios-install .instl{display:inline;white-space:nowrap}.can-install .instbtn{display:inline-flex}.instlnk{color:var(--green);font-weight:700;text-decoration:none}.instbtn{align-items:center;gap:6px;margin-top:8px;background:var(--green);color:#fff;border:0;border-radius:999px;padding:9px 16px;font:700 14px/1 Inter,sans-serif;cursor:pointer}#apptip{scroll-margin-top:16px}.aboutlnk:hover{text-decoration:underline}
 #about{scroll-margin-top:16px}.stamp.fail .ok{background:#f59e0b}
 .day-c.wk{min-width:74px;display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--lime-soft);border-color:#c9eea3}
 .day-c.wk .dw{color:var(--green-d)}.day-c.wk .dn{font-size:15px}
@@ -268,7 +268,7 @@ footer ul{margin:0;padding-left:18px}
   <p>Couch Kick-Off is an independent guide to men's football on UK TV. It isn't connected to any broadcaster, league or club; channel names are shown only so you know where each match is on.</p>
   <p>The listings are checked every morning and audited every week, but TV picks and kick-off times can change at short notice, so check with the broadcaster on the day.</p>
   <p>No accounts and no adverts. Your teams and filters are saved only in your own browser. We use privacy-friendly Cloudflare Web Analytics to understand how people use Couch Kick-Off. It doesn't use cookies or identify individual visitors.</p>
-  <p><b>Use it like an app.</b> Add Couch Kick-Off to your home screen and it opens full screen, like any other app. On Android, open it in Chrome, tap <b>⋮</b> then <b>Install app</b> (or <b>Add to home screen</b>). On iPhone, open it in Safari, tap <b>Share</b> then <b>Add to Home Screen</b>. There's nothing to download or update.</p>
+  <p id="apptip"><b>Use it like an app.</b> Add Couch Kick-Off to your home screen and it opens full screen, like any other app. On Android, open it in Chrome, tap <b>⋮</b> then <b>Install app</b> (or <b>Add to home screen</b>). On iPhone, open it in Safari, tap <b>Share</b> then <b>Add to Home Screen</b>. There's nothing to download or update.<br><button class="instbtn" type="button">📲 Install Couch Kick-Off</button></p>
   <p>Spotted a mistake? Tap <b>Report</b> on the match, or email <a href="mailto:hello@couchkickoff.co.uk">hello@couchkickoff.co.uk</a>.</p>
   <h4>Rest of the season</h4>
   <p>Premier League teams show every fixture. Games kicking off at 3pm on a Saturday are marked "Not on UK TV" because of the blackout. For other leagues, the listed games are the ones with confirmed or expected UK TV coverage, plus games that fall in the blackout.</p>
@@ -2068,12 +2068,21 @@ function spyDay(){const strip=$('days');if(!strip)return;
   try{strip.scrollTo({left:Math.max(0,left),behavior:'smooth'})}catch(_){strip.scrollLeft=left}}
 window.addEventListener('scroll',()=>{cancelAnimationFrame(spyRAF);spyRAF=requestAnimationFrame(spyDay)},{passive:true});
 function fmtStamp(t){const d=new Date(t+':00Z');return d.toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short',timeZone:'UTC'})+', '+t.slice(11,16)}
-const ABOUT_LINK=' <span class="sep">·</span> <a class="aboutlnk" href="#about">About</a>';
+const ABOUT_LINK=' <span class="sep">·</span> <a class="aboutlnk" href="#about">About</a><span class="instl"> <span class="sep">·</span> <a class="instlnk" href="#apptip">Install app</a></span>';
 function renderStamp(){const el=$('stamp');if(!el)return;
   if(UPDATED.status==='failed'){el.className='stamp fail';el.innerHTML=`<span class="ok"></span>Last update check failed (${fmtStamp(UPDATED.last_attempt)}). Showing TV picks from <b>${fmtStamp(UPDATED.last_ok)}</b>${ABOUT_LINK}`;}
   else{el.className='stamp';el.innerHTML=`<span class="ok"></span>TV picks last checked: <b>${fmtStamp(UPDATED.last_ok)}</b>${ABOUT_LINK}`;}}
 // About link: re-aim a few times, because day sections render lazily and change height as you pass them
 (()=>{const b=$('totop');if(!b)return;const f=()=>b.classList.toggle('show',scrollY>window.innerHeight*1.2);addEventListener('scroll',f,{passive:true});f();b.addEventListener('click',()=>scrollTo({top:0,behavior:'smooth'}))})();
+// Install-as-app: Chrome/Edge/Samsung Internet offer a real install prompt; iPhone gets pointed at the Add to Home Screen steps.
+(()=>{const standalone=matchMedia('(display-mode: standalone)').matches||navigator.standalone===true;if(standalone)return;
+ let deferred=null;const B=document.body;
+ if(/iPhone|iPad|iPod/.test(navigator.userAgent))B.classList.add('ios-install');
+ addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferred=e;B.classList.add('can-install')});
+ addEventListener('appinstalled',()=>{deferred=null;B.classList.remove('can-install','ios-install')});
+ document.addEventListener('click',async e=>{const t=e.target.closest('.instlnk,.instbtn');if(!t)return;e.preventDefault();
+  if(deferred){deferred.prompt();try{await deferred.userChoice}catch(_){}deferred=null;B.classList.remove('can-install');return}
+  const a=$('apptip');if(a){const go=()=>a.scrollIntoView({block:'start'});go();[150,400,800,1300].forEach(ms=>setTimeout(go,ms))}})})();
 document.addEventListener('click',e=>{const a=e.target.closest('.aboutlnk');if(!a)return;e.preventDefault();const go=()=>{const t=$('about');if(t)t.scrollIntoView({block:'start'})};go();[150,400,800,1300].forEach(ms=>setTimeout(go,ms))});
 function renderAll(){renderStamp();renderTeams();renderComps();renderPinned();render()}
 renderAll();
