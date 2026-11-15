@@ -114,6 +114,7 @@ label.tog{font-size:13px;color:var(--muted);display:flex;align-items:center;gap:
 .stamp .ok{display:inline-block;width:7px;height:7px;border-radius:50%;background:#22c55e;margin-right:6px;vertical-align:middle}
 .stamp.fail{color:#b45309}
 .totop{position:fixed;right:14px;bottom:18px;z-index:50;background:var(--green);color:#fff;border:0;border-radius:999px;padding:10px 15px;font:700 14px/1 inherit;font-family:inherit;box-shadow:0 3px 10px rgba(0,0,0,.25);cursor:pointer;opacity:0;pointer-events:none;transform:translateY(8px);transition:opacity .2s,transform .2s}.totop.show{opacity:1;pointer-events:auto;transform:none}
+a.bl{text-decoration:none;display:inline-flex}.ext{font-size:9px;margin-left:4px;opacity:.85;font-weight:800;line-height:1}
 .venue{font-size:12.5px;color:var(--muted);margin-top:3px;display:flex;gap:4px;align-items:center}.venue svg{flex:none;opacity:.75}
 .teamlinks{line-height:1.9}.teamlinks a{color:var(--green);text-decoration:none;font-weight:600;white-space:nowrap}.teamlinks a:hover{text-decoration:underline}
 .stamp .sep{color:#b9c4bd;margin:0 2px}.aboutlnk{color:var(--green);font-weight:700;text-decoration:none}.aboutlnk:hover{text-decoration:underline}
@@ -1921,6 +1922,14 @@ const isPast=m=>{if(m.d==='TBC')return false;if(m.t==='TBC'){const nd=new Date(m
 const todayStr=()=>{if(LDN){try{const p=ldnParts(Date.now());return `${p.year}-${p.month}-${p.day}`}catch(_){}}const n=new Date();return ukToUtc(n.toISOString().slice(0,10),'00:00')<=n?n.toISOString().slice(0,10):new Date(n-864e5).toISOString().slice(0,10)};
 const longDate=d=>new Date(d+'T12:00:00Z').toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',timeZone:'UTC'});
 const shortDate=d=>d==='TBC'?'TBC':new Date(d+'T12:00:00Z').toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short',timeZone:'UTC'});
+// Channel badges link to the broadcaster's own site (new tab). Unknown channels stay plain badges.
+const CH_URL=[[/^Sky /,'https://www.skysports.com/'],[/^NOW/,'https://www.nowtv.com/'],[/^TNT Sports/,'https://www.tntsports.co.uk/'],[/^HBO Max/,'https://www.hbomax.com/gb/en'],
+ [/^Premier Sports/,'https://www.premiersports.com/'],[/^DAZN/,'https://www.dazn.com/en-GB/home'],[/^Prime Video/,'https://www.primevideo.com/'],[/^Disney\+/,'https://www.disneyplus.com/en-gb'],
+ [/^BBC Sport online/,'https://www.bbc.co.uk/sport/football'],[/^BBC/,'https://www.bbc.co.uk/iplayer'],[/^(ITV1|ITVX)/,'https://www.itv.com/watch'],[/^STV/,'https://player.stv.tv/'],
+ [/^S4C/,'https://www.s4c.cymru/clic/'],[/YouTube/,'https://www.youtube.com/']];
+function chURL(c){for(const [re,u] of CH_URL)if(re.test(c))return u;return ''}
+const ext=c=>chURL(c)?'<span class="ext" aria-hidden="true">↗</span>':'';
+const bWrap=(c,inner)=>{const u=chURL(c);return u?`<a class="bl" href="${u}" target="_blank" rel="noopener" title="Open ${esc(c)} in a new tab">${inner}</a>`:inner};
 // Match venues, keyed "YYYY-MM-DD|Home|Away" (same spellings as RAW). Internationals for now.
 const VENUES = {
   "2026-11-15|Spain|England": "Riyadh Air Metropolitano, Madrid",
@@ -1952,7 +1961,7 @@ function repLink(m){const who=m.a?`${m.h} v ${m.a}`:m.h;const chans=m.ch.map(c=>
   return `<a class="rep" href="mailto:${REPORT_TO}?subject=${encodeURIComponent('Couch Kick-Off: mistake in '+who)}&body=${encodeURIComponent(body)}" title="Report a mistake in this listing">Report</a>`}
 function card(m,showDate){
   const swrap=t=>esc(t).replace(/^(Sky )?Sports (?=\S)/,'$1<span class="sw">Sports </span>');
-  const badges=m.ch.map(c=>(c==='Not on UK TV'||c==='TV pick TBC')?`<span class="b ${c==='Not on UK TV'?'notv':'tbc'}">${esc(c)}</span>`:(/^Sky (Sports(?! (Football|Premier League))|Mix)/.test(c)?`<span class="b skyb"><span class="s1">${esc(c.split(' ')[0])}</span><span class="s2">${swrap(c.split(' ').slice(1).join(' '))}</span></span>`:(m.exp.includes(c)?`<span class="b exp" style="${expStyle(c)}" title="${esc(c)} holds the rights but hasn't confirmed this match yet">${swrap(c)}</span><span class="exptag">Expected</span>`:`<span class="b" style="${brandStyle(c)}">${swrap(c)}</span>`))).join('')+(m.ch.some(c=>FREE.test(c))?'<span class="freetag">FREE</span>':'');
+  const badges=m.ch.map(c=>(c==='Not on UK TV'||c==='TV pick TBC')?`<span class="b ${c==='Not on UK TV'?'notv':'tbc'}">${esc(c)}</span>`:(/^Sky (Sports(?! (Football|Premier League))|Mix)/.test(c)?bWrap(c,`<span class="b skyb"><span class="s1">${esc(c.split(' ')[0])}</span><span class="s2">${swrap(c.split(' ').slice(1).join(' '))}${ext(c)}</span></span>`):(m.exp.includes(c)?bWrap(c,`<span class="b exp" style="${expStyle(c)}" title="${esc(c)} holds the rights but hasn't confirmed this match yet">${swrap(c)}${ext(c)}</span>`)+`<span class="exptag">Expected</span>`:bWrap(c,`<span class="b" style="${brandStyle(c)}">${swrap(c)}${ext(c)}</span>`)))).join('')+(m.ch.some(c=>FREE.test(c))?'<span class="freetag">FREE</span>':'');
   const pending=m.ch.includes('TV pick TBC'); const notv=m.ch.includes('Not on UK TV');
   return `<div class="m${isFav(m)?' fav':isFavComp(m.c)?' favc':''}${m.past?' past':''}${pending?' tbcm':''}${notv?' notvm':''}"><div class="ko">${showDate?`<span class="dt">${shortDate(m.d)}</span>`:''}${m.t}${m.t==='TBC'?'':'<small>UK</small>'}</div><div>
     <div class="teams">${m.a?`${teamHTML(m.h)} <span class="vaw"><span class="v">v</span>${teamHTML(m.a)}</span>`:`<span class="ev">${esc(m.h)}</span>`}</div>

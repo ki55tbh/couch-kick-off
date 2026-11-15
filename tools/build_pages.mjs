@@ -21,8 +21,10 @@ const src = fs.readFileSync('index.html', 'utf8');
 
 // ---- Reuse the site's own data, parsing and badge colours ----
 const cut = (from, to) => { const i = src.indexOf(from), j = src.indexOf(to, i); if (i < 0 || j < 0) throw new Error('Marker not found: ' + from); return src.slice(i, j); };
-const code = cut('const CH = {', 'const ALLTEAMS') + cut('const BRAND=[', 'function cls(');
-const { data, UPDATED, expStyle, brandStyle } = new Function(code + '; return {data, UPDATED, expStyle, brandStyle};')();
+const code = cut('const CH = {', 'const ALLTEAMS') + cut('const BRAND=[', 'function cls(') + cut('const CH_URL=', '// Match venues');
+const { data, UPDATED, expStyle, brandStyle, chURL } = new Function(code + '; return {data, UPDATED, expStyle, brandStyle, chURL};')();
+const ext = c => chURL(c) ? '<span class="ext" aria-hidden="true">↗</span>' : '';
+const bWrap = (c, inner) => { const u = chURL(c); return u ? `<a class="bl" href="${u}" target="_blank" rel="noopener" title="Open ${esc(c)} in a new tab">${inner}</a>` : inner; };
 const slugify = t => t.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/&/g, 'and').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 const LEAGUE_OF = {};
 for (const lg of LEAGUES) for (const m of data) if (m.c === lg && m.a) for (const t of [m.h, m.a]) LEAGUE_OF[t] ??= lg;
@@ -46,9 +48,9 @@ function ukOffset(d, t) { // "+00:00" or "+01:00" for a UK local date/time
 }
 const swrap = t => esc(t).replace(/^(Sky )?Sports (?=\S)/, '$1<span class="sw">Sports </span>');
 const badges = m => m.ch.map(c => (c === 'Not on UK TV' || c === 'TV pick TBC') ? `<span class="b ${c === 'Not on UK TV' ? 'notv' : 'tbc'}">${esc(c)}</span>` :
-  (/^Sky (Sports(?! (Football|Premier League))|Mix)/.test(c) ? `<span class="b skyb"><span class="s1">${esc(c.split(' ')[0])}</span><span class="s2">${swrap(c.split(' ').slice(1).join(' '))}</span></span>` :
-  (m.exp.includes(c) ? `<span class="b exp" style="${expStyle(c)}" title="${esc(c)} holds the rights but hasn't confirmed this match yet">${swrap(c)}</span><span class="exptag">Expected</span>` :
-  `<span class="b" style="${brandStyle(c)}">${swrap(c)}</span>`))).join('') + (m.ch.some(c => FREE.test(c)) ? '<span class="freetag">FREE</span>' : '');
+  (/^Sky (Sports(?! (Football|Premier League))|Mix)/.test(c) ? bWrap(c, `<span class="b skyb"><span class="s1">${esc(c.split(' ')[0])}</span><span class="s2">${swrap(c.split(' ').slice(1).join(' '))}${ext(c)}</span></span>`) :
+  (m.exp.includes(c) ? bWrap(c, `<span class="b exp" style="${expStyle(c)}" title="${esc(c)} holds the rights but hasn't confirmed this match yet">${swrap(c)}${ext(c)}</span>`) + '<span class="exptag">Expected</span>' :
+  bWrap(c, `<span class="b" style="${brandStyle(c)}">${swrap(c)}${ext(c)}</span>`)))).join('') + (m.ch.some(c => FREE.test(c)) ? '<span class="freetag">FREE</span>' : '');
 const isTV = m => !m.ch.includes('Not on UK TV') && !m.ch.includes('TV pick TBC');
 const chanText = (m, all) => { const c = m.ch.filter(x => x !== 'NOW' && x !== 'HBO Max'); const l = c.length ? c : m.ch; return all ? l.join(', ') : l[0]; };
 
