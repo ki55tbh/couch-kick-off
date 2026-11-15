@@ -12,7 +12,7 @@ You are updating Gareth's public website **Couch Kick-Off** (https://couchkickof
 
 Inside the page script, these are the data parts you maintain:
 
-1. `const UPDATED = {last_ok:'YYYY-MM-DDTHH:MM', last_attempt:'YYYY-MM-DDTHH:MM', status:'ok', summary:'...'};` (UK local time, 24h). The page shows "Last updated: <last_ok>", or a warning if status is 'failed'.
+1. `const UPDATED = {last_ok:'YYYY-MM-DDTHH:MM', last_attempt:'YYYY-MM-DDTHH:MM', status:'ok', summary:'...'};` (UK local time, 24h). The page shows "TV picks updated: <last_ok>", or a warning if status is 'failed'.
 2. The template string `const RAW = \`...\``. Each line is one game: `YYYY-MM-DD HH:MM|Home|Away|COMP|CHANNELS|optional note`
 3. The `const KIT={...};` club colour map, and the footer list under `<h4>Confirmed TV picks so far</h4>`.
 4. The `const VENUES = {...};` map of match venues, keyed `"YYYY-MM-DD|Home|Away"` with exactly the date and team spellings of the RAW line, value `"Stadium, City"` (add the country in brackets if the city isn't in the home nation, e.g. a neutral venue). Each card shows its venue under the competition. For now this covers international matches only (senior and U21 internationals: Nations League, qualifiers, friendlies). For every international in the next 10 days with no venue, add one when the home federation, UEFA, the stadium or another reliable source names it; never guess. If a match moves venue or date, update or re-key its entry. Leave club matches out.
