@@ -6,7 +6,7 @@ You are updating Gareth's public website **Couch Kick-Off** (https://couchkickof
 
 - This repository (ki55tbh/couch-kick-off) is the only master copy. The whole site is `index.html` on branch `main`. GitHub Pages republishes the site about a minute after every push to `main`.
 - The older claude.ai artifact pages are retired: do not read or edit them.
-- Only edit the data parts of `index.html` listed below. Never change the layout, styles, scripts, the About section, the Report links or the Cloudflare Web Analytics snippet just before `</body>` (it counts visits; `tools/validate.py` fails if it is missing).
+- Only edit the data parts of `index.html` listed below. Never change the layout, styles, scripts, the About section, the Report links, the team page links between the TEAMPAGES markers, or the Cloudflare Web Analytics snippet just before `</body>` (it counts visits; `tools/validate.py` fails if it is missing).
 
 ## Data format
 
@@ -54,8 +54,9 @@ Compare old RAW with new RAW and count: new televised fixtures confirmed; expect
 - Success: set UPDATED.last_ok and UPDATED.last_attempt to the current UK date/time, status 'ok', summary as above (publish even with no fixture changes, so the "last checked" date is current).
 - Failure (could not reach enough sources): do NOT change RAW. Set only UPDATED.last_attempt to now and status 'failed', leaving last_ok as it was.
 - Run `python3 tools/validate.py`. If it fails, fix the problem; if you cannot, run `git checkout index.html` and publish only the failure stamp.
-- Confirm `git diff --stat` only touches index.html.
-- Commit and push: `git -c user.name="Claude" -c user.email="noreply@anthropic.com" commit -am "Daily update YYYY-MM-DD: <summary>"` then `git push origin HEAD:main`. If rejected because main moved, `git pull --rebase origin main` once and push again.
+- Rebuild the team pages: `node tools/build_pages.mjs`. It regenerates the team folders (e.g. `liverpool/index.html`), `sitemap.xml` and the team links between the TEAMPAGES markers in `index.html` from RAW. Never edit those by hand. If it fails, still publish the index.html update and report the error.
+- Run `python3 tools/validate.py` again. Confirm `git diff --stat` and `git status --short` only touch index.html, sitemap.xml and team page folders.
+- Commit and push: `git add -A && git -c user.name="Claude" -c user.email="noreply@anthropic.com" commit -m "Daily update YYYY-MM-DD: <summary>"` then `git push origin HEAD:main`. If rejected because main moved, `git pull --rebase origin main` once and push again.
 - If the push to main is refused for permissions (e.g. 403), do not retry it. Instead push the same commit once to the fallback branch: `git push --force origin HEAD:claude/live`, and report that main was refused and which branch received the update. Do not try any other way in.
 - Confirm with `git ls-remote origin main claude/live` which branch has your commit.
 

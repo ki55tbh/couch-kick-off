@@ -1,0 +1,156 @@
+// Builds static team pages (e.g. /liverpool/) from the fixture data in index.html.
+// Run: node tools/build_pages.mjs   (from the repo root)
+// The pages are plain HTML so search engines can read them. Never edit them by hand.
+import fs from 'node:fs';
+
+// Team pages are made for every club in these leagues (taken from the fixture data, so promotions are automatic)
+const LEAGUES = ['Premier League', 'Championship', 'Scottish Premiership'];
+
+const SITE = 'https://couchkickoff.co.uk';
+const src = fs.readFileSync('index.html', 'utf8');
+
+// ---- Reuse the site's own data, parsing and badge colours ----
+const cut = (from, to) => { const i = src.indexOf(from), j = src.indexOf(to, i); if (i < 0 || j < 0) throw new Error('Marker not found: ' + from); return src.slice(i, j); };
+const code = cut('const CH = {', 'const ALLTEAMS') + cut('const BRAND=[', 'function cls(');
+const { data, UPDATED, expStyle, brandStyle } = new Function(code + '; return {data, UPDATED, expStyle, brandStyle};')();
+const slugify = t => t.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/&/g, 'and').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+const LEAGUE_OF = {};
+for (const lg of LEAGUES) for (const m of data) if (m.c === lg && m.a) for (const t of [m.h, m.a]) LEAGUE_OF[t] ??= lg;
+const TEAMS = Object.keys(LEAGUE_OF).sort((a, b) => a.localeCompare(b)).map(t => [t, slugify(t)]);
+const style = cut('<style>', '</style>') + '</style>';
+const FREE = /BBC|ITV|STV|S4C|YouTube|England App|Channel 4|Channel 5/;
+
+// Logo as a shared file rather than base64 in every page
+const logoB64 = /<img class="logo" src="data:image\/webp;base64,([^"]+)"/.exec(src)[1];
+fs.writeFileSync('logo.webp', Buffer.from(logoB64, 'base64'));
+
+// ---- Helpers ----
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const ukToday = new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/London' }).format(new Date());
+const longDate = d => new Date(d + 'T12:00:00Z').toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short', timeZone: 'UTC' });
+const monthName = d => new Date(d + 'T12:00:00Z').toLocaleDateString('en-GB', { month: 'long', year: 'numeric', timeZone: 'UTC' });
+function ukOffset(d, t) { // "+00:00" or "+01:00" for a UK local date/time
+  const guess = new Date(`${d}T${t}:00Z`);
+  const h = new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/London', hour: '2-digit', hour12: false }).format(guess);
+  return ((+h - guess.getUTCHours() + 24) % 24) === 1 ? '+01:00' : '+00:00';
+}
+const swrap = t => esc(t).replace(/^(Sky )?Sports (?=\S)/, '$1<span class="sw">Sports </span>');
+const badges = m => m.ch.map(c => (c === 'Not on UK TV' || c === 'TV pick TBC') ? `<span class="b ${c === 'Not on UK TV' ? 'notv' : 'tbc'}">${esc(c)}</span>` :
+  (/^Sky (Sports(?! (Football|Premier League))|Mix)/.test(c) ? `<span class="b skyb"><span class="s1">${esc(c.split(' ')[0])}</span><span class="s2">${swrap(c.split(' ').slice(1).join(' '))}</span></span>` :
+  (m.exp.includes(c) ? `<span class="b exp" style="${expStyle(c)}" title="${esc(c)} holds the rights but hasn't confirmed this match yet">${swrap(c)}</span><span class="exptag">Expected</span>` :
+  `<span class="b" style="${brandStyle(c)}">${swrap(c)}</span>`))).join('') + (m.ch.some(c => FREE.test(c)) ? '<span class="freetag">FREE</span>' : '');
+const isTV = m => !m.ch.includes('Not on UK TV') && !m.ch.includes('TV pick TBC');
+const chanText = (m, all) => { const c = m.ch.filter(x => x !== 'NOW' && x !== 'HBO Max'); const l = c.length ? c : m.ch; return all ? l.join(', ') : l[0]; };
+
+function card(m, team) {
+  const notv = m.ch.includes('Not on UK TV'), pending = m.ch.includes('TV pick TBC');
+  const opp = m.h === team ? m.a : m.h, ha = m.h === team ? 'H' : 'A';
+  const ko = m.t === 'TBC' ? '' : ` data-ko="${m.d}T${m.t}:00${ukOffset(m.d, m.t)}"`;
+  return `<div class="m${pending ? ' tbcm' : ''}${notv ? ' notvm' : ''}"${ko}><div class="ko"><span class="dt">${longDate(m.d)}</span>${m.t}${m.t === 'TBC' ? '' : '<small>UK</small>'}</div><div>
+    <div class="teams">${esc(m.h)} <span class="vaw"><span class="v">v</span>${esc(m.a)}</span></div>
+    <div class="comp">${esc(m.c)} · ${ha === 'H' ? 'Home' : 'Away'}${notv ? `<span class="notvtag"> · ${m.c === 'Premier League' ? '3pm, not on UK TV' : 'Not on UK TV'}</span>` : ''}</div>${notv ? '' : `<div class="ch">${badges(m)}</div>`}
+    ${m.n && !notv ? `<div class="note">${esc(m.n)}</div>` : ''}</div></div>`;
+}
+
+function jsonLd(list, team) {
+  const events = list.filter(m => m.t !== 'TBC').map(m => ({
+    '@type': 'SportsEvent', name: `${m.h} v ${m.a}`, sport: 'Football',
+    startDate: `${m.d}T${m.t}:00${ukOffset(m.d, m.t)}`,
+    homeTeam: { '@type': 'SportsTeam', name: m.h }, awayTeam: { '@type': 'SportsTeam', name: m.a },
+    superEvent: { '@type': 'SportsEvent', name: m.c },
+    description: isTV(m) ? `${m.c}. Live on UK TV: ${chanText(m, true)}.` : `${m.c}. ${m.ch.join(', ')}.`,
+  }));
+  return JSON.stringify({ '@context': 'https://schema.org', '@type': 'ItemList', name: `${team} on TV`, itemListElement: events.map((e, i) => ({ '@type': 'ListItem', position: i + 1, item: e })) }).replace(/</g, '\\u003c');
+}
+
+function page(team, slug) {
+  const list = data.filter(m => (m.h === team || m.a === team) && m.d !== 'TBC' && m.d >= ukToday);
+  const next = list.find(isTV);
+  const opp = m => m.h === team ? `${m.a} (H)` : `${m.h} (A)`;
+  const nextText = next ? `${next.h} v ${next.a}, ${next.c}, ${longDate(next.d)}${next.t === 'TBC' ? '' : ' at ' + next.t} on ${chanText(next)}` : '';
+  const upd = UPDATED.last_ok ? new Date(UPDATED.last_ok + 'Z').toLocaleString('en-GB', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' }) : '';
+  const title = `${team} on TV: next match, channels and kick-off times | Couch Kick-Off`;
+  const desc = !list.length ? `When is ${team} on TV? UK TV channels and kick-off times for ${team}, checked daily.` : next ? `When is ${team} on TV? Next: ${opp(next)}, ${longDate(next.d)}${next.t === 'TBC' ? '' : ' ' + next.t} on ${chanText(next)}. Every upcoming ${team} game with UK channels, checked daily.`
+    : `Every upcoming ${team} game with UK TV channels and kick-off times, checked daily.`;
+  let months = '', cur = '';
+  for (const m of list) {
+    const mn = monthName(m.d);
+    if (mn !== cur) { if (cur) months += '</section>'; months += `<section class="day"><div class="dayhead"><h2>${mn}</h2></div>`; cur = mn; }
+    months += card(m, team);
+  }
+  if (cur) months += '</section>';
+  const tvCount = list.filter(isTV).length;
+
+  return `<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>${esc(title)}</title>
+<meta name="description" content="${esc(desc)}">
+<link rel="canonical" href="${SITE}/${slug}/">
+<link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
+<link rel="apple-touch-icon" href="/icon-192.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#f3f6f1">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Couch Kick-Off">
+<meta property="og:title" content="${esc(team)} on TV | Couch Kick-Off">
+<meta property="og:description" content="${esc(desc)}">
+<meta property="og:url" content="${SITE}/${slug}/">
+<meta property="og:image" content="${SITE}/og-image.png">
+<meta property="og:locale" content="en_GB">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+<script type="application/ld+json">${jsonLd(list, team)}</script>
+${style}
+<style>
+.tp{max-width:720px;margin:0 auto;padding:0 14px 40px}
+.tlogo{display:block;max-width:300px;margin:12px auto 4px}.tlogo img{width:100%;height:auto;display:block}
+.crumb{font-size:12.5px;color:var(--muted);margin:10px 2px 6px}.crumb a{color:var(--green);font-weight:700;text-decoration:none}
+.th1{font-family:Outfit,Inter,sans-serif;font-size:30px;line-height:1.15;font-weight:800;letter-spacing:-.015em;margin:4px 2px 8px}
+.lead{margin:0 2px 14px;color:var(--text)}.lead small{display:block;color:var(--muted);margin-top:4px}
+.nextbox{background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--green);border-radius:12px;padding:12px 14px;margin:0 0 6px;font-weight:600}
+.nextbox b{display:block;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--green);margin-bottom:3px}
+.tfoot{margin:26px 2px 0;font-size:13.5px;color:var(--muted)}.tfoot a{color:var(--green);font-weight:700}
+.cta{display:block;text-align:center;background:var(--green);color:#fff!important;text-decoration:none;border-radius:12px;padding:12px;margin:20px 0 0;font-weight:700}
+</style>
+</head>
+<body>
+<div class="tp">
+<a class="tlogo" href="/" aria-label="Couch Kick-Off home"><img src="/logo.webp" width="1100" height="355" alt="Couch Kick-Off"></a>
+<nav class="crumb"><a href="/">Couch Kick-Off</a> › ${esc(team)}</nav>
+<h1 class="th1">${esc(team)} on TV</h1>
+<p class="lead">${LEAGUE_OF[team] === 'Premier League'
+  ? `Every upcoming ${esc(team)} match, with the UK TV channel and kick-off time. ${tvCount} of the ${list.length} games listed are already confirmed or expected on TV.`
+  : list.length ? `Upcoming ${esc(team)} matches confirmed or expected on UK TV, with channels and kick-off times. More games are added as broadcasters announce their picks.`
+  : `No ${esc(team)} games are confirmed for UK TV right now. Broadcasters announce their picks a few weeks ahead, so check back soon.`}<small>Checked every morning. Last updated ${esc(upd)}. Times are UK time.</small></p>
+${next ? `<div class="nextbox"><b>Next on TV</b>${esc(nextText)}</div>` : ''}
+${months}
+<a class="cta" href="/">See all football on UK TV today</a>
+<p class="tfoot">A solid badge means the broadcaster has confirmed the match. An outlined badge marked Expected means it holds the rights but hasn't confirmed this game yet. Saturday 3pm games aren't shown live in the UK. Spotted a mistake? Email <a href="mailto:hello@couchkickoff.co.uk">hello@couchkickoff.co.uk</a>.<br><br>Couch Kick-Off is independent and not connected to ${esc(team)}, any league or any broadcaster. <a href="/#about">About</a></p>
+</div>
+<script>(function(){var n=Date.now();document.querySelectorAll('.m[data-ko]').forEach(function(e){if(Date.parse(e.dataset.ko)+150*60000<n)e.remove()});document.querySelectorAll('section.day').forEach(function(s){if(!s.querySelector('.m'))s.remove()})})();</script>
+<!-- Cloudflare Web Analytics -->
+<script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "1c6cd6949d724fe697ffd4b014f24d91"}'></script>
+<!-- End Cloudflare Web Analytics -->
+</body>
+</html>
+`;
+}
+
+const urls = [`${SITE}/`];
+for (const [team, slug] of TEAMS) {
+  fs.mkdirSync(slug, { recursive: true });
+  fs.writeFileSync(`${slug}/index.html`, page(team, slug));
+  urls.push(`${SITE}/${slug}/`);
+}
+// Team page links on the main page, between the TEAMPAGES markers
+const links = LEAGUES.map(lg => `<p class="teamlinks"><b>${lg}:</b> ` + TEAMS.filter(([t]) => LEAGUE_OF[t] === lg).map(([t, sl]) => `<a href="/${sl}/">${esc(t)}</a>`).join(' · ') + '</p>').join('\n  ');
+const A = '<!-- TEAMPAGES -->', B = '<!-- /TEAMPAGES -->';
+const i = src.indexOf(A), j = src.indexOf(B);
+if (i < 0 || j < 0) throw new Error('TEAMPAGES markers missing from index.html');
+fs.writeFileSync('index.html', src.slice(0, i + A.length) + '\n  <h4>Team pages</h4>\n  ' + links + '\n  ' + src.slice(j));
+fs.writeFileSync('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map(u => `  <url>\n    <loc>${u}</loc>\n    <changefreq>daily</changefreq>\n  </url>`).join('\n')}\n</urlset>\n`);
+console.log(`Built ${TEAMS.length} team page(s); sitemap has ${urls.length} URLs`);
