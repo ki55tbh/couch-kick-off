@@ -22,6 +22,7 @@
 <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <meta name="theme-color" content="#f3f6f1">
+<meta name="ck-build" content="e9ec156f5efd">
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&family=Hind:wght@500;600;700&display=swap" rel="stylesheet">
@@ -1791,7 +1792,7 @@ const RAW = `
 
 const BIG = ['Premier League','Champions League','Europa League','Conference League','FA Cup','Carabao Cup','UEFA Nations League','Euro 2028 Qualifiers'];
 const WOMENS = /\(W\)|^WSL|Women|SWPL|A-League Women|NWSL|Frauen|Femminile/;
-const data = RAW.trim().split('\n').map(line=>{
+const parseRaw = raw=>raw.trim().split('\n').map(line=>{
   const [dt,h,a,c,ch,n] = line.split('|');
   const tbc = dt==='TBC';
   const [d,t] = tbc?['TBC','TBC']:dt.split(' ');
@@ -1800,6 +1801,7 @@ const data = RAW.trim().split('\n').map(line=>{
   return {d,t,h,a,c:CP[c]||c,ch:[...new Set(chans)],exp,n:n||''};
 }).filter(m=>!WOMENS.test(m.h)&&!WOMENS.test(m.a)&&!WOMENS.test(m.c));
 const order = m=>m.d==='TBC'?'9999':m.d+(m.t==='TBC'?'19:59':m.t);
+const data = parseRaw(RAW);
 data.sort((x,y)=>order(x).localeCompare(order(y)));
 const ALLTEAMS=[...new Set(data.flatMap(m=>m.a?[m.h,m.a]:[]))].sort((a,b)=>a.localeCompare(b));
 
@@ -2130,8 +2132,30 @@ function renderStamp(){const el=$('stamp');if(!el)return;
   if(deferred){deferred.prompt();try{await deferred.userChoice}catch(_){}deferred=null;B.classList.remove('can-install');return}
   const a=$('apptip');if(a){const go=()=>a.scrollIntoView({block:'start'});go();[150,400,800,1300].forEach(ms=>setTimeout(go,ms))}})})();
 document.addEventListener('click',e=>{const a=e.target.closest('.aboutlnk');if(!a)return;e.preventDefault();const go=()=>{const t=$('about');if(t)t.scrollIntoView({block:'start'})};go();[150,400,800,1300].forEach(ms=>setTimeout(go,ms))});
+// Refresh without reloading: fetch the latest page and, if only the TV data changed (same build fingerprint), swap the data in place.
+// If the design or code changed, do a normal reload instead.
+async function softRefresh(){
+  const meta=n=>{const m=n.querySelector('meta[name="ck-build"]');return m?m.content:''};
+  try{
+    const r=await fetch(location.pathname+'?r='+Date.now(),{cache:'no-store'});if(!r.ok)throw 0;
+    const html=await r.text();const doc=new DOMParser().parseFromString(html,'text/html');
+    if(!meta(document)||meta(doc)!==meta(document)){location.reload();return}
+    const grab=(re)=>{const m=html.match(re);if(!m)throw 0;return new Function('return '+m[1])()};
+    const nU=grab(/const UPDATED = (\{.*?\});\n/s), nA=grab(/const AUDITS = ([\s\S]*?);\s*\nconst RAW = `/), nRaw=grab(/const RAW = (`[\s\S]*?`);/), nV=grab(/const VENUES = (\{[\s\S]*?\n\});/), nK=grab(/const KIT=(\{.*?\});/);
+    const nd=parseRaw(nRaw);if(nd.length<data.length*0.5)throw 0;nd.sort((x,y)=>order(x).localeCompare(order(y)));
+    Object.keys(UPDATED).forEach(k=>delete UPDATED[k]);Object.assign(UPDATED,nU);
+    AUDITS.length=0;AUDITS.push(...nA);
+    data.length=0;data.push(...nd);
+    const at=[...new Set(data.flatMap(m=>m.a?[m.h,m.a]:[]))].sort((a,b)=>a.localeCompare(b));ALLTEAMS.length=0;ALLTEAMS.push(...at);
+    const ac=[...new Set(data.map(m=>m.c))].sort((a,b)=>rank(a)-rank(b)||a.localeCompare(b));ALLCOMPS.length=0;ALLCOMPS.push(...ac);
+    Object.keys(VENUES).forEach(k=>delete VENUES[k]);Object.assign(VENUES,nV);
+    Object.keys(KIT).forEach(k=>delete KIT[k]);Object.assign(KIT,nK);
+    const nf=doc.querySelector('footer'),of=document.querySelector('footer');if(nf&&of)of.innerHTML=nf.innerHTML;
+    renderAll();
+  }catch(e){if(e instanceof TypeError&&!navigator.onLine)return;location.reload()}
+}
 // Fresh data: reload if the page comes back after 30+ minutes in the background (installed apps on iPhone/iPad keep old copies in memory)
-(()=>{let hid=0;const back=()=>{if(hid&&Date.now()-hid>30*60*1000){hid=0;location.reload()}};
+(()=>{let hid=0;const back=()=>{if(hid&&Date.now()-hid>30*60*1000){hid=0;softRefresh()}};
  document.addEventListener('visibilitychange',()=>{if(document.hidden)hid=Date.now();else back()});
  addEventListener('pageshow',e=>{if(e.persisted){hid=hid||1;back()}})})();
 // Swipe down to refresh: only where Apple devices have none of their own (installed iPhone/iPad app, Chrome on iPad). Android keeps Chrome's built-in one.
@@ -2143,7 +2167,7 @@ document.addEventListener('click',e=>{const a=e.target.closest('.aboutlnk');if(!
  addEventListener('touchstart',e=>{if(busy||e.touches.length!==1||scrollY>0){y0=null;return}y0=e.touches[0].clientY;x0=e.touches[0].clientX;d=0;el.style.transition='none'},{passive:true});
  addEventListener('touchmove',e=>{if(y0===null)return;const dy=e.touches[0].clientY-y0,dx=Math.abs(e.touches[0].clientX-x0);
   if(scrollY>0||dy<=0||dx>dy){if(d){d=0;set(0)}if(dx>dy)y0=null;return}d=dy*0.5;set(d)},{passive:true});
- const end=()=>{if(y0===null)return;y0=null;el.style.transition='';if(d>=GO){busy=true;el.classList.add('spin');set(GO);setTimeout(()=>location.reload(),150)}else set(0);d=0};
+ const end=()=>{if(y0===null)return;y0=null;el.style.transition='';if(d>=GO){busy=true;el.classList.add('spin');set(GO);const t0=Date.now();softRefresh().finally(()=>setTimeout(()=>{busy=false;el.classList.remove('spin');set(0)},Math.max(0,500-(Date.now()-t0))))}else set(0);d=0};
  addEventListener('touchend',end,{passive:true});addEventListener('touchcancel',end,{passive:true});set(0)})();
 function renderAll(){renderStamp();renderTeams();renderComps();renderPinned();render()}
 renderAll();

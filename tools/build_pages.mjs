@@ -3,6 +3,7 @@
 //      node tools/build_pages.mjs --check   to verify the files on disk match what would be built (used by validate.py)
 // The pages are plain HTML so search engines can read them. Never edit them by hand.
 import fs from 'node:fs';
+import { createHash } from 'node:crypto';
 
 // Team pages are made for every club in these leagues (taken from the fixture data, so promotions are automatic)
 const LEAGUES = ['Premier League', 'Championship', 'Scottish Premiership'];
@@ -180,7 +181,21 @@ const links = LEAGUES.map(lg => `<p class="teamlinks"><b>${lg}:</b> ` + TEAMS.fi
 const A = '<!-- TEAMPAGES -->', B = '<!-- /TEAMPAGES -->';
 const i = src.indexOf(A), j = src.indexOf(B);
 if (i < 0 || j < 0) throw new Error('TEAMPAGES markers missing from index.html');
-out('index.html', src.slice(0, i + A.length) + '\n  <h4>Team pages</h4>\n  ' + links + '\n  ' + src.slice(j));
+let mainHTML = src.slice(0, i + A.length) + '\n  <h4>Team pages</h4>\n  ' + links + '\n  ' + src.slice(j);
+// Build fingerprint: a hash of the page with the daily data stripped out. The page's swipe refresh compares it:
+// same fingerprint = only the TV data changed, so it updates in place; different = the design or code changed, so it reloads.
+const codeOnly = mainHTML
+  .replace(/<meta name="ck-build" content="[^"]*">/, '')
+  .replace(/const UPDATED = \{.*?\};\n/s, '')
+  .replace(/const AUDITS = [\s\S]*?(?=const RAW = `)/, '')
+  .replace(/const RAW = `[\s\S]*?`;/, '')
+  .replace(/const VENUES = \{[\s\S]*?\n\};/, '')
+  .replace(/const KIT=\{.*?\};/, '')
+  .replace(/<footer>[\s\S]*?<\/footer>/, '');
+const fp = createHash('sha1').update(codeOnly).digest('hex').slice(0, 12);
+if (!/<meta name="ck-build" content="[^"]*">/.test(mainHTML)) throw new Error('ck-build meta missing from index.html');
+mainHTML = mainHTML.replace(/<meta name="ck-build" content="[^"]*">/, `<meta name="ck-build" content="${fp}">`);
+out('index.html', mainHTML);
 out('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map(u => `  <url>\n    <loc>${u}</loc>\n    <changefreq>daily</changefreq>\n  </url>`).join('\n')}\n</urlset>\n`);
 if (problems.length) {
   console.log((CHECK ? 'TEAM PAGES CHECK FAILED' : 'TEAM PAGES BUILD PROBLEM') + ' (run node tools/build_pages.mjs to rebuild):\n- ' + problems.slice(0, 15).join('\n- ') + (problems.length > 15 ? `\n- ...and ${problems.length - 15} more` : ''));
