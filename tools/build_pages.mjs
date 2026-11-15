@@ -138,7 +138,7 @@ ${style}
 ${next ? `<div class="nextbox"><b>Next on TV</b>${esc(nextText)}</div>` : ''}
 ${months}
 <a class="cta" href="/">See all football on UK TV today</a>
-<p class="tfoot">A solid badge means the broadcaster has confirmed the match. An outlined badge marked Expected means it holds the rights but hasn't confirmed this game yet. Saturday 3pm games aren't shown live in the UK. Spotted a mistake? Email <a href="mailto:hello@couchkickoff.co.uk">hello@couchkickoff.co.uk</a>.<br><br>Couch Kick-Off is independent and not connected to ${esc(team)}, any league or any broadcaster. <a href="/#about">About</a></p>
+<p class="tfoot">A solid badge means the broadcaster has confirmed the match. An outlined badge marked Expected means it holds the rights but hasn't confirmed this game yet. Saturday 3pm games aren't shown live in the UK. Spotted a mistake? Email <a href="mailto:hello@couchkickoff.co.uk">hello@couchkickoff.co.uk</a>.<br><br>Couch Kick-Off is independent and not connected to ${esc(team)}, any league or any broadcaster. <a href="/#about">About</a><br><br>© 2026 Couch Kick-Off. All rights reserved.</p>
 </div>
 <script>(function(){var n=Date.now();document.querySelectorAll('.m[data-ko]').forEach(function(e){if(Date.parse(e.dataset.ko)+150*60000<n)e.remove()});document.querySelectorAll('section.day').forEach(function(s){if(!s.querySelector('.m'))s.remove()})})();</script>
 <!-- Cloudflare Web Analytics -->
