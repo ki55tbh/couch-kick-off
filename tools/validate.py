@@ -48,16 +48,16 @@ def main():
     r = subprocess.run(['node', '--check', f.name], capture_output=True, text=True)
     if r.returncode != 0:
         errors.append('page script does not parse: ' + r.stderr.strip()[:300])
-    if '--skip-team-pages' not in sys.argv:
-        r = subprocess.run(['node', 'tools/build_pages.mjs', '--check'], capture_output=True, text=True)
-        if r.returncode != 0:
-            errors.append((r.stdout + r.stderr).strip()[:1500])
-        else:
-            team_ok = r.stdout.strip()
+    team_ok = ''
+    r = subprocess.run(['node', 'tools/build_pages.mjs', '--check'], capture_output=True, text=True)
+    if r.returncode != 0:
+        errors.append((r.stdout + r.stderr).strip()[:1500])
+    else:
+        team_ok = r.stdout.strip()
     if errors:
         print('VALIDATION FAILED:\n- ' + '\n- '.join(errors))
         sys.exit(1)
-    print(f'OK: {len(lines)} fixtures, script parses' + ('' if '--skip-team-pages' in sys.argv else '. ' + team_ok))
+    print(f'OK: {len(lines)} fixtures, script parses' + '. ' + team_ok)
 
 if __name__ == '__main__':
     main()
