@@ -312,7 +312,7 @@ const CH = {
 const CP = {
   EQ:'Euro 2028 Qualifiers', LL:'LaLiga', SA:'Serie A', BL:'Bundesliga',
   PL:'Premier League', CH:'Championship', L1:'League One', L2:'League Two', UCL:'Champions League',
-  UEL:'Europa League', UECL:'Conference League', NL:'Nations League', WSL:'WSL', SPL:'Scottish Premiership',
+  UEL:'Europa League', UECL:'Conference League', NL:'UEFA Nations League', WSL:'WSL', SPL:'Scottish Premiership',
   WCL:"Women's Champions League", EFLT:'EFL Trophy', CC:'Carabao Cup', NLG:'National League',
   U21:'U21 Friendly', ALW:'A-League Women', FBL:'Frauen-Bundesliga', SAF:'Serie A Femminile',
   WSL2:'WSL 2', WLC:"Women's League Cup", NIP:'NIFL Premiership', SCH:'Scottish Championship'
@@ -1761,7 +1761,7 @@ const RAW = `
 2026-12-14 TBC|Liverpool|Bournemouth|CC|Sky Sports|Quarter-final, week of 14 Dec. Exact date and kick-off TBC
 `;
 
-const BIG = ['Premier League','Champions League','Europa League','Conference League','FA Cup','Carabao Cup','Nations League','Euro 2028 Qualifiers'];
+const BIG = ['Premier League','Champions League','Europa League','Conference League','FA Cup','Carabao Cup','UEFA Nations League','Euro 2028 Qualifiers'];
 const WOMENS = /\(W\)|^WSL|Women|SWPL|A-League Women|NWSL|Frauen|Femminile/;
 const data = RAW.trim().split('\n').map(line=>{
   const [dt,h,a,c,ch,n] = line.split('|');
@@ -1829,12 +1829,12 @@ const GROUPS = [
 ];
 const st={q:'',comp:'',grp:0,hidePast:true,big:false,conf:false,when:'all',favs:[],favComps:[]};
 function load(){try{const s=JSON.parse(localStorage.getItem('fotv2')||'{}');
-  st.favs=Array.isArray(s.favs)?s.favs:[]; st.favComps=Array.isArray(s.favComps)?s.favComps:[];  st.big=!!s.big; st.hidePast=s.hidePast!==false; st.day=''; st.conf=!!s.conf;}catch(e){}}
+  st.favs=Array.isArray(s.favs)?s.favs:[]; st.favComps=Array.isArray(s.favComps)?s.favComps.map(c=>c==='Nations League'?'UEFA Nations League':c):[];  st.big=!!s.big; st.hidePast=s.hidePast!==false; st.day=''; st.conf=!!s.conf;}catch(e){}}
 function save(){try{localStorage.setItem('fotv2',JSON.stringify({favs:st.favs,favComps:st.favComps,big:st.big,hidePast:st.hidePast,conf:st.conf}))}catch(e){}}
 load();
 st.favs=st.favs.filter(t=>ALLTEAMS.includes(t));
-const POPULAR=['Premier League','Champions League','FA Cup','Carabao Cup','Europa League','Conference League','Championship','Nations League','Euro 2028 Qualifiers','Scottish Premiership','LaLiga','Serie A','Bundesliga','League One','League Two','EFL Trophy','National League','International Friendly','U21 Friendly','Scottish Championship','Scottish League One','NIFL Premiership','LaLiga2','Serie C','Brasileirão'];
-const INTL=['Nations League','Euro 2028 Qualifiers','International Friendly','U21 Friendly','U21 Euro Qualifiers','World Cup','Euro 2028','World Cup Qualifiers'];
+const POPULAR=['Premier League','Champions League','FA Cup','Carabao Cup','Europa League','Conference League','Championship','UEFA Nations League','Euro 2028 Qualifiers','Scottish Premiership','LaLiga','Serie A','Bundesliga','League One','League Two','EFL Trophy','National League','International Friendly','U21 Friendly','Scottish Championship','Scottish League One','NIFL Premiership','LaLiga2','Serie C','Brasileirão'];
+const INTL=['UEFA Nations League','Euro 2028 Qualifiers','International Friendly','U21 Friendly','U21 Euro Qualifiers','World Cup','Euro 2028','World Cup Qualifiers'];
 const rank=c=>{const i=POPULAR.indexOf(c);return i<0?999:i};
 const ALLCOMPS=[...new Set(data.map(m=>m.c))].sort((a,b)=>rank(a)-rank(b)||a.localeCompare(b));
 st.favComps=st.favComps.filter(c=>ALLCOMPS.includes(c));
@@ -1922,7 +1922,7 @@ function ukToUtc(d,t){const [y,mo,da]=d.split('-').map(Number),[h,mi]=t.split(':
   if(LDN){try{const off=x=>{const p=ldnParts(x);return Date.UTC(+p.year,p.month-1,+p.day,+p.hour%24,+p.minute)-x};let r=g-off(g);r=g-off(r);return new Date(r)}catch(_){}}
   const bst=g>=lastSunUTC(y,2)&&g<lastSunUTC(y,9);return new Date(g-(bst?36e5:0))}
 const CUPS=['FA Cup','Carabao Cup','EFL Trophy','Scottish Cup','Scottish League Cup'];
-const isKnockout=m=>CUPS.includes(m.c)||/final|knockout|play-off|round of 16|quarter|semi/i.test(m.n||'')||(['Champions League','Europa League','Conference League','Nations League'].includes(m.c)&&m.d>='2027-02-01');
+const isKnockout=m=>CUPS.includes(m.c)||/final|knockout|play-off|round of 16|quarter|semi/i.test(m.n||'')||(['Champions League','Europa League','Conference League','UEFA Nations League'].includes(m.c)&&m.d>='2027-02-01');
 const koDate=m=>(m.d==='TBC'||m.t==='TBC')?null:ukToUtc(m.d,m.t);
 // Finished = 2h15 after kick-off (3h for cup ties that can go to extra time and penalties).
 // A game with no confirmed kick-off time only counts as finished once its day is over (3am UK the next morning).
@@ -1978,7 +1978,7 @@ function card(m,showDate){
     ${VENUES[m.d+'|'+m.h+'|'+m.a]?`<div class="venue"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>${esc(VENUES[m.d+'|'+m.h+'|'+m.a])}</div>`:''}<div class="comp"><span class="cp${isFavComp(m.c)?' on':''}" data-c="${esc(m.c)}" title="Tap to star this competition">${esc(m.c)}</span>${notv?`<span class="notvtag"> · ${m.c==='Premier League'?'3pm, not on UK TV':'Not on UK TV'}</span>`:''}${!showDate&&isFav(m)?'<span class="favtag">★ YOUR TEAM</span>':''}${notv&&!showDate?repLink(m):''}</div>${notv?(showDate?`<div class="ch">${repLink(m)}</div>`:''):`<div class="ch">${badges}${repLink(m)}</div>`}
     ${m.n&&!notv?`<div class="note">${esc(m.n)}</div>`:''}</div></div>`;
 }
-const COMPCOL={'LaLiga':'#ff4b44','Serie A':'#024494','Bundesliga':'#d20515','Premier League':'#3d195b','Champions League':'#0b1d5c','FA Cup':'#c8102e','Carabao Cup':'#00843d','Europa League':'#e2620a','Conference League':'#00953a','Championship':'#0b3d91','League One':'#e2001a','League Two':'#1f7a3c','Nations League':'#0b2a5b','Euro 2028 Qualifiers':'#143cdb','Scottish Premiership':'#4b2d84','EFL Trophy':'#0b3d91','National League':'#a0001e','International Friendly':'#1d3b8b','U21 Friendly':'#1d3b8b','Scottish Championship':'#4b2d84','Scottish League One':'#4b2d84','NIFL Premiership':'#00295f','LaLiga2':'#ff4b44','Serie C':'#0055a4','Brasileirão':'#009c3b'};
+const COMPCOL={'LaLiga':'#ff4b44','Serie A':'#024494','Bundesliga':'#d20515','Premier League':'#3d195b','Champions League':'#0b1d5c','FA Cup':'#c8102e','Carabao Cup':'#00843d','Europa League':'#e2620a','Conference League':'#00953a','Championship':'#0b3d91','League One':'#e2001a','League Two':'#1f7a3c','UEFA Nations League':'#0b2a5b','Euro 2028 Qualifiers':'#143cdb','Scottish Premiership':'#4b2d84','EFL Trophy':'#0b3d91','National League':'#a0001e','International Friendly':'#1d3b8b','U21 Friendly':'#1d3b8b','Scottish Championship':'#4b2d84','Scottish League One':'#4b2d84','NIFL Premiership':'#00295f','LaLiga2':'#ff4b44','Serie C':'#0055a4','Brasileirão':'#009c3b'};
 function renderComps(){
   $('mcList').innerHTML = st.favComps.length
     ? [...st.favComps].sort((a,b)=>rank(a)-rank(b)).map(c=>{const k=COMPCOL[c];return `<span class="ft${k?' col':''}"${k?` style="--c:${k}"`:''}><span class="st">★</span> ${esc(c)}<button data-rmc="${esc(c)}" aria-label="Remove ${esc(c)}">×</button></span>`}).join('')
