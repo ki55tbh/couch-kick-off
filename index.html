@@ -36,6 +36,7 @@
 *{box-sizing:border-box}
 [hidden]{display:none!important}
 html{-webkit-text-size-adjust:100%}
+.ptr{position:fixed;top:0;left:50%;z-index:60;width:36px;height:36px;border-radius:50%;background:#fff;box-shadow:0 4px 14px rgba(14,26,19,.18);display:flex;align-items:center;justify-content:center;color:var(--green);font-weight:800;font-size:18px;opacity:0;transform:translate(-50%,-48px);transition:transform .2s,opacity .2s;pointer-events:none;margin-top:env(safe-area-inset-top)}.ptr-i{transition:transform .15s}.ptr.ready .ptr-i{transform:rotate(180deg)}.ptr.spin .ptr-i{font-size:0;width:16px;height:16px;border:2.5px solid #cfe9d6;border-top-color:var(--green);border-radius:50%;animation:ptrs .7s linear infinite}@keyframes ptrs{to{transform:rotate(360deg)}}
 body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,sans-serif;font-size:15px;line-height:1.4;-webkit-font-smoothing:antialiased}
 button{font:inherit}
 input[type=checkbox]{accent-color:var(--green);width:16px;height:16px}
@@ -2128,6 +2129,21 @@ function renderStamp(){const el=$('stamp');if(!el)return;
   if(deferred){deferred.prompt();try{await deferred.userChoice}catch(_){}deferred=null;B.classList.remove('can-install');return}
   const a=$('apptip');if(a){const go=()=>a.scrollIntoView({block:'start'});go();[150,400,800,1300].forEach(ms=>setTimeout(go,ms))}})})();
 document.addEventListener('click',e=>{const a=e.target.closest('.aboutlnk');if(!a)return;e.preventDefault();const go=()=>{const t=$('about');if(t)t.scrollIntoView({block:'start'})};go();[150,400,800,1300].forEach(ms=>setTimeout(go,ms))});
+// Fresh data: reload if the page comes back after 30+ minutes in the background (installed apps on iPhone/iPad keep old copies in memory)
+(()=>{let hid=0;const back=()=>{if(hid&&Date.now()-hid>30*60*1000){hid=0;location.reload()}};
+ document.addEventListener('visibilitychange',()=>{if(document.hidden)hid=Date.now();else back()});
+ addEventListener('pageshow',e=>{if(e.persisted){hid=hid||1;back()}})})();
+// Swipe down to refresh, only in the installed app (iPhone/iPad home-screen apps have no built-in pull-to-refresh)
+(()=>{const standalone=matchMedia('(display-mode: standalone)').matches||navigator.standalone===true;if(!standalone)return;
+ document.documentElement.style.overscrollBehaviorY='contain';
+ const el=document.createElement('div');el.className='ptr';el.innerHTML='<span class="ptr-i">↓</span>';document.body.appendChild(el);
+ const MAX=110,GO=70;let y0=null,x0=0,d=0,busy=false;
+ const set=v=>{el.style.transform=`translate(-50%,${Math.min(v,MAX)-48}px)`;el.style.opacity=Math.min(1,v/GO);el.classList.toggle('ready',v>=GO)};
+ addEventListener('touchstart',e=>{if(busy||e.touches.length!==1||scrollY>0){y0=null;return}y0=e.touches[0].clientY;x0=e.touches[0].clientX;d=0;el.style.transition='none'},{passive:true});
+ addEventListener('touchmove',e=>{if(y0===null)return;const dy=e.touches[0].clientY-y0,dx=Math.abs(e.touches[0].clientX-x0);
+  if(scrollY>0||dy<=0||dx>dy){if(d){d=0;set(0)}if(dx>dy)y0=null;return}d=dy*0.5;set(d)},{passive:true});
+ const end=()=>{if(y0===null)return;y0=null;el.style.transition='';if(d>=GO){busy=true;el.classList.add('spin');set(GO);setTimeout(()=>location.reload(),150)}else set(0);d=0};
+ addEventListener('touchend',end,{passive:true});addEventListener('touchcancel',end,{passive:true});set(0)})();
 function renderAll(){renderStamp();renderTeams();renderComps();renderPinned();render()}
 renderAll();
 setInterval(renderAll,5*60*1000);
