@@ -2097,7 +2097,7 @@ function renderStamp(){const el=$('stamp');if(!el)return;
   if(UPDATED.status==='failed'){el.className='stamp fail';el.innerHTML=`<span class="ok"></span>Last update check failed (${fmtStamp(UPDATED.last_attempt)}). Showing TV picks from <b>${fmtStamp(UPDATED.last_ok)}</b>${ABOUT_LINK}`;}
   else{el.className='stamp';el.innerHTML=`<span class="ok"></span>TV picks updated: <b>${fmtStamp(UPDATED.last_ok)}</b>${ABOUT_LINK}`;}}
 // About link: re-aim a few times, because day sections render lazily and change height as you pass them
-(()=>{const b=$('totop');if(!b)return;const f=()=>b.classList.toggle('show',scrollY>window.innerHeight*1.2);addEventListener('scroll',f,{passive:true});f();b.addEventListener('click',()=>scrollTo({top:0,behavior:'smooth'}))})();
+(()=>{const b=$('totop');if(!b)return;const f=()=>b.classList.toggle('show',scrollY>window.innerHeight*1.2);addEventListener('scroll',f,{passive:true});f();b.addEventListener('click',()=>{const go=()=>scrollTo({top:0,behavior:'instant'});go();[120,350].forEach(ms=>setTimeout(()=>{if(scrollY>0)go()},ms))})})();
 // Install-as-app: Chrome/Edge/Samsung Internet offer a real install prompt; iPhone gets pointed at the Add to Home Screen steps.
 (()=>{const standalone=matchMedia('(display-mode: standalone)').matches||navigator.standalone===true;if(standalone)return;
  let deferred=null;const B=document.body;
