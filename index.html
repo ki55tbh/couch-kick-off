@@ -22,7 +22,7 @@
 <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <meta name="theme-color" content="#f3f6f1">
-<meta name="ck-build" content="e2974e5af1f2">
+<meta name="ck-build" content="04c7af092f65">
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&family=Hind:wght@500;600;700&display=swap" rel="stylesheet">
@@ -365,6 +365,7 @@ const RAW = `
 2026-11-14 21:30|Haiti|USA|CONCACAF Nations League|YouTube (CONCACAF)|Free to watch on CONCACAF's YouTube channel
 2026-11-15 01:00|Jamaica|Mexico|CONCACAF Nations League|YouTube (CONCACAF)|Free to watch on CONCACAF's YouTube channel
 2026-11-15 23:00|Panama|Curaçao|CONCACAF Nations League|YouTube (CONCACAF)|Free to watch on CONCACAF's YouTube channel
+2026-11-17 01:00|Canada|Guatemala|CONCACAF Nations League|YouTube (CONCACAF)|Free to watch on CONCACAF's YouTube channel
 2026-11-18 00:00|USA|Haiti|CONCACAF Nations League|YouTube (CONCACAF)|Free to watch on CONCACAF's YouTube channel
 2026-11-18 02:30|Mexico|Jamaica|CONCACAF Nations League|YouTube (CONCACAF)|Free to watch on CONCACAF's YouTube channel
 2026-11-17 10:00|Singapore|Brazil|International Friendly|NOTV|No UK broadcaster has been announced
@@ -1979,8 +1980,8 @@ const shortDate=d=>d==='TBC'?'TBC':new Date(d+'T12:00:00Z').toLocaleDateString('
 const CH_URL=[[/^Sky /,'https://www.skysports.com/'],[/^NOW/,'https://www.nowtv.com/'],[/^TNT Sports/,'https://www.tntsports.co.uk/'],[/^HBO Max/,'https://www.hbomax.com/gb/en'],
  [/^Premier Sports/,'https://www.premiersports.com/'],[/^DAZN/,'https://www.dazn.com/en-GB/home'],[/^Prime Video/,'https://www.primevideo.com/'],[/^Disney\+/,'https://www.disneyplus.com/en-gb'],
  [/^BBC Sport online/,'https://www.bbc.co.uk/sport/football'],[/^BBC/,'https://www.bbc.co.uk/iplayer'],[/^(ITV1|ITVX)/,'https://www.itv.com/watch'],[/^STV/,'https://player.stv.tv/'],
- [/^S4C/,'https://www.s4c.cymru/clic/'],[/Overlap Daily|That's Football/,'https://www.youtube.com/@overlapdaily/streams'],[/Jamie Vardy/,'https://www.youtube.com/@thevardyparty/streams'],[/YouTube/,'https://www.youtube.com/']];
-function chURL(c){for(const [re,u] of CH_URL)if(re.test(c))return u;return ''}
+ [/^S4C/,'https://www.s4c.cymru/clic/'],[/Overlap Daily|That's Football/,'https://www.youtube.com/@overlapdaily/streams'],[/Jamie Vardy/,'https://www.youtube.com/@thevardyparty/streams'],[/CONCACAF/,'https://www.youtube.com/@concacaf/streams'],[/YouTube/,'https://www.youtube.com/']];
+function chURL(c){for(const [re,u] of CH_URL)if(re.test(c)){if(u==='https://www.youtube.com/'){const n=c.match(/YouTube \((.+)\)/);if(n)return 'https://www.youtube.com/results?search_query='+encodeURIComponent(n[1])}return u}return ''}
 const ext=c=>chURL(c)?'<span class="ext" aria-hidden="true">↗</span>':'';
 const bWrap=(c,inner)=>{const u=chURL(c);return u?`<a class="bl" href="${u}" target="_blank" rel="noopener" title="Open ${esc(c)} in a new tab">${inner}</a>`:inner};
 // Match venues, keyed "YYYY-MM-DD|Home|Away" (same spellings as RAW). Internationals for now.
