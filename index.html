@@ -22,7 +22,7 @@
 <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <meta name="theme-color" content="#f3f6f1">
-<meta name="ck-build" content="3bf7214843e2">
+<meta name="ck-build" content="b044f40ddd16">
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&family=Hind:wght@500;600;700&display=swap" rel="stylesheet">
@@ -96,6 +96,8 @@ input[type=text]:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(21,12
 .row{display:flex;gap:8px 14px;flex-wrap:wrap;align-items:center}
 .chips{display:flex;gap:6px;overflow-x:auto;padding-bottom:2px;scrollbar-width:none}
 .chips::-webkit-scrollbar{display:none}
+@media (hover:hover) and (pointer:fine){.chips{flex-wrap:wrap;overflow:visible}}
+.chips.more{-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 40px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 40px),transparent)}
 .chip{flex:none;border:1px solid var(--line2);background:#fff;color:var(--muted);border-radius:999px;padding:7px 13px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;transition:all .15s}
 .chip.on{background:var(--ink);border-color:var(--ink);color:#fff}
 .chip.fav{color:var(--gold-d)}
@@ -1875,6 +1877,8 @@ function toggleFav(t){ st.favs = isFavTeam(t)? st.favs.filter(x=>x!==t) : [...st
 // ---------- UI wiring ----------
 const $=id=>document.getElementById(id);
 const chips=$('chips');
+function chipFade(){chips.classList.toggle('more',chips.scrollLeft+chips.clientWidth<chips.scrollWidth-4)}
+chips.addEventListener('scroll',chipFade,{passive:true});window.addEventListener('resize',chipFade);
 GROUPS.forEach((g,i)=>{const b=document.createElement('button');b.className='chip'+(i===1?' fav':'');b.textContent=g[0];b.onclick=()=>{st.grp=i;save();render()};chips.appendChild(b)});
 $('days').addEventListener('click',e=>{const b=e.target.closest('[data-day]');if(!b)return;st.day=b.dataset.day;render();try{window.scrollTo({top:$('list').offsetTop-$('days').closest('.controls').offsetHeight-10,behavior:'smooth'})}catch(_){}});
 $('hidePast').checked=st.hidePast; $('hidePast').onchange=e=>{st.hidePast=e.target.checked;save();renderAll()};
@@ -2053,6 +2057,7 @@ function render(){
   if(st.grp===1&&!hasFavs())st.grp=0;
   const pill=$('teamPill'); pill.hidden=!st.q; if(st.q) {const tc=teamColour(st.q)||'#0f172a';pill.style.setProperty('--c',tc);const n=data.filter(m=>(m.h===st.q||m.a===st.q)&&!isPast(m)).length;pill.innerHTML=`<span class="tpt">Showing all <b>${esc(short(st.q))}</b> games <span class="tpc">(${n})</span></span><button aria-label="Close and go back">✕ Close</button>`;}
   [...chips.children].forEach((b,i)=>b.classList.toggle('on',i===st.grp));
+  {const ab=chips.children[st.grp];if(ab&&chips.scrollWidth>chips.clientWidth){const cr=chips.getBoundingClientRect(),br=ab.getBoundingClientRect();if(br.right>cr.right-40)chips.scrollLeft+=br.right-cr.right+48;else if(br.left<cr.left)chips.scrollLeft-=cr.left-br.left+12}chipFade()}
   const now=Date.now(), today=todayStr(), tomorrow=new Date(Date.parse(today+'T12:00:00Z')+864e5).toISOString().slice(0,10);
   const base=data.filter(m=>{
     m.past=isPast(m);
