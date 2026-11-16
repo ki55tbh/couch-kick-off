@@ -354,10 +354,10 @@ const CP = {
 const PRIME_NOTE = "Prime Video shows one Tuesday game a week; its UK pick isn't confirmed";
 // date time | home | away | comp | channels | note
 // Updated by the scheduled task on every run. status: 'ok' or 'failed'.
-const UPDATED = {last_ok:'2026-11-16T09:41', last_attempt:'2026-11-16T09:41', status:'ok', summary:'No fixture changes; today to Wednesday rechecked against FotMob and live-footballontv, all correct'};
+const UPDATED = {last_ok:'2026-11-16T09:41', last_attempt:'2026-11-16T09:41', status:'ok', summary:'No fixture changes; today to Wednesday rechecked against FotMob and live-footballontv, all correct. Weekly audit: 2 corrections, no missing games'};
 // Weekly accuracy audit history, written by the Monday audit task (not shown on the page). Newest last.
 // Each entry: {week:'YYYY-MM-DD', checked:N, correct:N, incorrect:N, unverified:N, fixed:N}
-const AUDITS = [];
+const AUDITS = [{week:'2026-11-16', checked:81, correct:46, incorrect:2, unverified:33, missing:0, fixed:2, expected:0, promoted:0, bcast_confirmed:36}];
 const RAW = `
 2026-11-14 10:15|Japan|Brazil|International Friendly|NOTV|No UK broadcaster has been announced. Played at the National Stadium, Singapore
 2026-11-14 21:30|Haiti|USA|CONCACAF Nations League|YouTube (CONCACAF)|Free to watch on CONCACAF's YouTube channel
@@ -366,7 +366,7 @@ const RAW = `
 2026-11-18 00:00|USA|Haiti|CONCACAF Nations League|YouTube (CONCACAF)|Free to watch on CONCACAF's YouTube channel
 2026-11-18 02:30|Mexico|Jamaica|CONCACAF Nations League|YouTube (CONCACAF)|Free to watch on CONCACAF's YouTube channel
 2026-11-17 10:00|Singapore|Brazil|International Friendly|NOTV|No UK broadcaster has been announced
-2026-11-17 TBC|Argentina|Costa Rica|International Friendly|NOTV|In Córdoba. Kick-off time not announced; no UK broadcaster announced
+2026-11-17 23:00|Argentina|Costa Rica|International Friendly|NOTV|In Córdoba. No UK broadcaster has been announced
 2026-11-29 17:30|Celta Vigo|Villarreal|LL|PS?
 2026-11-28 17:30|Elche|Atlético Madrid|LL|PS?
 2026-11-28 13:00|Real Betis|Rayo Vallecano|LL|PS?
@@ -1264,7 +1264,7 @@ const RAW = `
 2026-11-19 20:00|Arsenal (W)|OL Lyonnes (W)|WCL|BBC Three,BBC iPlayer,Disney+
 2026-11-19 20:00|Barcelona (W)|Servette (W)|WCL|DIS
 2026-11-19 20:00|Benfica (W)|Roma (W)|WCL|DIS
-2026-11-20 20:00|Barnsley|Sheffield Wednesday|L1|Sky Sports Main Event,Sky Sports Football,Sky Sports Ultra HDR,NOW
+2026-11-20 20:00|Barnsley|Sheffield Wednesday|L1|Sky Sports Football,NOW
 2026-11-20 19:30|Inverness CT|Ayr United|SCH|BBC Scotland,BBC iPlayer
 2026-11-21 12:30|Manchester City|Fulham|PL|TNT Sports 1,TNT Sports Ultimate,HBO Max
 2026-11-21 12:30|Millwall|QPR|CH|Sky Sports Main Event,Sky Sports Football,Sky Sports Ultra HDR,NOW
