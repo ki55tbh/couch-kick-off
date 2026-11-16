@@ -22,7 +22,7 @@
 <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <meta name="theme-color" content="#f3f6f1">
-<meta name="ck-build" content="c8590e3ac44b">
+<meta name="ck-build" content="e2974e5af1f2">
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&family=Hind:wght@500;600;700&display=swap" rel="stylesheet">
@@ -96,6 +96,7 @@ input[type=text]:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(21,12
 .row{display:flex;gap:8px 14px;flex-wrap:wrap;align-items:center}
 .chips{display:flex;gap:6px;overflow-x:auto;padding-bottom:2px;scrollbar-width:none}
 .chips::-webkit-scrollbar{display:none}
+.lbl-l{display:none}@media(min-width:916px){.lbl-l{display:inline}.lbl-s{display:none}}
 @media (hover:hover) and (pointer:fine){.chips{flex-wrap:wrap;overflow:visible}}
 .chips.more{-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 40px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 40px),transparent)}
 .chip{flex:none;border:1px solid var(--line2);background:#fff;color:var(--muted);border-radius:999px;padding:7px 13px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;transition:all .15s}
@@ -109,6 +110,7 @@ label.tog{font-size:13px;color:var(--muted);display:flex;align-items:center;gap:
 .opts{display:flex;flex-wrap:wrap;gap:6px 14px;flex:1;min-width:0}
 .opts label.tog{white-space:nowrap}
 @media(max-width:520px){.opts{gap:6px 6px;justify-content:space-between}.opts label.tog{font-size:12.6px;gap:4px;letter-spacing:-.015em}.opts input[type=checkbox]{width:15px;height:15px;margin:0}.reset{padding:6px 9px}.optrow{gap:6px}}
+@media(max-width:409px){.optrow{display:grid;grid-template-columns:1fr 1fr;gap:8px 12px;align-items:center}.optrow .opts{display:contents}.optrow .reset{justify-self:start;margin-left:0}}
 .days{display:flex;gap:7px;overflow-x:auto;scrollbar-width:none;padding:2px 0 4px;scroll-snap-type:x proximity}
 .days::-webkit-scrollbar{display:none}
 .dwrap{position:relative}
@@ -271,7 +273,7 @@ footer ul{margin:0;padding-left:18px}
   <div class="optrow">
     <div class="opts">
       <label class="tog"><input type="checkbox" id="hidePast" checked> Hide finished</label>
-      <label class="tog"><input type="checkbox" id="bigOnly"> Main comps</label>
+      <label class="tog"><input type="checkbox" id="bigOnly"> <span class="lbl-s">Main comps</span><span class="lbl-l">Main competitions only</span></label>
       <label class="tog"><input type="checkbox" id="confOnly"> <span title="Shows games with confirmed or expected UK TV coverage">TV games only</span></label>
     </div>
     <button class="btn small reset" id="resetBtn">↺ Reset</button>

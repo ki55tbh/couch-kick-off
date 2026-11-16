@@ -91,6 +91,7 @@ input[type=text]:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(21,12
 .row{display:flex;gap:8px 14px;flex-wrap:wrap;align-items:center}
 .chips{display:flex;gap:6px;overflow-x:auto;padding-bottom:2px;scrollbar-width:none}
 .chips::-webkit-scrollbar{display:none}
+.lbl-l{display:none}@media(min-width:916px){.lbl-l{display:inline}.lbl-s{display:none}}
 @media (hover:hover) and (pointer:fine){.chips{flex-wrap:wrap;overflow:visible}}
 .chips.more{-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 40px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 40px),transparent)}
 .chip{flex:none;border:1px solid var(--line2);background:#fff;color:var(--muted);border-radius:999px;padding:7px 13px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;transition:all .15s}
@@ -104,6 +105,7 @@ label.tog{font-size:13px;color:var(--muted);display:flex;align-items:center;gap:
 .opts{display:flex;flex-wrap:wrap;gap:6px 14px;flex:1;min-width:0}
 .opts label.tog{white-space:nowrap}
 @media(max-width:520px){.opts{gap:6px 6px;justify-content:space-between}.opts label.tog{font-size:12.6px;gap:4px;letter-spacing:-.015em}.opts input[type=checkbox]{width:15px;height:15px;margin:0}.reset{padding:6px 9px}.optrow{gap:6px}}
+@media(max-width:409px){.optrow{display:grid;grid-template-columns:1fr 1fr;gap:8px 12px;align-items:center}.optrow .opts{display:contents}.optrow .reset{justify-self:start;margin-left:0}}
 .days{display:flex;gap:7px;overflow-x:auto;scrollbar-width:none;padding:2px 0 4px;scroll-snap-type:x proximity}
 .days::-webkit-scrollbar{display:none}
 .dwrap{position:relative}
