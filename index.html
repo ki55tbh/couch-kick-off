@@ -251,7 +251,7 @@ footer ul{margin:0;padding-left:18px}
 <script>/* Show the folded favourites box straight away, so it doesn't open out and snap shut while the page loads */(function(){try{var s=JSON.parse(localStorage.getItem('fotv2')||'{}'),n=[].concat(s.favs||[],s.favComps||[]);if(!n.length)return;document.querySelector('.myteams').classList.add('collapsed');document.getElementById('mtSum').hidden=false;document.getElementById('mtSumText').textContent=n.join(' · ')}catch(e){}})();</script>
 
 <section class="pinned" id="pinned" hidden>
-  <div class="pinned-box"><h3>Next up for your teams</h3><div id="pinnedList"></div></div>
+  <div class="pinned-box"><h3 id="pinnedTitle">Next 3 on TV for each of your teams</h3><div id="pinnedList"></div></div>
 </section>
 </aside><div class="mainc">
 
@@ -2044,6 +2044,7 @@ function renderPinned(){
   });
   rows.sort((x,y)=>order(x).localeCompare(order(y)));
   $('pinned').hidden=false;
+  $('pinnedTitle').textContent = st.favs.length===1 ? `Next 3 ${short(st.favs[0])} games on TV` : 'Next 3 on TV for each of your teams';
   const btns='<div class="seeall">'+st.favs.map(t=>{const n=data.filter(m=>(m.h===t||m.a===t)&&!isPast(m)).length;return `<button class="btn gold" data-all="${esc(t)}">All ${esc(short(t))} games (${n}) →</button>`}).join('')+'</div>';
   $('pinnedList').innerHTML = (rows.length? rows.map(m=>card(m,true)).join('') : '<div class="hint">No upcoming games listed for your teams yet.</div>') + btns;
 }
