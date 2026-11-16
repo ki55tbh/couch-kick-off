@@ -19,11 +19,11 @@ Audit every RAW line in the window whose CHANNELS is a real broadcaster (not NOT
 Give each checked line TWO separate verdicts. Never let one decide the other.
 
 **A) Fixture verdict: date, UK kick-off and the two teams.**
-- Official sources only: competition sites (premierleague.com, efl.com, spfl.co.uk, laliga.com, legaseriea.it, bundesliga.com, uefa.com), club sites, or a broadcaster's own schedule.
+- Official sources only: competition sites (premierleague.com, efl.com, spfl.co.uk, laliga.com, legaseriea.it, bundesliga.com, uefa.com, mlssoccer.com), club sites, or a broadcaster's own schedule.
 - CORRECT: an official source matches. INCORRECT: an official source clearly differs. UNVERIFIED: no official source reached, or official sources conflict.
 
 **B) Broadcast verdict: the UK channel(s) as listed, or the "not on UK TV" claim.**
-- Official sources only: Sky Sports, TNT Sports, BBC Sport / iPlayer / ALBA, ITV / ITVX, Premier Sports, DAZN, Prime Video, Disney+, or a competition or club announcement naming the UK broadcaster for that match.
+- Official sources only: Sky Sports, TNT Sports, BBC Sport / iPlayer / ALBA, ITV / ITVX, Premier Sports, DAZN, Prime Video, Disney+, Apple TV, or a competition or club announcement naming the UK broadcaster for that match.
 - Rights ownership is never proof of an individual broadcast. A blanket statement ("every match live on X") counts only if it is official and clearly covers this match; say so in the evidence line.
 - A confirmed line (no "?") is CORRECT only if an official source lists that specific match on that broadcaster. INCORRECT if it is clearly absent from that broadcaster's published schedule or shown on another channel. Otherwise UNVERIFIED.
 - An Expected line is CORRECT only when an official source confirms that specific match on that broadcaster; then also promote it in step 4. Rights ownership alone is NOT enough: if the broadcaster holds the competition's rights but nothing official names this match, the broadcast verdict is UNVERIFIED. INCORRECT if an official source shows a different broadcaster or not on UK TV.
@@ -40,7 +40,7 @@ Record all verdicts BEFORE fixing anything.
 
 ## Step 3: completeness. Missing televised games in the same 7 days
 
-Go the other way round: take the official UK TV schedules for the window (Sky Sports, TNT Sports, BBC, ITV, Premier Sports, DAZN, Prime Video, Disney+; aggregators only to find candidates). Count as MISSING any live men's game broadcast in the UK that has no RAW line at all, in a covered competition (Premier League, Championship, League One, League Two, EFL Trophy, FA Cup, Carabao Cup, Scottish Premiership and cups, Champions/Europa/Conference League, LaLiga, Serie A, Bundesliga, Nations League, Euro qualifiers, friendlies involving home nations or major nations, CONCACAF Nations League League A only, usually free on CONCACAF's YouTube channel: check https://www.youtube.com/@concacaf/streams). A listed placeholder/TBC since confirmed is INCORRECT, not MISSING; a listed Expected game counts as listed.
+Go the other way round: take the official UK TV schedules for the window (Sky Sports, TNT Sports, BBC, ITV, Premier Sports, DAZN, Prime Video, Disney+; aggregators only to find candidates). Count as MISSING any live men's game broadcast in the UK that has no RAW line at all, in a covered competition (Premier League, Championship, League One, League Two, EFL Trophy, FA Cup, Carabao Cup, Scottish Premiership and cups, Champions/Europa/Conference League, LaLiga, Serie A, Bundesliga, Nations League, Euro qualifiers, friendlies involving home nations or major nations, CONCACAF Nations League League A only, usually free on CONCACAF's YouTube channel: check https://www.youtube.com/@concacaf/streams, MLS Cup Playoffs and MLS Cup on Apple TV: check mlssoccer.com). A listed placeholder/TBC since confirmed is INCORRECT, not MISSING; a listed Expected game counts as listed.
 
 Note exactly which of those eight broadcasters' schedules you could open. If ANY could not be checked, completeness is PARTIAL: it only describes the schedules you did check, and the report must name the ones you could not.
 
