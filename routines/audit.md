@@ -12,6 +12,8 @@ Read UPDATED. Flag a problem if status is 'failed', or last_ok is more than 26 h
 
 ## Step 2: accuracy. Audit every listed game in the next 7 days (today to today+6)
 
+Skip games the website does not show. The page hides women's football: any RAW line whose home team, away team or competition matches the `WOMENS` pattern in `index.html` (e.g. "(W)" teams, WSL, WCL, WLC, Frauen-Bundesliga) is filtered out before display. Do not audit those lines, do not count them in any total, and do not add or fix them in step 3 or 4.
+
 For each RAW line in the window whose CHANNELS is a real broadcaster (not NOTV, not TBC, not a placeholder with empty Away), including Expected ("?") lines:
 - Verify date, UK kick-off and UK channel(s) against OFFICIAL sources first: Sky Sports, TNT Sports, BBC Sport / iPlayer / ALBA, ITV / ITVX, Premier Sports, DAZN, Prime Video, Disney+, and competition or club sites (premierleague.com, efl.com, spfl.co.uk, laliga.com, legaseriea.it, bundesliga.com, uefa.com, club fixture pages).
 - Aggregators (FotMob, live-footballontv.com, wheresthematch.com, 101greatgoals, footballwebpages) only help you find things to check. An aggregator alone, or two agreeing, does NOT count as verification.
