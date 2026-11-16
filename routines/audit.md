@@ -27,6 +27,7 @@ Give each checked line TWO separate verdicts. Never let one decide the other.
 - Rights ownership is never proof of an individual broadcast. A blanket statement ("every match live on X") counts only if it is official and clearly covers this match; say so in the evidence line.
 - A confirmed line (no "?") is CORRECT only if an official source lists that specific match on that broadcaster. INCORRECT if it is clearly absent from that broadcaster's published schedule or shown on another channel. Otherwise UNVERIFIED.
 - An Expected line is CORRECT only when an official source confirms that specific match on that broadcaster; then also promote it in step 4. Rights ownership alone is NOT enough: if the broadcaster holds the competition's rights but nothing official names this match, the broadcast verdict is UNVERIFIED. INCORRECT if an official source shows a different broadcaster or not on UK TV.
+- Multiple channels: verify EVERY channel listed. A channel's own streaming service can share that channel's verdict (NOW with Sky Sports, HBO Max with TNT Sports, BBC iPlayer with BBC channels, ITVX with ITV, STV Player with STV), but only where it carries that channel's coverage of this match. Do not assume it always does: if a source suggests the match is excluded from that service (for example a rights or regional restriction), check the service separately. The broadcast verdict is CORRECT only if every listed channel is confirmed for that match; INCORRECT if any listed channel is clearly wrong; otherwise UNVERIFIED, and the evidence line names which channels were confirmed and which were not.
 - Never two broadcasters on one game unless an official source shows that match on both.
 
 **Aggregators** (FotMob, live-footballontv.com, wheresthematch.com, 101greatgoals, footballwebpages, fantacalcio.it and similar) only help you find things to check. An aggregator alone, or several agreeing, never makes either verdict CORRECT or INCORRECT.
@@ -81,7 +82,7 @@ Accuracy: NN.N% (C of V verified)
 Coverage: NN.N% (V of N checked)
 Incorrect before fixing: N, all fixed / N fixed
 Unverified: N
-Expected listings: N (N now confirmed and promoted)
+Expected listings: N (N confirmed and promoted, N rights-based only so UNVERIFIED)
 Prime Video PPV exceptions: N
 
 COMPLETENESS
