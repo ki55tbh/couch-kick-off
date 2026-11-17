@@ -369,7 +369,7 @@ const CP = {
 const PRIME_NOTE = "Prime Video shows one Tuesday game a week; its UK pick isn't confirmed";
 // date time | home | away | comp | channels | note
 // Updated by the scheduled task on every run. status: 'ok' or 'failed'.
-const UPDATED = {last_ok:'2026-11-16T09:41', last_attempt:'2026-11-16T09:41', status:'ok', summary:'No fixture changes; today to Wednesday rechecked against FotMob and live-footballontv, all correct. Weekly audit: 2 corrections, no missing games'};
+const UPDATED = {last_ok:'2026-11-17T09:41', last_attempt:'2026-11-17T09:41', status:'ok', summary:'15 channel changes: exact Sky and TNT channels for 14 Premier League games (27 Nov to 6 Dec) and Barnsley v Sheffield Wednesday now also on Sky Sports Main Event; today to Thursday rechecked, all correct'};
 // Weekly accuracy audit history, written by the Monday audit task (not shown on the page). Newest last.
 // Each entry: {week:'YYYY-MM-DD', checked:N, correct:N, incorrect:N, unverified:N, fixed:N}
 const AUDITS = [{week:'2026-11-16', checked:81, correct:46, incorrect:2, unverified:33, missing:0, fixed:2, expected:0, promoted:0, bcast_confirmed:36}];
@@ -1298,7 +1298,7 @@ const RAW = `
 2026-11-19 20:00|Arsenal (W)|OL Lyonnes (W)|WCL|BBC Three,BBC iPlayer,Disney+
 2026-11-19 20:00|Barcelona (W)|Servette (W)|WCL|DIS
 2026-11-19 20:00|Benfica (W)|Roma (W)|WCL|DIS
-2026-11-20 20:00|Barnsley|Sheffield Wednesday|L1|Sky Sports Football,NOW
+2026-11-20 20:00|Barnsley|Sheffield Wednesday|L1|Sky Sports Main Event,Sky Sports Football,Sky Sports Ultra HDR,NOW
 2026-11-20 19:30|Inverness CT|Ayr United|SCH|BBC Scotland,BBC iPlayer
 2026-11-21 12:30|Manchester City|Fulham|PL|TNT Sports 1,TNT Sports Ultimate,HBO Max
 2026-11-21 12:30|Millwall|QPR|CH|Sky Sports Main Event,Sky Sports Football,Sky Sports Ultra HDR,NOW
@@ -1375,7 +1375,7 @@ const RAW = `
 2026-11-26 20:00|Ferencváros|Celje|UEL|T
 2026-11-26 20:00|OFI Crete|Anderlecht|UEL|T
 2026-11-26 20:00|Doncaster Rovers|Huddersfield Town|L1|SF
-2026-11-27 20:00|Nottingham Forest|Chelsea|PL|S
+2026-11-27 20:00|Nottingham Forest|Chelsea|PL|Sky Sports Main Event,Sky Sports Premier League,Sky Sports Ultra HDR,NOW
 2026-11-28 12:30|Blackburn Rovers|Charlton Athletic|CH|S
 2026-11-28 12:30|Lincoln City|Wolves|CH|S
 2026-11-28 12:30|Preston North End|Norwich City|CH|S
@@ -1383,15 +1383,15 @@ const RAW = `
 2026-11-28 12:30|Peterborough United|Cambridge United|L1|S
 2026-11-28 12:30|Bristol Rovers|Tranmere Rovers|L2|S
 2026-11-28 12:30|Exeter City|Crawley Town|L2|S
-2026-11-28 17:30|Ipswich Town|Aston Villa|PL|S
-2026-11-29 12:00|Everton|Liverpool|PL|T
+2026-11-28 17:30|Ipswich Town|Aston Villa|PL|Sky Sports Main Event,Sky Sports Premier League,Sky Sports Ultra HDR,NOW
+2026-11-29 12:00|Everton|Liverpool|PL|TNT Sports 1,TNT Sports Ultimate,HBO Max
 2026-11-29 12:00|Swansea City|Cardiff City|CH|S
-2026-11-29 14:05|Brighton|Newcastle United|PL|S
-2026-11-29 14:05|Crystal Palace|Hull City|PL|S
-2026-11-29 14:05|Fulham|Bournemouth|PL|S
-2026-11-29 14:05|Sunderland|Tottenham Hotspur|PL|S
-2026-11-29 16:30|Arsenal|Manchester City|PL|S
-2026-12-01 20:00|Coventry City|Ipswich Town|PL|S
+2026-11-29 14:05|Brighton|Newcastle United|PL|Sky Sports Premier League,NOW
+2026-11-29 14:05|Crystal Palace|Hull City|PL|Sky Sports Cricket,NOW
+2026-11-29 14:05|Fulham|Bournemouth|PL|Sky Sports+,NOW
+2026-11-29 14:05|Sunderland|Tottenham Hotspur|PL|Sky Sports Main Event,NOW
+2026-11-29 16:30|Arsenal|Manchester City|PL|Sky Sports Main Event,Sky Sports Premier League,Sky Sports Ultra HDR,NOW
+2026-12-01 20:00|Coventry City|Ipswich Town|PL|Sky Sports Main Event,Sky Sports Premier League,Sky Sports Ultra HDR,NOW
 2026-12-02 19:30|Chelsea|Crystal Palace|PL|S
 2026-12-02 19:30|Hull City|Nottingham Forest|PL|S
 2026-12-02 19:30|Liverpool|Sunderland|PL|S
@@ -1401,20 +1401,20 @@ const RAW = `
 2026-12-02 20:15|Aston Villa|Everton|PL|S
 2026-12-02 20:15|Brentford|Arsenal|PL|S
 2026-12-02 20:15|Newcastle United|Manchester United|PL|S
-2026-12-03 20:00|Tottenham Hotspur|Fulham|PL|S
+2026-12-03 20:00|Tottenham Hotspur|Fulham|PL|Sky Sports Main Event,Sky Sports Premier League,Sky Sports Ultra HDR,NOW
 2026-12-04 TBC|FA Cup second round||FA Cup|TNT Sports,HBO Max,BBC|4 to 7 Dec. TV picks not announced yet
 2026-12-04 20:00|Sheffield United|West Ham United|CH|S
-2026-12-05 12:30|Chelsea|Liverpool|PL|T
+2026-12-05 12:30|Chelsea|Liverpool|PL|TNT Sports 1,TNT Sports Ultimate,HBO Max
 2026-12-05 12:30|Bolton Wanderers|Blackburn Rovers|CH|S
 2026-12-05 12:30|Middlesbrough|Derby County|CH|S
 2026-12-05 12:30|Watford|Millwall|CH|S
-2026-12-05 17:30|Nottingham Forest|Brighton|PL|S
+2026-12-05 17:30|Nottingham Forest|Brighton|PL|Sky Sports Main Event,Sky Sports Premier League,Sky Sports Ultra HDR,NOW
 2026-12-05 17:30|St Mirren|Hearts|SPL|PS
-2026-12-05 20:00|Brentford|Manchester City|PL|S
+2026-12-05 20:00|Brentford|Manchester City|PL|Sky Sports Main Event,Sky Sports Premier League,Sky Sports Ultra HDR,NOW
 2026-12-06 12:00|Burnley|Preston North End|CH|S
 2026-12-06 14:00|Everton|Fulham|PL|S
 2026-12-06 14:00|Newcastle United|Sunderland|PL|S
-2026-12-06 16:30|Tottenham Hotspur|Arsenal|PL|S
+2026-12-06 16:30|Tottenham Hotspur|Arsenal|PL|Sky Sports Main Event,Sky Sports Premier League,Sky Sports Ultra HDR,NOW
 2026-12-07 20:00|Hibernian|Rangers|SPL|S
 2026-12-08 17:45|Viking|Feyenoord|UCL|T
 2026-12-08 17:45|Villarreal|Sabah|UCL|T
