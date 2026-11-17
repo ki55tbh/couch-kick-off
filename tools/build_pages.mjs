@@ -63,7 +63,7 @@ function ukOffset(d, t) { // "+00:00" or "+01:00" for a UK local date/time
 }
 const swrap = t => esc(t).replace(/^(Sky )?Sports (?=\S)/, '$1<span class="sw">Sports </span>');
 const badges = m => m.ch.map(c => (c === 'Not on UK TV' || c === 'TV pick TBC') ? `<span class="b ${c === 'Not on UK TV' ? 'notv' : 'tbc'}">${esc(c)}</span>` :
-  (/^Sky (Sports(?! (Football|Premier League))|Mix)/.test(c) ? bWrap(c, `<span class="b skyb"><span class="s1">${esc(c.split(' ')[0])}</span><span class="s2">${swrap(c.split(' ').slice(1).join(' '))}${ext(c)}</span></span>`) :
+  (/^Sky (Sports|Mix)/.test(c) ? bWrap(c, `<span class="b skyb"><span class="s1">${esc(c.split(' ')[0])}</span><span class="s2">${swrap(c.split(' ').slice(1).join(' '))}${ext(c)}</span></span>`) :
   (m.exp.includes(c) ? bWrap(c, `<span class="b exp" style="${expStyle(c)}" title="${esc(c)} holds the rights but hasn't confirmed this match yet">${swrap(c)}${ext(c)}</span>`) + '<span class="exptag">Expected</span>' :
   bWrap(c, `<span class="b" style="${brandStyle(c)}">${swrap(c)}${ext(c)}</span>`)))).join('') + (m.ch.some(c => FREE.test(c)) ? '<span class="freetag">FREE</span>' : '');
 const isTV = m => !m.ch.includes('Not on UK TV') && !m.ch.includes('TV pick TBC');

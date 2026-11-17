@@ -21,7 +21,7 @@
 <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <meta name="theme-color" content="#f3f6f1">
-<meta name="ck-build" content="bec205224381">
+<meta name="ck-build" content="8f13b40044cc">
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="preload" href="/fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/inter-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
@@ -2076,7 +2076,7 @@ function repLink(m){const who=m.a?`${m.h} v ${m.a}`:m.h;const chans=m.ch.map(c=>
   return `<a class="rep" href="mailto:${REPORT_TO}?subject=${encodeURIComponent('Couch Kick-Off: mistake in '+who)}&body=${encodeURIComponent(body)}" title="Report a mistake in this listing">Report</a>`}
 function card(m,showDate){
   const swrap=t=>esc(t).replace(/^(Sky )?Sports (?=\S)/,'$1<span class="sw">Sports </span>');
-  const badges=m.ch.map(c=>(c==='Not on UK TV'||c==='TV pick TBC')?`<span class="b ${c==='Not on UK TV'?'notv':'tbc'}">${esc(c)}</span>`:(/^Sky (Sports(?! (Football|Premier League))|Mix)/.test(c)?bWrap(c,`<span class="b skyb"><span class="s1">${esc(c.split(' ')[0])}</span><span class="s2">${swrap(c.split(' ').slice(1).join(' '))}${ext(c)}</span></span>`):(m.exp.includes(c)?bWrap(c,`<span class="b exp" style="${expStyle(c)}" title="${esc(c)} holds the rights but hasn't confirmed this match yet">${swrap(c)}${ext(c)}</span>`)+`<span class="exptag">Expected</span>`:bWrap(c,`<span class="b" style="${brandStyle(c)}">${swrap(c)}${ext(c)}</span>`)))).join('')+(m.ch.some(c=>FREE.test(c))?'<span class="freetag">FREE</span>':'');
+  const badges=m.ch.map(c=>(c==='Not on UK TV'||c==='TV pick TBC')?`<span class="b ${c==='Not on UK TV'?'notv':'tbc'}">${esc(c)}</span>`:(/^Sky (Sports|Mix)/.test(c)?bWrap(c,`<span class="b skyb"><span class="s1">${esc(c.split(' ')[0])}</span><span class="s2">${swrap(c.split(' ').slice(1).join(' '))}${ext(c)}</span></span>`):(m.exp.includes(c)?bWrap(c,`<span class="b exp" style="${expStyle(c)}" title="${esc(c)} holds the rights but hasn't confirmed this match yet">${swrap(c)}${ext(c)}</span>`)+`<span class="exptag">Expected</span>`:bWrap(c,`<span class="b" style="${brandStyle(c)}">${swrap(c)}${ext(c)}</span>`)))).join('')+(m.ch.some(c=>FREE.test(c))?'<span class="freetag">FREE</span>':'');
   const pending=m.ch.includes('TV pick TBC'); const notv=m.ch.includes('Not on UK TV');
   return `<div class="m${isFav(m)?' fav':isFavComp(m.c)?' favc':''}${m.past?' past':''}${pending?' tbcm':''}${notv?' notvm':''}"><div class="ko">${showDate?`<span class="dt">${shortDate(m.d)}</span>`:''}${m.t}${m.t==='TBC'?'':'<small>UK</small>'}${isLive(m)&&!notv&&!pending?'<span class="live"><i></i>On now</span>':''}</div><div>
     <div class="teams">${m.a?`${teamHTML(m.h)} <span class="vaw"><span class="v">v</span>${teamHTML(m.a)}</span>`:`<span class="ev">${esc(m.h)}</span>`}</div>
