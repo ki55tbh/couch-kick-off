@@ -108,6 +108,13 @@ def main():
         print('No public pages changed, so nothing to send.'); return
     print(f'{len(urls)} URL(s) to send:'); [print('  ' + u) for u in urls]
     if dry: print('Dry run: nothing sent.'); return
+    try:
+        ok = get(f'{SITE}/{k}.txt').decode().strip() == k
+    except Exception as e:
+        ok = False; print(f'Key file check: {e}')
+    if not ok:
+        sys.exit(f'The key file {SITE}/{k}.txt is not live yet (or does not match), so nothing was sent.')
+    print('Key file is live and matches.')
     if not wait_until_live(pages):
         sys.exit('The live site did not show the new version within 15 minutes, so nothing was sent.')
     if not submit(urls[:10000], k):
