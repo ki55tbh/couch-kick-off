@@ -21,7 +21,7 @@
 <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <meta name="theme-color" content="#f3f6f1">
-<meta name="ck-build" content="dc1d436a9021">
+<meta name="ck-build" content="640f3c9c6714">
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="preload" href="/fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/inter-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
@@ -2014,8 +2014,8 @@ function resetFilters(){
   save();renderAll();
 }
 $('resetBtn').onclick=resetFilters;
-function openComp(c){if(!st.prev)st.prev={grp:st.grp,comp:st.comp,day:st.day,q:st.q}; st.comp=c; st.q=''; st.grp=0; st.day=''; render();
-  try{document.querySelector('.controls').scrollIntoView({behavior:'smooth'})}catch(_){}}
+function openComp(c){if(!st.prev)st.prev={grp:st.grp,comp:st.comp,day:st.day,q:st.q}; st.comp=c; st.q=''; st.grp=0; st.day=''; render(); try{$('days').scrollLeft=0}catch(_){}
+  try{const L=$('list'),c=document.querySelector('.controls');const y=L.getBoundingClientRect().top+scrollY-(c?c.offsetHeight:0)-12;window.scrollTo({top:Math.max(0,y),behavior:'smooth'})}catch(_){}}
 document.addEventListener('click',e=>{const x=e.target.closest('[data-cv]');if(x)openComp(x.dataset.cv)});
 document.addEventListener('keydown',e=>{const x=e.target.closest&&e.target.closest('[data-cv]');if(x&&(e.key==='Enter'||e.key===' ')){e.preventDefault();openComp(x.dataset.cv)}});
 $('teamPill').addEventListener('click',e=>{if(e.target.closest('button')){st.q='';st.comp='';if(st.prev){Object.assign(st,st.prev);st.prev=null}render()}});
