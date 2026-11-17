@@ -21,7 +21,7 @@
 <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <meta name="theme-color" content="#f3f6f1">
-<meta name="ck-build" content="aafe19249618">
+<meta name="ck-build" content="46f0f16ea958">
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="preload" href="/fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/inter-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
@@ -1967,7 +1967,7 @@ $('dPrev').onclick=()=>$('days').scrollBy({left:-$('days').clientWidth*0.8,behav
 function chipFade(){chips.classList.toggle('more',chips.scrollLeft+chips.clientWidth<chips.scrollWidth-4)}
 chips.addEventListener('scroll',chipFade,{passive:true});window.addEventListener('resize',chipFade);
 GROUPS.forEach((g,i)=>{const b=document.createElement('button');b.className='chip'+(i===1?' fav':'');b.dataset.g=i;b.textContent=g[0];b.onclick=()=>{st.grp=i;save();render()};chips.appendChild(b);
-  if(i===2){const c=document.createElement('button');c.className='chip compbtn';c.id='compBtn';c.type='button';c.setAttribute('aria-expanded','false');c.textContent='Competitions ▾';c.onclick=()=>toggleCompPanel();chips.appendChild(c)}});
+  if(i===1){const c=document.createElement('button');c.className='chip compbtn';c.id='compBtn';c.type='button';c.setAttribute('aria-expanded','false');c.textContent='Competitions ▾';c.onclick=()=>toggleCompPanel();chips.appendChild(c)}});
 // Competitions button: a list of competitions with upcoming games; picking one opens its view
 const MAINCOMPS=12;
 function compPanelHTML(all){const counts={};for(const m of data){if(isPast(m))continue;counts[m.c]=(counts[m.c]||0)+1}
