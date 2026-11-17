@@ -1,0 +1,33 @@
+# Tells Bing (IndexNow) which pages changed after each update of the live site.
+# Read-only: it never changes the website, fixture data or routine files.
+name: IndexNow
+on:
+  push:
+    branches: [main]
+    paths: ['index.html', '*/index.html']
+  workflow_dispatch:
+    inputs:
+      all:
+        description: 'Send every page in sitemap.xml (first run)'
+        type: boolean
+        default: true
+permissions:
+  contents: read
+concurrency:
+  group: indexnow
+  cancel-in-progress: false
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Send changed pages to IndexNow
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.all }}" = "true" ]; then
+            python3 tools/indexnow.py all
+          else
+            python3 tools/indexnow.py changed "${{ github.event.before }}" "${{ github.sha }}"
+          fi
