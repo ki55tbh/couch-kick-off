@@ -6,7 +6,15 @@ import fs from 'node:fs';
 import { createHash } from 'node:crypto';
 
 // Team pages are made for every club in these leagues (taken from the fixture data, so promotions are automatic)
-const LEAGUES = ['Premier League', 'Championship', 'Scottish Premiership'];
+const LEAGUES = ['Premier League', 'Championship', 'League One', 'League Two', 'Scottish Premiership', 'Scottish Championship', 'Scottish League One', 'Scottish League Two'];
+// Scottish clubs are listed by hand because most lower-league games are never televised, so many clubs never appear in the data.
+// Update these lists each summer after promotions and relegations (2026/27 season). English clubs come from the data automatically.
+const SCOTTISH = {
+  'Scottish Premiership': ['Aberdeen', 'Celtic', 'Dundee', 'Dundee United', 'Falkirk', 'Hearts', 'Hibernian', 'Kilmarnock', 'Motherwell', 'Rangers', 'St Johnstone', 'St Mirren'],
+  'Scottish Championship': ['Arbroath', 'Ayr United', 'Dunfermline Athletic', 'Greenock Morton', 'Inverness CT', 'Livingston', 'Partick Thistle', "Queen's Park", 'Raith Rovers', 'Stenhousemuir'],
+  'Scottish League One': ['Airdrieonians', 'Alloa Athletic', 'Cove Rangers', 'East Fife', 'East Kilbride', 'Hamilton Academical', 'Montrose', 'Peterhead', 'Queen of the South', 'Ross County'],
+  'Scottish League Two': ['Annan Athletic', 'Clyde', 'Dumbarton', 'Edinburgh City', 'Elgin City', 'Forfar Athletic', 'Kelty Hearts', 'Stirling Albion', 'Stranraer', 'The Spartans'],
+};
 
 const SITE = 'https://couchkickoff.co.uk';
 const CHECK = process.argv.includes('--check');
@@ -29,6 +37,7 @@ const bWrap = (c, inner) => { const u = chURL(c); return u ? `<a class="bl" href
 const slugify = t => t.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/&/g, 'and').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 const LEAGUE_OF = {};
 for (const lg of LEAGUES) for (const m of data) if (m.c === lg && m.a) for (const t of [m.h, m.a]) LEAGUE_OF[t] ??= lg;
+for (const [lg, clubs] of Object.entries(SCOTTISH)) for (const t of clubs) LEAGUE_OF[t] = lg;
 const TEAMS = Object.keys(LEAGUE_OF).sort((a, b) => a.localeCompare(b)).map(t => [t, slugify(t)]);
 const style = cut('<style>', '</style>') + '</style>';
 const FREE = /BBC|ITV|STV|S4C|YouTube|England App|Channel 4|Channel 5/;
