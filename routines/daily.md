@@ -48,6 +48,8 @@ Today and the next 2 days must be right. Check them against a live UK listing (F
 
 Good sources: FotMob UK TV guide (https://www.fotmob.com/en-GB/tv-guide/gb) and its YouTube, BBC ALBA and Disney+ pages, Sky Sports and TNT Sports fixture/TV pages, premierleague.com broadcast selection news, 101greatgoals.com, spfl.co.uk TV selections, thefa.com, englandfootball.com, uefa.com, live-footballontv.com, laliga.com, club sites (e.g. realmadrid.com), Premier Sports, DAZN UK, bundesliga.com, Italian club or calcio news sites. The openfootball repos (github.com/openfootball/espana, deutschland, italy, folder 2026-27) hold full fixture lists. Use another source rather than working around a blocked site.
 
+Never undo a weekly audit correction (any channel or time the latest "Weekly audit" commit changed) using aggregators alone (FotMob, live-footballontv.com, 101greatgoals.com and similar). Only change it back if the broadcaster's own schedule (e.g. skysports.com/watch/football-on-sky) or the competition or club now shows it. Sky's schedule lists programme start times, which can be 30 minutes before kick-off: do not treat that as a kick-off change.
+
 ## Work out what changed
 
 Compare old RAW with new RAW and count: new televised fixtures confirmed; expected broadcasts confirmed ("?" removed); channel changes; time/date changes; games moved to "Not on UK TV". Put a one-line version in UPDATED.summary.
