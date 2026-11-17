@@ -21,7 +21,7 @@
 <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <meta name="theme-color" content="#f3f6f1">
-<meta name="ck-build" content="35d5c824bf3b">
+<meta name="ck-build" content="e6e871246c31">
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="preload" href="/fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/inter-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
@@ -169,6 +169,7 @@ a.bl{text-decoration:none;display:inline-flex}.ext{font-size:9px;margin-left:4px
 .day-c.all{min-width:56px;display:flex;align-items:center;justify-content:center;font-family:Outfit,Inter,sans-serif;font-weight:700;font-size:15px}
 .day-c.on{background:var(--ink);border-color:var(--ink);color:#fff;box-shadow:0 6px 16px rgba(14,26,19,.18)}
 section.day{}
+.lazy-end{height:1px}
 .day-c.spy{border:2px solid var(--green);box-shadow:0 0 0 3px rgba(132,204,22,.25);background:#f4fbe9}
 .day-c.on .dw,.day-c.on .dm{color:#b9c7be}
 .day-c.on .dc{color:var(--lime)}
@@ -2122,6 +2123,19 @@ function renderPinned(){
   const btns='<div class="seeall">'+st.favs.map(t=>{const n=data.filter(m=>(m.h===t||m.a===t)&&!isPast(m)).length;return `<button class="btn gold" data-all="${esc(t)}">All ${esc(short(t))} games (${n}) →</button>`}).join('')+'</div>';
   $('pinnedList').innerHTML = (rows.length? rows.map(m=>card(m,true)).join('') : '<div class="hint">No upcoming games listed for your teams yet.</div>') + btns;
 }
+// Build-as-you-scroll engine for the fixture list
+const LAZY_FIRST=20, LAZY_STEP=20, LAZY_AHEAD=2000;
+const lazy={key:'',queue:[],built:0,out:null,
+  add(games,minDays=0){let html='',g=0;while(this.built<this.queue.length&&(g<games||this.built<minDays)){const q=this.queue[this.built++];html+=q.html();g+=q.n}
+    if(html){const s=this.out.querySelector('.lazy-end');if(s)s.remove();this.out.insertAdjacentHTML('beforeend',html);
+      if(this.built<this.queue.length)this.out.insertAdjacentHTML('beforeend','<div class="lazy-end" aria-hidden="true"></div>')}},
+  check(){const s=this.out&&this.out.querySelector('.lazy-end');if(!s)return;let n=0;
+    while(n++<20&&this.built<this.queue.length&&s.isConnected&&s.getBoundingClientRect().top<innerHeight+LAZY_AHEAD)this.add(LAZY_STEP);
+    const e=this.out.querySelector('.lazy-end');if(e&&this.io)this.io.observe(e)},
+  all(){if(this.built<this.queue.length)this.add(1e9)}};
+lazy.io='IntersectionObserver' in window?new IntersectionObserver(es=>{if(es.some(e=>e.isIntersecting))lazy.check()},{rootMargin:'0px 0px '+LAZY_AHEAD+'px 0px'}):null;
+addEventListener('scroll',()=>{if(lazy.built<lazy.queue.length)requestAnimationFrame(()=>lazy.check())},{passive:true});
+addEventListener('resize',()=>lazy.check(),{passive:true});
 function render(){
   {const L=document.querySelector('.layout');if(L)L.classList.toggle('solo',!(st.favs.length||st.favComps.length));}
   if(st.grp===1&&!hasFavs())st.grp=0;
@@ -2157,22 +2171,25 @@ function render(){
   const onChip=$('days').querySelector('.day-c.on'); if(onChip&&st.day){try{onChip.scrollIntoView({inline:'center',block:'nearest'})}catch(_){}} dayNav(); 
   const list=st.day==='weekend'?base.filter(m=>wk.includes(m.d)):st.day?base.filter(m=>m.d===st.day):base;
   const out=$('list');
-  if(!list.length){out.innerHTML=`<div class="empty">${st.grp===1?'No games for your favourites match those filters.':'No games match those filters.'}</div>`;return}
+  if(!list.length){lazy.queue=[];lazy.built=0;lazy.key='';out.innerHTML=`<div class="empty">${st.grp===1?'No games for your favourites match those filters.':'No games match those filters.'}</div>`;return}
   const days={};list.forEach(m=>(days[m.d]=days[m.d]||[]).push(m));
-  let lastMonth='', html='', parts=[];
-  for(const [d,ms] of Object.entries(days)){
+  // Build-as-you-scroll: each day's HTML is only made when it is about to be needed, so phones don't build 1,000+ cards nobody can see yet
+  let lastMonth='';
+  const queue=Object.entries(days).map(([d,ms])=>{
     const mon = d==='TBC'?'Date to be confirmed':new Date(d+'T12:00:00Z').toLocaleDateString('en-GB',{month:'long',year:'numeric',timeZone:'UTC'});
-    if(mon!==lastMonth){html+=`<div class="month">${mon}</div>`;lastMonth=mon}
-    const label = d==='TBC'?'Carabao Cup quarter-finals':longDate(d);
-    const tag=d===today?'<span class="tag">TODAY</span>':d===tomorrow?'<span class="tag">TOMORROW</span>':'';
-    html+=`<section class="day" data-d="${d}"><div class="dayhead"><h2>${label}${tag}</h2><span class="count">${ms.length} game${ms.length>1?'s':''}</span></div>${ms.map(m=>card(m,false)).join('')}</section>`;
-    parts.push(html);html='';
-  }
-  parts.push(html);
-  // Draw the first fortnight straight away and the rest a moment later, so filters feel instant on phones
-  const tok=(render.tok=(render.tok||0)+1);
-  out.innerHTML=parts.slice(0,14).join('');
-  if(parts.length>14)setTimeout(()=>{if(render.tok===tok)out.insertAdjacentHTML('beforeend',parts.slice(14).join(''))},30);
+    const head=mon!==lastMonth?`<div class="month">${mon}</div>`:'';lastMonth=mon;
+    return {n:ms.length,html:()=>{
+      const label = d==='TBC'?'Carabao Cup quarter-finals':longDate(d);
+      const tag=d===today?'<span class="tag">TODAY</span>':d===tomorrow?'<span class="tag">TOMORROW</span>':'';
+      return head+`<section class="day" data-d="${d}"><div class="dayhead"><h2>${label}${tag}</h2><span class="count">${ms.length} game${ms.length>1?'s':''}</span></div>${ms.map(m=>card(m,false)).join('')}</section>`}};
+  });
+  // The 5-minute refresh redraws as many days as were already showing, so the page doesn't jump
+  const key=JSON.stringify([st.day,st.grp,st.comp,st.big,st.conf,st.q,st.hidePast,st.favs,st.favComps]);
+  const keep=lazy.key===key?lazy.built:0;
+  lazy.key=key;lazy.queue=queue;lazy.built=0;lazy.out=out;
+  out.innerHTML='';
+  lazy.add(Math.max(LAZY_FIRST,1),keep);
+  lazy.check();
   spyLast=null;requestAnimationFrame(spyDay);
 }
 let spyLast=null,spyRAF=0;
@@ -2205,8 +2222,8 @@ function renderStamp(){const el=$('stamp');if(!el)return;
  addEventListener('appinstalled',()=>{deferred=null;B.classList.remove('can-install','show-install')});
  document.addEventListener('click',async e=>{const t=e.target.closest('.instlnk,.instbtn');if(!t)return;e.preventDefault();
   if(deferred){deferred.prompt();try{await deferred.userChoice}catch(_){}deferred=null;B.classList.remove('can-install');return}
-  const a=$('apptip');if(a){const go=()=>a.scrollIntoView({block:'start'});go();[150,400,800,1300].forEach(ms=>setTimeout(go,ms))}})})();
-document.addEventListener('click',e=>{const a=e.target.closest('.aboutlnk');if(!a)return;e.preventDefault();const go=()=>{const t=$('about');if(t)t.scrollIntoView({block:'start'})};go();[150,400,800,1300].forEach(ms=>setTimeout(go,ms))});
+  lazy.all();const a=$('apptip');if(a){const go=()=>a.scrollIntoView({block:'start'});go();[150,400,800,1300].forEach(ms=>setTimeout(go,ms))}})})();
+document.addEventListener('click',e=>{const a=e.target.closest('.aboutlnk');if(!a)return;e.preventDefault();lazy.all();const go=()=>{const t=$('about');if(t)t.scrollIntoView({block:'start'})};go();[150,400,800,1300].forEach(ms=>setTimeout(go,ms))});
 // Refresh without reloading: fetch the latest page and, if only the TV data changed (same build fingerprint), swap the data in place.
 // If the design or code changed, do a normal reload instead.
 async function softRefresh(){
@@ -2246,6 +2263,7 @@ async function softRefresh(){
  addEventListener('touchend',end,{passive:true});addEventListener('touchcancel',end,{passive:true});set(0)})();
 function renderAll(){renderStamp();renderTeams();renderComps();renderPinned();render()}
 renderAll();
+if(/^#(about|apptip)$/.test(location.hash)){lazy.all();const t=document.querySelector(location.hash);if(t)t.scrollIntoView({block:'start'})}
 setInterval(renderAll,5*60*1000);
 </script>
 <!-- Cloudflare Web Analytics -->
