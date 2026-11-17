@@ -115,7 +115,6 @@ function page(team, slug) {
 <link rel="canonical" href="${SITE}/${slug}/">
 <link rel="icon" href="/favicon.ico" sizes="48x48">
 <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
-<link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
 <link rel="apple-touch-icon" href="/icon-192.png">
 <link rel="manifest" href="/manifest.webmanifest">
 <meta name="theme-color" content="#f3f6f1">
@@ -212,7 +211,6 @@ function listPage({ slug, title, h1, desc, lead, crumb, list, showComp }) {
 <link rel="canonical" href="${SITE}/${slug}/">
 <link rel="icon" href="/favicon.ico" sizes="48x48">
 <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
-<link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
 <link rel="apple-touch-icon" href="/icon-192.png">
 <link rel="manifest" href="/manifest.webmanifest">
 <meta name="theme-color" content="#f3f6f1">
