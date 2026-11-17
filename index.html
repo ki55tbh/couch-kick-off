@@ -21,7 +21,7 @@
 <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <meta name="theme-color" content="#f3f6f1">
-<meta name="ck-build" content="8f13b40044cc">
+<meta name="ck-build" content="6243048409d6">
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="preload" href="/fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/inter-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
@@ -224,6 +224,13 @@ main>.month:first-child{margin-top:10px}
 .m.notvm .teams{color:#55645b}
 .m.notvm .note{color:var(--muted)}
 .m.fav.notvm{background:linear-gradient(90deg,#fff1c7,#fffcf3 55%);box-shadow:0 3px 14px rgba(242,179,0,.18)}.m.fav.notvm .teams{color:inherit}
+.m.onair:not(.fav)::before{content:"";position:absolute;left:-1px;top:12px;bottom:12px;width:4px;border-radius:0 4px 4px 0;background:#16a34a}
+.tagrow{position:absolute;top:12px;right:12px;display:flex;gap:6px;z-index:2}
+@media(max-width:699px){.tagrow{top:-10px}.m.onair{margin-top:14px}}
+.tagrow .favtag{position:static}
+.livetag{display:inline-flex;align-items:center;gap:5px;font:800 10px/1 Inter,sans-serif;letter-spacing:.06em;text-transform:uppercase;padding:4px 8px;border-radius:999px;background:#15803d;color:#fff;box-shadow:0 1px 4px rgba(0,0,0,.15);white-space:nowrap}
+.livetag i{width:6px;height:6px;border-radius:50%;background:#fff;animation:livep 1.6s ease-in-out infinite}
+@media(prefers-reduced-motion:reduce){.livetag i{animation:none}}
 .m.tbcm{background:#fcfdfb}
 .b.exp{border-style:dashed}
 .exptag{font-size:10px;font-weight:800;color:var(--muted);background:#fff;border:1px dashed #a9b8ae;border-radius:7px;padding:3px 7px;align-self:center;letter-spacing:.06em;text-transform:uppercase}
@@ -2078,9 +2085,10 @@ function card(m,showDate){
   const swrap=t=>esc(t).replace(/^(Sky )?Sports (?=\S)/,'$1<span class="sw">Sports </span>');
   const badges=m.ch.map(c=>(c==='Not on UK TV'||c==='TV pick TBC')?`<span class="b ${c==='Not on UK TV'?'notv':'tbc'}">${esc(c)}</span>`:(/^Sky (Sports|Mix)/.test(c)?bWrap(c,`<span class="b skyb"><span class="s1">${esc(c.split(' ')[0])}</span><span class="s2">${swrap(c.split(' ').slice(1).join(' '))}${ext(c)}</span></span>`):(m.exp.includes(c)?bWrap(c,`<span class="b exp" style="${expStyle(c)}" title="${esc(c)} holds the rights but hasn't confirmed this match yet">${swrap(c)}${ext(c)}</span>`)+`<span class="exptag">Expected</span>`:bWrap(c,`<span class="b" style="${brandStyle(c)}">${swrap(c)}${ext(c)}</span>`)))).join('')+(m.ch.some(c=>FREE.test(c))?'<span class="freetag">FREE</span>':'');
   const pending=m.ch.includes('TV pick TBC'); const notv=m.ch.includes('Not on UK TV');
-  return `<div class="m${isFav(m)?' fav':isFavComp(m.c)?' favc':''}${m.past?' past':''}${pending?' tbcm':''}${notv?' notvm':''}"><div class="ko">${showDate?`<span class="dt">${shortDate(m.d)}</span>`:''}${m.t}${m.t==='TBC'?'':'<small>UK</small>'}${isLive(m)&&!notv&&!pending?'<span class="live"><i></i>On now</span>':''}</div><div>
+  const live=isLive(m)&&!notv&&!pending;
+  return `<div class="m${isFav(m)?' fav':isFavComp(m.c)?' favc':''}${m.past?' past':''}${pending?' tbcm':''}${notv?' notvm':''}${live?' onair':''}">${live?`<span class="tagrow"><span class="livetag"><i></i>On now</span>${!showDate&&isFav(m)?'<span class="favtag">★ YOUR TEAM</span>':''}</span>`:''}<div class="ko">${showDate?`<span class="dt">${shortDate(m.d)}</span>`:''}${m.t}${m.t==='TBC'?'':'<small>UK</small>'}</div><div>
     <div class="teams">${m.a?`${teamHTML(m.h)} <span class="vaw"><span class="v">v</span>${teamHTML(m.a)}</span>`:`<span class="ev">${esc(m.h)}</span>`}</div>
-    ${venueOf(m)?`<div class="venue"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>${esc(venueOf(m))}</div>`:''}<div class="comp"><span class="cp${isFavComp(m.c)?' on':''}" data-c="${esc(m.c)}" title="Tap to star this competition">${esc(m.c)}</span>${notv?`<span class="notvtag"> · ${m.c==='Premier League'?'3pm, not on UK TV':'Not on UK TV'}</span>`:''}${!showDate&&isFav(m)?'<span class="favtag">★ YOUR TEAM</span>':''}${notv&&!showDate?repLink(m):''}</div>${notv?(showDate?`<div class="ch">${repLink(m)}</div>`:''):`<div class="ch">${badges}${repLink(m)}</div>`}
+    ${venueOf(m)?`<div class="venue"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>${esc(venueOf(m))}</div>`:''}<div class="comp"><span class="cp${isFavComp(m.c)?' on':''}" data-c="${esc(m.c)}" title="Tap to star this competition">${esc(m.c)}</span>${notv?`<span class="notvtag"> · ${m.c==='Premier League'?'3pm, not on UK TV':'Not on UK TV'}</span>`:''}${!showDate&&isFav(m)&&!live?'<span class="favtag">★ YOUR TEAM</span>':''}${notv&&!showDate?repLink(m):''}</div>${notv?(showDate?`<div class="ch">${repLink(m)}</div>`:''):`<div class="ch">${badges}${repLink(m)}</div>`}
     ${m.n&&!notv?`<div class="note">${esc(m.n)}</div>`:''}</div></div>`;
 }
 const COMPCOL={'LaLiga':'#ff4b44','Serie A':'#024494','Bundesliga':'#d20515','Premier League':'#3d195b','Champions League':'#0b1d5c','FA Cup':'#c8102e','Carabao Cup':'#00843d','Europa League':'#e2620a','Conference League':'#00953a','Championship':'#0b3d91','League One':'#e2001a','League Two':'#1f7a3c','UEFA Nations League':'#0b2a5b','Euro 2028 Qualifiers':'#143cdb','Scottish Premiership':'#4b2d84','EFL Trophy':'#0b3d91','National League':'#a0001e','International Friendly':'#1d3b8b','U21 Friendly':'#1d3b8b','Scottish Championship':'#4b2d84','Scottish League One':'#4b2d84','NIFL Premiership':'#00295f','LaLiga2':'#ff4b44','Serie C':'#0055a4','Brasileirão':'#009c3b'};

@@ -221,6 +221,13 @@ main>.month:first-child{margin-top:10px}
 .m.notvm .teams{color:#55645b}
 .m.notvm .note{color:var(--muted)}
 .m.fav.notvm{background:linear-gradient(90deg,#fff1c7,#fffcf3 55%);box-shadow:0 3px 14px rgba(242,179,0,.18)}.m.fav.notvm .teams{color:inherit}
+.m.onair:not(.fav)::before{content:"";position:absolute;left:-1px;top:12px;bottom:12px;width:4px;border-radius:0 4px 4px 0;background:#16a34a}
+.tagrow{position:absolute;top:12px;right:12px;display:flex;gap:6px;z-index:2}
+@media(max-width:699px){.tagrow{top:-10px}.m.onair{margin-top:14px}}
+.tagrow .favtag{position:static}
+.livetag{display:inline-flex;align-items:center;gap:5px;font:800 10px/1 Inter,sans-serif;letter-spacing:.06em;text-transform:uppercase;padding:4px 8px;border-radius:999px;background:#15803d;color:#fff;box-shadow:0 1px 4px rgba(0,0,0,.15);white-space:nowrap}
+.livetag i{width:6px;height:6px;border-radius:50%;background:#fff;animation:livep 1.6s ease-in-out infinite}
+@media(prefers-reduced-motion:reduce){.livetag i{animation:none}}
 .m.tbcm{background:#fcfdfb}
 .b.exp{border-style:dashed}
 .exptag{font-size:10px;font-weight:800;color:var(--muted);background:#fff;border:1px dashed #a9b8ae;border-radius:7px;padding:3px 7px;align-self:center;letter-spacing:.06em;text-transform:uppercase}
