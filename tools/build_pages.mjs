@@ -162,6 +162,7 @@ ${navLinks()}
 <!-- Cloudflare Web Analytics -->
 <script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "1c6cd6949d724fe697ffd4b014f24d91"}'></script>
 <!-- End Cloudflare Web Analytics -->
+<script>if('serviceWorker' in navigator)addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}))</script>
 </body>
 </html>
 `;
@@ -253,6 +254,7 @@ ${navLinks()}
 <!-- Cloudflare Web Analytics -->
 <script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "1c6cd6949d724fe697ffd4b014f24d91"}'></script>
 <!-- End Cloudflare Web Analytics -->
+<script>if('serviceWorker' in navigator)addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}))</script>
 </body>
 </html>
 `;
