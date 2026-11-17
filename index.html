@@ -21,7 +21,7 @@
 <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <meta name="theme-color" content="#f3f6f1">
-<meta name="ck-build" content="46f0f16ea958">
+<meta name="ck-build" content="4e843529fbfe">
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="preload" href="/fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/inter-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
@@ -1969,11 +1969,13 @@ chips.addEventListener('scroll',chipFade,{passive:true});window.addEventListener
 GROUPS.forEach((g,i)=>{const b=document.createElement('button');b.className='chip'+(i===1?' fav':'');b.dataset.g=i;b.textContent=g[0];b.onclick=()=>{st.grp=i;save();render()};chips.appendChild(b);
   if(i===1){const c=document.createElement('button');c.className='chip compbtn';c.id='compBtn';c.type='button';c.setAttribute('aria-expanded','false');c.textContent='Competitions ▾';c.onclick=()=>toggleCompPanel();chips.appendChild(c)}});
 // Competitions button: a list of competitions with upcoming games; picking one opens its view
-const MAINCOMPS=12;
+const PANEL_MAIN=['Premier League','Champions League','Europa League','Conference League','FA Cup','Carabao Cup','Championship','League One','League Two','Scottish Premiership','LaLiga','Serie A','Bundesliga'];
+const PANEL_NEXT=['UEFA Nations League','Euro 2028 Qualifiers','International Friendly'];
 function compPanelHTML(all){const counts={};for(const m of data){if(isPast(m))continue;counts[m.c]=(counts[m.c]||0)+1}
-  const list=POPULAR.filter(c=>counts[c]).concat(Object.keys(counts).filter(c=>!POPULAR.includes(c)).sort());
-  const show=all?list:list.slice(0,MAINCOMPS);
-  return `<div class="cph">Show games for a competition</div><div class="cpl">${show.map(c=>`<button type="button" data-cv="${esc(c)}"${COMPCOL[c]?` style="--c:${COMPCOL[c]}"`:''}>${esc(c)}<span class="n">${counts[c]}</span></button>`).join('')}${!all&&list.length>MAINCOMPS?`<button type="button" class="more" data-cpmore="1">More ▾</button>`:''}</div>`}
+  const main=PANEL_MAIN.filter(c=>counts[c]);const head=[...PANEL_MAIN,...PANEL_NEXT];
+  const rest=PANEL_NEXT.filter(c=>counts[c]).concat(POPULAR.filter(c=>counts[c]&&!head.includes(c)),Object.keys(counts).filter(c=>!head.includes(c)&&!POPULAR.includes(c)).sort());
+  const list=main.concat(rest);const show=all?list:main;
+  return `<div class="cph">Show games for a competition</div><div class="cpl">${show.map(c=>`<button type="button" data-cv="${esc(c)}"${COMPCOL[c]?` style="--c:${COMPCOL[c]}"`:''}>${esc(c)}<span class="n">${counts[c]}</span></button>`).join('')}${!all&&rest.length?`<button type="button" class="more" data-cpmore="1">More ▾</button>`:''}</div>`}
 function toggleCompPanel(force){const p=$('compPanel'),open=force!==undefined?force:p.hidden;if(open)p.innerHTML=compPanelHTML(false);p.hidden=!open;$('compBtn').setAttribute('aria-expanded',String(open));$('compBtn').textContent=open?'Competitions ▴':'Competitions ▾'}
 document.addEventListener('click',e=>{if(e.target.closest('[data-cpmore]'))$('compPanel').innerHTML=compPanelHTML(true)});
 $('days').addEventListener('click',e=>{const b=e.target.closest('[data-day]');if(!b)return;st.day=b.dataset.day;render();try{window.scrollTo({top:$('list').offsetTop-$('days').closest('.controls').offsetHeight-10,behavior:'smooth'})}catch(_){}});
