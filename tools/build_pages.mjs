@@ -127,8 +127,6 @@ function page(team, slug) {
 <meta property="og:image" content="${SITE}/og-image.png">
 <meta property="og:locale" content="en_GB">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
 <script type="application/ld+json">${jsonLd(team, slug)}</script>
 ${style}
 <style>
@@ -223,8 +221,6 @@ function listPage({ slug, title, h1, desc, lead, crumb, list, showComp }) {
 <meta property="og:image" content="${SITE}/og-image.png">
 <meta property="og:locale" content="en_GB">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
 <script type="application/ld+json">${ld}</script>
 ${style}
 <style>
