@@ -21,7 +21,7 @@
 <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <meta name="theme-color" content="#f3f6f1">
-<meta name="ck-build" content="6243048409d6">
+<meta name="ck-build" content="dc1d436a9021">
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="preload" href="/fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/inter-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
@@ -265,7 +265,7 @@ footer ul{margin:0;padding-left:18px}
   .layout.solo .myteams{max-width:none;margin:0}
 }
 #teamPill{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;box-sizing:border-box;background:#fff;border:2px solid var(--c);border-left-width:6px;border-radius:14px;padding:9px 9px 9px 14px;color:var(--ink,#0f172a);font-size:16px;font-weight:600;box-shadow:0 2px 10px rgba(0,0,0,.06)}
-#teamPill .tpt b{color:var(--c);font-weight:800}#teamPill .tpc{color:var(--muted);font-weight:600;font-size:14px}
+#teamPill .tpt b{color:var(--c);font-weight:800}#teamPill .tpn{white-space:nowrap}#teamPill .tpc{color:var(--muted);font-weight:600;font-size:14px}
 #teamPill button{flex:none;background:var(--c);color:#fff;border:0;border-radius:999px;padding:8px 14px;font:700 13.5px Inter,sans-serif;cursor:pointer;width:auto;height:auto;opacity:1}
 </style>
 </head>
@@ -2014,9 +2014,13 @@ function resetFilters(){
   save();renderAll();
 }
 $('resetBtn').onclick=resetFilters;
-$('teamPill').addEventListener('click',e=>{if(e.target.closest('button')){st.q='';if(st.prev){Object.assign(st,st.prev);st.prev=null}render()}});
+function openComp(c){if(!st.prev)st.prev={grp:st.grp,comp:st.comp,day:st.day,q:st.q}; st.comp=c; st.q=''; st.grp=0; st.day=''; render();
+  try{document.querySelector('.controls').scrollIntoView({behavior:'smooth'})}catch(_){}}
+document.addEventListener('click',e=>{const x=e.target.closest('[data-cv]');if(x)openComp(x.dataset.cv)});
+document.addEventListener('keydown',e=>{const x=e.target.closest&&e.target.closest('[data-cv]');if(x&&(e.key==='Enter'||e.key===' ')){e.preventDefault();openComp(x.dataset.cv)}});
+$('teamPill').addEventListener('click',e=>{if(e.target.closest('button')){st.q='';st.comp='';if(st.prev){Object.assign(st,st.prev);st.prev=null}render()}});
 document.addEventListener('click',e=>{const b=e.target.closest('[data-all]');if(!b)return;
-  if(!st.prev)st.prev={grp:st.grp,comp:st.comp,day:st.day}; st.q=b.dataset.all; st.grp=0; st.comp=''; st.day=''; render();
+  if(!st.prev)st.prev={grp:st.grp,comp:st.comp,day:st.day,q:st.q}; st.q=b.dataset.all; st.grp=0; st.comp=''; st.day=''; render();
   try{document.querySelector('.controls').scrollIntoView({behavior:'smooth'})}catch(_){}});
 
 // ---------- Render ----------
@@ -2088,7 +2092,7 @@ function card(m,showDate){
   const live=isLive(m)&&!notv&&!pending;
   return `<div class="m${isFav(m)?' fav':isFavComp(m.c)?' favc':''}${m.past?' past':''}${pending?' tbcm':''}${notv?' notvm':''}${live?' onair':''}">${live?`<span class="tagrow"><span class="livetag"><i></i>On now</span>${!showDate&&isFav(m)?'<span class="favtag">★ YOUR TEAM</span>':''}</span>`:''}<div class="ko">${showDate?`<span class="dt">${shortDate(m.d)}</span>`:''}${m.t}${m.t==='TBC'?'':'<small>UK</small>'}</div><div>
     <div class="teams">${m.a?`${teamHTML(m.h)} <span class="vaw"><span class="v">v</span>${teamHTML(m.a)}</span>`:`<span class="ev">${esc(m.h)}</span>`}</div>
-    ${venueOf(m)?`<div class="venue"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>${esc(venueOf(m))}</div>`:''}<div class="comp"><span class="cp${isFavComp(m.c)?' on':''}" data-c="${esc(m.c)}" title="Tap to star this competition">${esc(m.c)}</span>${notv?`<span class="notvtag"> · ${m.c==='Premier League'?'3pm, not on UK TV':'Not on UK TV'}</span>`:''}${!showDate&&isFav(m)&&!live?'<span class="favtag">★ YOUR TEAM</span>':''}${notv&&!showDate?repLink(m):''}</div>${notv?(showDate?`<div class="ch">${repLink(m)}</div>`:''):`<div class="ch">${badges}${repLink(m)}</div>`}
+    ${venueOf(m)?`<div class="venue"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>${esc(venueOf(m))}</div>`:''}<div class="comp"><span class="cp${isFavComp(m.c)?' on':''}" data-cv="${esc(m.c)}" role="button" tabindex="0" title="Show all ${esc(m.c)} games">${esc(m.c)}</span>${notv?`<span class="notvtag"> · ${m.c==='Premier League'?'3pm, not on UK TV':'Not on UK TV'}</span>`:''}${!showDate&&isFav(m)&&!live?'<span class="favtag">★ YOUR TEAM</span>':''}${notv&&!showDate?repLink(m):''}</div>${notv?(showDate?`<div class="ch">${repLink(m)}</div>`:''):`<div class="ch">${badges}${repLink(m)}</div>`}
     ${m.n&&!notv?`<div class="note">${esc(m.n)}</div>`:''}</div></div>`;
 }
 const COMPCOL={'LaLiga':'#ff4b44','Serie A':'#024494','Bundesliga':'#d20515','Premier League':'#3d195b','Champions League':'#0b1d5c','FA Cup':'#c8102e','Carabao Cup':'#00843d','Europa League':'#e2620a','Conference League':'#00953a','Championship':'#0b3d91','League One':'#e2001a','League Two':'#1f7a3c','UEFA Nations League':'#0b2a5b','Euro 2028 Qualifiers':'#143cdb','Scottish Premiership':'#4b2d84','EFL Trophy':'#0b3d91','National League':'#a0001e','International Friendly':'#1d3b8b','U21 Friendly':'#1d3b8b','Scottish Championship':'#4b2d84','Scottish League One':'#4b2d84','NIFL Premiership':'#00295f','LaLiga2':'#ff4b44','Serie C':'#0055a4','Brasileirão':'#009c3b'};
@@ -2147,7 +2151,7 @@ addEventListener('resize',()=>lazy.check(),{passive:true});
 function render(){
   {const L=document.querySelector('.layout');if(L)L.classList.toggle('solo',!(st.favs.length||st.favComps.length));}
   if(st.grp===1&&!hasFavs())st.grp=0;
-  const pill=$('teamPill'); pill.hidden=!st.q; if(st.q) {const tc=teamColour(st.q)||'#0f172a';pill.style.setProperty('--c',tc);const n=data.filter(m=>(m.h===st.q||m.a===st.q)&&!isPast(m)).length;pill.innerHTML=`<span class="tpt">Showing all <b>${esc(short(st.q))}</b> games <span class="tpc">(${n})</span></span><button aria-label="Close and go back">✕ Close</button>`;}
+  const pill=$('teamPill'); pill.hidden=!st.q&&!st.comp; if(!st.q&&st.comp){pill.style.setProperty('--c','var(--green-d,#15803d)');const n=data.filter(m=>m.c===st.comp&&!isPast(m)).length;pill.innerHTML=`<span class="tpt"><span class="tpn"><b>${esc(st.comp)}</b> <span class="tpc">(${n})</span></span></span><button aria-label="Close and go back">✕ Close</button>`;} if(st.q) {const tc=teamColour(st.q)||'#0f172a';pill.style.setProperty('--c',tc);const n=data.filter(m=>(m.h===st.q||m.a===st.q)&&!isPast(m)).length;pill.innerHTML=`<span class="tpt">Showing all <b>${esc(short(st.q))}</b> games <span class="tpc">(${n})</span></span><button aria-label="Close and go back">✕ Close</button>`;}
   [...chips.children].forEach((b,i)=>b.classList.toggle('on',i===st.grp));
   {const ab=chips.children[st.grp];if(ab&&chips.scrollWidth>chips.clientWidth){const cr=chips.getBoundingClientRect(),br=ab.getBoundingClientRect();if(br.right>cr.right-40)chips.scrollLeft+=br.right-cr.right+48;else if(br.left<cr.left)chips.scrollLeft-=cr.left-br.left+12}chipFade()}
   const now=Date.now(), today=todayStr(), tomorrow=new Date(Date.parse(today+'T12:00:00Z')+864e5).toISOString().slice(0,10);
