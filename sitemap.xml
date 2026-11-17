@@ -224,4 +224,56 @@
     <loc>https://couchkickoff.co.uk/wrexham/</loc>
     <changefreq>daily</changefreq>
   </url>
+  <url>
+    <loc>https://couchkickoff.co.uk/premier-league-on-tv/</loc>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://couchkickoff.co.uk/champions-league-on-tv/</loc>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://couchkickoff.co.uk/europa-league-on-tv/</loc>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://couchkickoff.co.uk/conference-league-on-tv/</loc>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://couchkickoff.co.uk/championship-on-tv/</loc>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://couchkickoff.co.uk/league-one-on-tv/</loc>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://couchkickoff.co.uk/league-two-on-tv/</loc>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://couchkickoff.co.uk/scottish-premiership-on-tv/</loc>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://couchkickoff.co.uk/carabao-cup-on-tv/</loc>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://couchkickoff.co.uk/laliga-on-tv/</loc>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://couchkickoff.co.uk/serie-a-on-tv/</loc>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://couchkickoff.co.uk/bundesliga-on-tv/</loc>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://couchkickoff.co.uk/football-on-tv-this-weekend/</loc>
+    <changefreq>daily</changefreq>
+  </url>
 </urlset>

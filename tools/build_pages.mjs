@@ -32,6 +32,11 @@ for (const lg of LEAGUES) for (const m of data) if (m.c === lg && m.a) for (cons
 const TEAMS = Object.keys(LEAGUE_OF).sort((a, b) => a.localeCompare(b)).map(t => [t, slugify(t)]);
 const style = cut('<style>', '</style>') + '</style>';
 const FREE = /BBC|ITV|STV|S4C|YouTube|England App|Channel 4|Channel 5/;
+const COMPS = ['Premier League', 'Champions League', 'Europa League', 'Conference League', 'Championship', 'League One', 'League Two',
+  'Scottish Premiership', 'Carabao Cup', 'LaLiga', 'Serie A', 'Bundesliga'];
+const compSlug = c => slugify(c) + '-on-tv';
+const WEEKEND = 'football-on-tv-this-weekend';
+const navLinks = () => `<p class="tfoot"><b>More:</b> <a href="/${WEEKEND}/">This weekend</a> · ` + COMPS.map(c => `<a href="/${compSlug(c)}/">${esc(c)}</a>`).join(' · ') + '</p>';
 
 // Logo as a shared file rather than base64 in every page
 const logoB64 = /<img class="logo" src="data:image\/webp;base64,([^"]+)"/.exec(src)[1];
@@ -139,6 +144,7 @@ ${style}
 ${next ? `<div class="nextbox"><b>Next on TV</b>${esc(nextText)}</div>` : ''}
 ${months}
 <a class="cta" href="/">See all football on UK TV today</a>
+${navLinks()}
 <p class="tfoot">A solid badge means the broadcaster has confirmed the match. An outlined badge marked Expected means it holds the rights but hasn't confirmed this game yet. Saturday 3pm games aren't shown live in the UK. Spotted a mistake? Email <a href="mailto:hello@couchkickoff.co.uk">hello@couchkickoff.co.uk</a>.<br><br>Couch Kick-Off is independent and not connected to ${esc(team)}, any league or any broadcaster. <a href="/#about">About</a><br><br>© 2026 Couch Kick-Off. All rights reserved.</p>
 </div>
 <script>(function(){var n=Date.now();document.querySelectorAll('.m[data-ko]').forEach(function(e){if(Date.parse(e.dataset.ko)+150*60000<n)e.remove()});document.querySelectorAll('section.day').forEach(function(s){if(!s.querySelector('.m'))s.remove()})})();</script>
@@ -159,6 +165,112 @@ for (const [team, slug] of TEAMS) {
   if (!CHECK) fs.mkdirSync(slug, { recursive: true });
   out(`${slug}/index.html`, html);
   urls.push(`${SITE}/${slug}/`);
+}
+// ---- Competition pages and the weekend page (e.g. /premier-league-on-tv/, /football-on-tv-this-weekend/) ----
+const isWomen = m => /WSL|Women/.test(m.c) || /\(W\)/.test(m.h + ' ' + m.a);
+const byTime = (x, y) => (x.d + (x.t === 'TBC' ? '99' : x.t)).localeCompare(y.d + (y.t === 'TBC' ? '99' : y.t));
+const dayName = d => new Date(d + 'T12:00:00Z').toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', timeZone: 'UTC' });
+const addDays = (d, n) => new Date(Date.parse(d + 'T12:00:00Z') + n * 864e5).toISOString().slice(0, 10);
+const HORIZON = addDays(ukToday, 56);
+function card2(m, showComp) {
+  const ko = m.t === 'TBC' ? '' : ` data-ko="${m.d}T${m.t}:00${ukOffset(m.d, m.t)}"`;
+  return `<div class="m"${ko}><div class="ko">${m.t}${m.t === 'TBC' ? '' : '<small>UK</small>'}</div><div>
+    <div class="teams">${esc(m.h)} <span class="vaw"><span class="v">v</span>${esc(m.a)}</span></div>
+    ${showComp ? `<div class="comp">${esc(m.c)}</div>` : ''}<div class="ch">${badges(m)}</div>
+    ${m.n ? `<div class="note">${esc(m.n)}</div>` : ''}</div></div>`;
+}
+function listPage({ slug, title, h1, desc, lead, crumb, list, showComp }) {
+  const upd = UPDATED.last_ok ? new Date(UPDATED.last_ok + 'Z').toLocaleString('en-GB', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' }) : '';
+  let days = '', cur = '';
+  for (const m of list) {
+    if (m.d !== cur) { if (cur) days += '</section>'; days += `<section class="day"><div class="dayhead"><h2>${esc(dayName(m.d))}</h2></div>`; cur = m.d; }
+    days += card2(m, showComp);
+  }
+  if (cur) days += '</section>';
+  const ld = JSON.stringify({ '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Couch Kick-Off', item: `${SITE}/` },
+    { '@type': 'ListItem', position: 2, name: crumb, item: `${SITE}/${slug}/` } ] }).replace(/</g, '\\u003c');
+  return `<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>${esc(title)}</title>
+<meta name="description" content="${esc(desc)}">
+<link rel="canonical" href="${SITE}/${slug}/">
+<link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
+<link rel="apple-touch-icon" href="/icon-192.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#f3f6f1">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Couch Kick-Off">
+<meta property="og:title" content="${esc(h1)} | Couch Kick-Off">
+<meta property="og:description" content="${esc(desc)}">
+<meta property="og:url" content="${SITE}/${slug}/">
+<meta property="og:image" content="${SITE}/og-image.png">
+<meta property="og:locale" content="en_GB">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+<script type="application/ld+json">${ld}</script>
+${style}
+<style>
+.tp{max-width:720px;margin:0 auto;padding:0 14px 40px}
+.tlogo{display:block;max-width:300px;margin:12px auto 4px}.tlogo img{width:100%;height:auto;display:block}
+.crumb{font-size:12.5px;color:var(--muted);margin:10px 2px 6px}.crumb a{color:var(--green);font-weight:700;text-decoration:none}
+.th1{font-family:Outfit,Inter,sans-serif;font-size:30px;line-height:1.15;font-weight:800;letter-spacing:-.015em;margin:4px 2px 8px}
+.lead{margin:0 2px 14px;color:var(--text)}.lead small{display:block;color:var(--muted);margin-top:4px}
+.empty{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px;margin:6px 0}
+.tfoot{margin:26px 2px 0;font-size:13.5px;color:var(--muted)}.tfoot a{color:var(--green);font-weight:700}
+.cta{display:block;text-align:center;background:var(--green);color:#fff!important;text-decoration:none;border-radius:12px;padding:12px;margin:20px 0 0;font-weight:700}
+</style>
+</head>
+<body>
+<div class="tp">
+<a class="tlogo" href="/" aria-label="Couch Kick-Off home"><img src="/logo.webp" width="1100" height="355" alt="Couch Kick-Off"></a>
+<nav class="crumb"><a href="/">Couch Kick-Off</a> › ${esc(crumb)}</nav>
+<h1 class="th1">${esc(h1)}</h1>
+<p class="lead">${lead}<small>Checked every morning. Last updated ${esc(upd)}. Times are UK time.</small></p>
+${days || '<p class="empty">No televised games are listed right now. Broadcasters announce their picks a few weeks ahead, so check back soon.</p>'}
+<a class="cta" href="/">See all football on UK TV today</a>
+${navLinks()}
+<p class="tfoot">A solid badge means the broadcaster has confirmed the match. An outlined badge marked Expected means it holds the rights but hasn't confirmed this game yet. Spotted a mistake? Email <a href="mailto:hello@couchkickoff.co.uk">hello@couchkickoff.co.uk</a>.<br><br>Couch Kick-Off is independent and not connected to any league, club or broadcaster. <a href="/#about">About</a><br><br>© 2026 Couch Kick-Off. All rights reserved.</p>
+</div>
+<script>(function(){var n=Date.now();document.querySelectorAll('.m[data-ko]').forEach(function(e){if(Date.parse(e.dataset.ko)+150*60000<n)e.remove()});document.querySelectorAll('section.day').forEach(function(s){if(!s.querySelector('.m'))s.remove()})})();</script>
+<!-- Cloudflare Web Analytics -->
+<script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "1c6cd6949d724fe697ffd4b014f24d91"}'></script>
+<!-- End Cloudflare Web Analytics -->
+</body>
+</html>
+`;
+}
+const extraPages = [];
+for (const c of COMPS) {
+  const list = data.filter(m => m.c === c && m.a && m.d !== 'TBC' && m.d >= ukToday && m.d <= HORIZON && isTV(m) && !isWomen(m)).sort(byTime);
+  const nx = list[0];
+  extraPages.push({ slug: compSlug(c), crumb: `${c} on TV`, h1: `${c} on TV`, list, showComp: false,
+    title: `${c} on TV: fixtures, UK channels and kick-off times | Couch Kick-Off`,
+    desc: nx ? `Which ${c} games are on TV? Next: ${nx.h} v ${nx.a}, ${longDate(nx.d)}${nx.t === 'TBC' ? '' : ' ' + nx.t} on ${chanText(nx)}. Every televised ${c} game with UK channels, checked daily.`
+      : `Which ${c} games are on UK TV? Channels and kick-off times, checked daily.`,
+    lead: `Every ${esc(c)} game on UK TV over the next eight weeks, with the channel and kick-off time. ${list.length} televised ${list.length === 1 ? 'game' : 'games'} listed.` });
+}
+{
+  const dow = new Date(ukToday + 'T12:00:00Z').getUTCDay();
+  const toFri = dow === 0 ? -2 : dow === 6 ? -1 : 5 - dow;
+  const wk = [0, 1, 2].map(i => addDays(ukToday, toFri + i)).filter(d => d >= ukToday);
+  const list = data.filter(m => wk.includes(m.d) && m.a && isTV(m) && !isWomen(m)).sort(byTime);
+  const range = `${longDate(wk[0])} to ${longDate(wk[wk.length - 1])}`;
+  extraPages.push({ slug: WEEKEND, crumb: 'This weekend', h1: 'Football on TV this weekend', list, showComp: true,
+    title: 'Football on TV this weekend: every UK channel and kick-off time | Couch Kick-Off',
+    desc: `Every football match on UK TV this weekend (${range}): Premier League, EFL, Scottish, European and more, with channels and kick-off times. Checked daily.`,
+    lead: `Every televised game from ${esc(range)}, with the UK channel and kick-off time. ${list.length} ${list.length === 1 ? 'game' : 'games'} on TV.` });
+}
+for (const pg of extraPages) {
+  const html = listPage(pg);
+  if (!html.includes('1c6cd6949d724fe697ffd4b014f24d91')) problems.push(`${pg.slug}/index.html is missing its analytics snippet`);
+  if (!CHECK) fs.mkdirSync(pg.slug, { recursive: true });
+  out(`${pg.slug}/index.html`, html);
+  urls.push(`${SITE}/${pg.slug}/`);
 }
 if (TEAMS.length < 40) problems.push(`only ${TEAMS.length} team pages (expected about 55); the fixture data may be damaged`);
 // Plain-text "On UK TV today" summary on the main page (between the TODAYTV markers), so search engines
@@ -181,7 +293,8 @@ const links = LEAGUES.map(lg => `<p class="teamlinks"><b>${lg}:</b> ` + TEAMS.fi
 const A = '<!-- TEAMPAGES -->', B = '<!-- /TEAMPAGES -->';
 const i = src.indexOf(A), j = src.indexOf(B);
 if (i < 0 || j < 0) throw new Error('TEAMPAGES markers missing from index.html');
-let mainHTML = src.slice(0, i + A.length) + '\n  <h4>Team pages</h4>\n  ' + links + '\n  ' + src.slice(j);
+const compLinks = `<p class="teamlinks"><a href="/${WEEKEND}/">Football on TV this weekend</a> · ` + COMPS.map(c => `<a href="/${compSlug(c)}/">${esc(c)} on TV</a>`).join(' · ') + '</p>';
+let mainHTML = src.slice(0, i + A.length) + '\n  <h4>This weekend and competitions</h4>\n  ' + compLinks + '\n  <h4>Team pages</h4>\n  ' + links + '\n  ' + src.slice(j);
 // Build fingerprint: a hash of the page with the daily data stripped out. The page's swipe refresh compares it:
 // same fingerprint = only the TV data changed, so it updates in place; different = the design or code changed, so it reloads.
 const codeOnly = mainHTML
@@ -202,4 +315,4 @@ if (problems.length) {
   console.log((CHECK ? 'TEAM PAGES CHECK FAILED' : 'TEAM PAGES BUILD PROBLEM') + ' (run node tools/build_pages.mjs to rebuild):\n- ' + problems.slice(0, 15).join('\n- ') + (problems.length > 15 ? `\n- ...and ${problems.length - 15} more` : ''));
   process.exit(1);
 }
-console.log(`${CHECK ? 'Team pages OK' : 'Built'}: ${TEAMS.length} team pages, ${rows} fixture rows, sitemap has ${urls.length} URLs`);
+console.log(`${CHECK ? 'Team pages OK' : 'Built'}: ${TEAMS.length} team pages, ${extraPages.length} competition/weekend pages, ${rows} fixture rows, sitemap has ${urls.length} URLs`);
