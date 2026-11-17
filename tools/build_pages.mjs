@@ -120,7 +120,7 @@ function page(team, slug) {
 <meta name="theme-color" content="#f3f6f1">
 <link rel="preload" href="/fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/inter-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="/fonts/outfit-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/outfit-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Couch Kick-Off">
 <meta property="og:title" content="${esc(team)} on TV | Couch Kick-Off">
@@ -216,7 +216,7 @@ function listPage({ slug, title, h1, desc, lead, crumb, list, showComp }) {
 <meta name="theme-color" content="#f3f6f1">
 <link rel="preload" href="/fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/inter-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="/fonts/outfit-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/outfit-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Couch Kick-Off">
 <meta property="og:title" content="${esc(h1)} | Couch Kick-Off">
