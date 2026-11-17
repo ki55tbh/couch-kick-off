@@ -21,7 +21,7 @@
 <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <meta name="theme-color" content="#f3f6f1">
-<meta name="ck-build" content="640f3c9c6714">
+<meta name="ck-build" content="aafe19249618">
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="preload" href="/fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/inter-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
@@ -224,6 +224,14 @@ main>.month:first-child{margin-top:10px}
 .m.notvm .teams{color:#55645b}
 .m.notvm .note{color:var(--muted)}
 .m.fav.notvm{background:linear-gradient(90deg,#fff1c7,#fffcf3 55%);box-shadow:0 3px 14px rgba(242,179,0,.18)}.m.fav.notvm .teams{color:inherit}
+.compbtn{color:var(--green-d,#15803d)}
+#compPanel{margin:8px 0 2px;padding:10px 12px;border:1px solid var(--line);border-radius:14px;background:#fff;box-shadow:var(--shadow)}
+#compPanel .cph{font:800 13px Inter,sans-serif;color:var(--ink,#0f172a);margin:0 0 8px}
+#compPanel .cpl{display:flex;flex-wrap:wrap;gap:6px}
+#compPanel button{font:600 13px Inter,sans-serif;padding:6px 10px;border-radius:999px;border:1px solid color-mix(in srgb,var(--c,#475569) 35%,#fff);background:#fff;color:var(--c,#334155);cursor:pointer;white-space:nowrap}
+#compPanel button .n{color:var(--muted);margin-left:5px}
+#compPanel button.more{border-style:dashed;color:var(--muted)}
+.scv{cursor:pointer}
 .m.onair:not(.fav)::before{content:"";position:absolute;left:-1px;top:12px;bottom:12px;width:4px;border-radius:0 4px 4px 0;background:#16a34a}
 .tagrow{position:absolute;top:12px;right:12px;display:flex;gap:6px;z-index:2}
 @media(max-width:699px){.tagrow{top:-10px}.m.onair{margin-top:14px}}
@@ -302,6 +310,7 @@ footer ul{margin:0;padding-left:18px}
   <span class="ft" id="teamPill" hidden></span>
   <div class="dwrap"><button class="dnav prev" id="dPrev" type="button" aria-label="Earlier dates">‹</button><div class="days" id="days"></div><button class="dnav next" id="dNext" type="button" aria-label="Later dates">›</button></div>
   <div class="chips" id="chips"></div>
+  <div id="compPanel" hidden></div>
   <div class="optrow">
     <div class="opts">
       <label class="tog"><input type="checkbox" id="hidePast" checked> Hide finished</label>
@@ -1918,7 +1927,7 @@ function cls(c){
 const GROUPS = [
   ['All',()=>true],
   ['★ My favourites',m=>isFav(m)||isFavComp(m.c)],
-  ['Free to watch',m=>m.ch.some(c=>FREE.test(c))],
+  ['Free',m=>m.ch.some(c=>FREE.test(c))],
   ['Sky Sports',m=>m.ch.some(c=>/Sky|NOW/.test(c))],
   ['TNT Sports',m=>m.ch.some(c=>/TNT|HBO/.test(c))],
   ['BBC',m=>m.ch.some(c=>/BBC/.test(c))],
@@ -1957,7 +1966,16 @@ $('days').addEventListener('scroll',dayNav,{passive:true});window.addEventListen
 $('dPrev').onclick=()=>$('days').scrollBy({left:-$('days').clientWidth*0.8,behavior:'smooth'});$('dNext').onclick=()=>$('days').scrollBy({left:$('days').clientWidth*0.8,behavior:'smooth'});
 function chipFade(){chips.classList.toggle('more',chips.scrollLeft+chips.clientWidth<chips.scrollWidth-4)}
 chips.addEventListener('scroll',chipFade,{passive:true});window.addEventListener('resize',chipFade);
-GROUPS.forEach((g,i)=>{const b=document.createElement('button');b.className='chip'+(i===1?' fav':'');b.textContent=g[0];b.onclick=()=>{st.grp=i;save();render()};chips.appendChild(b)});
+GROUPS.forEach((g,i)=>{const b=document.createElement('button');b.className='chip'+(i===1?' fav':'');b.dataset.g=i;b.textContent=g[0];b.onclick=()=>{st.grp=i;save();render()};chips.appendChild(b);
+  if(i===2){const c=document.createElement('button');c.className='chip compbtn';c.id='compBtn';c.type='button';c.setAttribute('aria-expanded','false');c.textContent='Competitions ▾';c.onclick=()=>toggleCompPanel();chips.appendChild(c)}});
+// Competitions button: a list of competitions with upcoming games; picking one opens its view
+const MAINCOMPS=12;
+function compPanelHTML(all){const counts={};for(const m of data){if(isPast(m))continue;counts[m.c]=(counts[m.c]||0)+1}
+  const list=POPULAR.filter(c=>counts[c]).concat(Object.keys(counts).filter(c=>!POPULAR.includes(c)).sort());
+  const show=all?list:list.slice(0,MAINCOMPS);
+  return `<div class="cph">Show games for a competition</div><div class="cpl">${show.map(c=>`<button type="button" data-cv="${esc(c)}"${COMPCOL[c]?` style="--c:${COMPCOL[c]}"`:''}>${esc(c)}<span class="n">${counts[c]}</span></button>`).join('')}${!all&&list.length>MAINCOMPS?`<button type="button" class="more" data-cpmore="1">More ▾</button>`:''}</div>`}
+function toggleCompPanel(force){const p=$('compPanel'),open=force!==undefined?force:p.hidden;if(open)p.innerHTML=compPanelHTML(false);p.hidden=!open;$('compBtn').setAttribute('aria-expanded',String(open));$('compBtn').textContent=open?'Competitions ▴':'Competitions ▾'}
+document.addEventListener('click',e=>{if(e.target.closest('[data-cpmore]'))$('compPanel').innerHTML=compPanelHTML(true)});
 $('days').addEventListener('click',e=>{const b=e.target.closest('[data-day]');if(!b)return;st.day=b.dataset.day;render();try{window.scrollTo({top:$('list').offsetTop-$('days').closest('.controls').offsetHeight-10,behavior:'smooth'})}catch(_){}});
 $('hidePast').checked=st.hidePast; $('hidePast').onchange=e=>{st.hidePast=e.target.checked;save();renderAll()};
 $('confOnly').checked=st.conf; $('confOnly').onchange=e=>{st.conf=e.target.checked;save();render()};
@@ -2014,7 +2032,7 @@ function resetFilters(){
   save();renderAll();
 }
 $('resetBtn').onclick=resetFilters;
-function openComp(c){if(!st.prev)st.prev={grp:st.grp,comp:st.comp,day:st.day,q:st.q}; st.comp=c; st.q=''; st.grp=0; st.day=''; render(); try{$('days').scrollLeft=0}catch(_){}
+function openComp(c){try{toggleCompPanel(false)}catch(_){}if(!st.prev)st.prev={grp:st.grp,comp:st.comp,day:st.day,q:st.q}; st.comp=c; st.q=''; st.grp=0; st.day=''; render(); try{$('days').scrollLeft=0}catch(_){}
   try{const L=$('list'),c=document.querySelector('.controls');const y=L.getBoundingClientRect().top+scrollY-(c?c.offsetHeight:0)-12;window.scrollTo({top:Math.max(0,y),behavior:'smooth'})}catch(_){}}
 document.addEventListener('click',e=>{const x=e.target.closest('[data-cv]');if(x)openComp(x.dataset.cv)});
 document.addEventListener('keydown',e=>{const x=e.target.closest&&e.target.closest('[data-cv]');if(x&&(e.key==='Enter'||e.key===' ')){e.preventDefault();openComp(x.dataset.cv)}});
@@ -2111,7 +2129,7 @@ document.addEventListener('scroll',e=>{if(e.target.classList&&e.target.classList
 let mtOpen=false;
 function renderSum(){const has=st.favs.length+st.favComps.length>0, collapsed=has&&!mtOpen;
   document.querySelector('.myteams').classList.toggle('collapsed',collapsed);$('mtSum').hidden=!collapsed;$('mtDoneRow').hidden=!has;
-  $('mtSumText').innerHTML=[...st.favs.map(t=>{const c=teamColour(t);return `<span${c?` style="color:${c}"`:''}>${esc(short(t))}</span>`}),...[...st.favComps].sort((a,b)=>rank(a)-rank(b)).map(c=>`<span class="sc">${esc(c)}</span>`)].join(' <span class="sc">·</span> ')}
+  $('mtSumText').innerHTML=[...st.favs.map(t=>{const c=teamColour(t);return `<span${c?` style="color:${c}"`:''}>${esc(short(t))}</span>`}),...[...st.favComps].sort((a,b)=>rank(a)-rank(b)).map(c=>`<span class="sc scv" data-cv="${esc(c)}" role="button" tabindex="0" title="Show all ${esc(c)} games">${esc(c)}</span>`)].join(' <span class="sc">·</span> ')}
   requestAnimationFrame(sumFade);
 document.addEventListener('click',e=>{if(e.target.closest('#mtEdit')){mtOpen=true;renderSum()}else if(e.target.closest('#mtDone')){mtOpen=false;$('addBox').hidden=true;$('compPick').hidden=true;$('compSearch').hidden=true;renderTeams();renderComps();renderSum();document.querySelector('.myteams').scrollIntoView({block:'nearest'})}});
 function renderTeams(){
@@ -2152,8 +2170,8 @@ function render(){
   {const L=document.querySelector('.layout');if(L)L.classList.toggle('solo',!(st.favs.length||st.favComps.length));}
   if(st.grp===1&&!hasFavs())st.grp=0;
   const pill=$('teamPill'); pill.hidden=!st.q&&!st.comp; if(!st.q&&st.comp){pill.style.setProperty('--c','var(--green-d,#15803d)');const n=data.filter(m=>m.c===st.comp&&!isPast(m)).length;pill.innerHTML=`<span class="tpt"><span class="tpn"><b>${esc(st.comp)}</b> <span class="tpc">(${n})</span></span></span><button aria-label="Close and go back">✕ Close</button>`;} if(st.q) {const tc=teamColour(st.q)||'#0f172a';pill.style.setProperty('--c',tc);const n=data.filter(m=>(m.h===st.q||m.a===st.q)&&!isPast(m)).length;pill.innerHTML=`<span class="tpt">Showing all <b>${esc(short(st.q))}</b> games <span class="tpc">(${n})</span></span><button aria-label="Close and go back">✕ Close</button>`;}
-  [...chips.children].forEach((b,i)=>b.classList.toggle('on',i===st.grp));
-  {const ab=chips.children[st.grp];if(ab&&chips.scrollWidth>chips.clientWidth){const cr=chips.getBoundingClientRect(),br=ab.getBoundingClientRect();if(br.right>cr.right-40)chips.scrollLeft+=br.right-cr.right+48;else if(br.left<cr.left)chips.scrollLeft-=cr.left-br.left+12}chipFade()}
+  chips.querySelectorAll('[data-g]').forEach(b=>b.classList.toggle('on',+b.dataset.g===st.grp));
+  {const ab=chips.querySelector(`[data-g="${st.grp}"]`);if(ab&&chips.scrollWidth>chips.clientWidth){const cr=chips.getBoundingClientRect(),br=ab.getBoundingClientRect();if(br.right>cr.right-40)chips.scrollLeft+=br.right-cr.right+48;else if(br.left<cr.left)chips.scrollLeft-=cr.left-br.left+12}chipFade()}
   const now=Date.now(), today=todayStr(), tomorrow=new Date(Date.parse(today+'T12:00:00Z')+864e5).toISOString().slice(0,10);
   const base=data.filter(m=>{
     m.past=isPast(m);

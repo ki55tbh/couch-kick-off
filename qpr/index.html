@@ -221,6 +221,14 @@ main>.month:first-child{margin-top:10px}
 .m.notvm .teams{color:#55645b}
 .m.notvm .note{color:var(--muted)}
 .m.fav.notvm{background:linear-gradient(90deg,#fff1c7,#fffcf3 55%);box-shadow:0 3px 14px rgba(242,179,0,.18)}.m.fav.notvm .teams{color:inherit}
+.compbtn{color:var(--green-d,#15803d)}
+#compPanel{margin:8px 0 2px;padding:10px 12px;border:1px solid var(--line);border-radius:14px;background:#fff;box-shadow:var(--shadow)}
+#compPanel .cph{font:800 13px Inter,sans-serif;color:var(--ink,#0f172a);margin:0 0 8px}
+#compPanel .cpl{display:flex;flex-wrap:wrap;gap:6px}
+#compPanel button{font:600 13px Inter,sans-serif;padding:6px 10px;border-radius:999px;border:1px solid color-mix(in srgb,var(--c,#475569) 35%,#fff);background:#fff;color:var(--c,#334155);cursor:pointer;white-space:nowrap}
+#compPanel button .n{color:var(--muted);margin-left:5px}
+#compPanel button.more{border-style:dashed;color:var(--muted)}
+.scv{cursor:pointer}
 .m.onair:not(.fav)::before{content:"";position:absolute;left:-1px;top:12px;bottom:12px;width:4px;border-radius:0 4px 4px 0;background:#16a34a}
 .tagrow{position:absolute;top:12px;right:12px;display:flex;gap:6px;z-index:2}
 @media(max-width:699px){.tagrow{top:-10px}.m.onair{margin-top:14px}}
