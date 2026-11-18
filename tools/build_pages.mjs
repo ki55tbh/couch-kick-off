@@ -20,6 +20,8 @@ const SITE = 'https://couchkickoff.co.uk';
 const CHECK = process.argv.includes('--check');
 const problems = [];
 // Every output goes through out(): written normally, or compared with the file on disk in --check mode
+const ROUND_RX = /^(First|Second|Third|Fourth|Fifth|Sixth) round( replays?)?$|^(Quarter|Semi)-finals?( (first|second) legs?)?$|^Final$|^Play-off (semi-)?finals?$|^Round of (16|32)$|^Group stage$|^League phase$/i;
+const isRound = n => !!n && ROUND_RX.test(n.trim());
 function out(path, content) {
   if (!CHECK) { fs.writeFileSync(path, content); return; }
   let disk = null; try { disk = fs.readFileSync(path); } catch { }
@@ -75,8 +77,8 @@ function card(m, team) {
   const ko = m.t === 'TBC' ? '' : ` data-ko="${m.d}T${m.t}:00${ukOffset(m.d, m.t)}"`;
   return `<div class="m${pending ? ' tbcm' : ''}${notv ? ' notvm' : ''}"${ko}><div class="ko"><span class="dt">${longDate(m.d)}</span>${m.t}${m.t === 'TBC' ? '' : '<small>UK</small>'}</div><div>
     <div class="teams">${esc(m.h)} <span class="vaw"><span class="v">v</span>${esc(m.a)}</span></div>
-    <div class="comp">${esc(m.c)} · ${ha === 'H' ? 'Home' : 'Away'}${notv ? `<span class="notvtag"> · ${m.c === 'Premier League' ? '3pm, not on UK TV' : 'Not on UK TV'}</span>` : ''}</div>${notv ? '' : `<div class="ch">${badges(m)}</div>`}
-    ${m.n && !notv ? `<div class="note">${esc(m.n)}</div>` : ''}</div></div>`;
+    <div class="comp">${esc(m.c)}${isRound(m.n) ? ` · ${esc(m.n)}` : ''} · ${ha === 'H' ? 'Home' : 'Away'}${notv ? `<span class="notvtag"> · ${m.c === 'Premier League' ? '3pm, not on UK TV' : 'Not on UK TV'}</span>` : ''}</div>${notv ? '' : `<div class="ch">${badges(m)}</div>`}
+    ${m.n && !notv && !isRound(m.n) ? `<div class="note">${esc(m.n)}</div>` : ''}</div></div>`;
 }
 
 // Breadcrumb markup only. Match-level Event markup was removed because Google requires a venue for every event,
@@ -188,8 +190,8 @@ function card2(m, showComp) {
   const ko = m.t === 'TBC' ? '' : ` data-ko="${m.d}T${m.t}:00${ukOffset(m.d, m.t)}"`;
   return `<div class="m"${ko}><div class="ko">${m.t}${m.t === 'TBC' ? '' : '<small>UK</small>'}</div><div>
     <div class="teams">${esc(m.h)} <span class="vaw"><span class="v">v</span>${esc(m.a)}</span></div>
-    ${showComp ? `<div class="comp">${esc(m.c)}</div>` : ''}<div class="ch">${badges(m)}</div>
-    ${m.n ? `<div class="note">${esc(m.n)}</div>` : ''}</div></div>`;
+    ${showComp ? `<div class="comp">${esc(m.c)}${isRound(m.n) ? ` · ${esc(m.n)}` : ''}</div>` : ''}<div class="ch">${badges(m)}</div>
+    ${m.n && !isRound(m.n) ? `<div class="note">${esc(m.n)}</div>` : (m.n && !showComp ? `<div class="note">${esc(m.n)}</div>` : '')}</div></div>`;
 }
 function listPage({ slug, title, h1, desc, lead, crumb, list, showComp }) {
   const upd = UPDATED.last_ok ? new Date(UPDATED.last_ok + 'Z').toLocaleString('en-GB', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' }) : '';
