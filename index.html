@@ -326,12 +326,15 @@ footer ul{margin:0;padding-left:18px}
 
 <footer>
   <!-- TODAYTV -->
-  <h3 id="today">On UK TV today</h3>
-  <p>Wednesday, 18 November 2026. 3 televised matches, kick-off times UK time:</p>
+  <h3 id="today">Next football on UK TV</h3>
+  <p>Friday, 20 November 2026 (no televised games today). 6 televised matches, kick-off times UK time:</p>
   <ul class="todaylist">
-    <li><b>00:00</b> USA v Haiti (CONCACAF Nations League): YouTube (CONCACAF)</li>
-    <li><b>02:30</b> Mexico v Jamaica (CONCACAF Nations League): YouTube (CONCACAF)</li>
-    <li><b>23:30</b> Cruzeiro v Palmeiras (Brasileirão): Premier Sports 2, Premier Sports Player</li>
+    <li><b>00:30</b> Orlando City v FC Cincinnati (MLS Cup Playoffs): Apple TV</li>
+    <li><b>03:00</b> Seattle Sounders v Real Salt Lake (MLS Cup Playoffs): Apple TV</li>
+    <li><b>19:30</b> Bayern Munich v Cologne (Bundesliga): BBC iPlayer</li>
+    <li><b>19:30</b> Inverness CT v Ayr United (Scottish Championship): BBC Scotland, BBC iPlayer</li>
+    <li><b>20:00</b> Athletic Club v Espanyol (LaLiga): Premier Sports 1</li>
+    <li><b>20:00</b> Barnsley v Sheffield Wednesday (League One): Sky Sports Football</li>
   </ul>
   <!-- /TODAYTV -->
   <!-- TEAMPAGES -->
@@ -365,10 +368,10 @@ footer ul{margin:0;padding-left:18px}
   <p>Cup and European rounds are listed by date until the ties are drawn.</p>
   <p>A solid channel badge means the broadcaster has confirmed that match. An outlined badge marked <b>Expected</b> means the broadcaster holds the rights to the competition but hasn't confirmed that particular game yet. It turns solid once it's confirmed. <b>TV games only</b> shows both confirmed and expected games, and hides games marked "TV pick TBC" or "Not on UK TV".</p>
   <h3>Confirmed TV picks so far</h3>
-  <p>Broadcasters pick games in batches, usually a few weeks ahead. These are all the picks announced as of 18 Nov 2026:</p>
+  <p>Broadcasters pick games in batches, usually a few weeks ahead. These are all the picks announced as of 19 Nov 2026:</p>
   <ul>
     <li><b>Premier League:</b> every TV pick to 7 Jan. The rest of January is due the week of 30 Nov.</li>
-    <li><b>EFL (Sky Sports):</b> to 9 Jan. Sky also streams most 3pm Saturday EFL games on Sky Sports+.</li>
+    <li><b>EFL (Sky Sports):</b> to 3 Mar. Sky also streams most 3pm Saturday EFL games on Sky Sports+.</li>
     <li><b>Scottish Premiership:</b> to 9 Jan.</li>
     <li><b>FA Cup second round:</b> TV picks (4 to 7 Dec) on TNT Sports, two also on BBC Two.</li>
     <li><b>Champions League and Europa League:</b> league phase to 27/28 Jan, all on TNT Sports. Prime Video takes one Tuesday Champions League game each week, but most of its picks haven't been announced.</li>
@@ -404,7 +407,7 @@ const CP = {
 const PRIME_NOTE = "Prime Video shows one Tuesday game a week; its UK pick isn't confirmed";
 // date time | home | away | comp | channels | note
 // Updated by the scheduled task on every run. status: 'ok' or 'failed'.
-const UPDATED = {last_ok:'2026-11-18T09:44', last_attempt:'2026-11-18T09:44', status:'ok', summary:'15 new televised fixtures (8 FA Cup second round ties, 6 Scottish Premiership, Southampton v Middlesbrough), 7 expected broadcasts confirmed (LaLiga and Serie A), 29 channel changes (exact TNT channels for 26 Nov Europa and Conference League, Sky for 28 Nov EFL), Carabao Cup quarter-final dates and kick-offs set; today to Friday rechecked, all correct'};
+const UPDATED = {last_ok:'2026-11-19T09:44', last_attempt:'2026-11-19T09:44', status:'ok', summary:'142 new televised fixtures (Sky Sports EFL picks from 12 Jan to 3 Mar, announced by the EFL), 8 expected broadcasts confirmed (29 Nov LaLiga on Premier Sports 1, Serie A on DAZN, Sassuolo v Napoli also on BBC ALBA, Como v Juventus on TNT Sports 1), Swansea v Cardiff set to Sky Sports Football; today to Saturday rechecked, all correct'};
 // Weekly accuracy audit history, written by the Monday audit task (not shown on the page). Newest last.
 // Each entry: {week:'YYYY-MM-DD', checked:N, correct:N, incorrect:N, unverified:N, fixed:N}
 const AUDITS = [{week:'2026-11-16', checked:81, correct:46, incorrect:2, unverified:33, missing:0, fixed:2, expected:0, promoted:0, bcast_confirmed:36}];
@@ -436,15 +439,15 @@ const RAW = `
 2026-11-29 03:30|Portland Timbers|FC Dallas|MLS Cup Playoffs|Apple TV
 2026-11-17 10:00|Singapore|Brazil|International Friendly|NOTV|No UK broadcaster has been announced
 2026-11-17 23:00|Argentina|Costa Rica|International Friendly|NOTV|In Córdoba. No UK broadcaster has been announced
-2026-11-29 17:30|Celta Vigo|Villarreal|LL|PS?
+2026-11-29 17:30|Celta Vigo|Villarreal|LL|Premier Sports 1
 2026-11-28 17:30|Elche|Atlético Madrid|LL|Premier Sports 2
 2026-11-28 13:00|Real Betis|Rayo Vallecano|LL|Premier Sports 1
-2026-11-29 13:00|Valencia|Osasuna|LL|PS?
+2026-11-29 13:00|Valencia|Osasuna|LL|Premier Sports 1
 2026-11-28 20:00|Real Madrid|Alavés|LL|DIS|Disney+'s Saturday night LaLiga game this week
 2026-11-30 20:00|Espanyol|Getafe|LL|PS?
-2026-11-29 20:00|Real Sociedad|Sevilla|LL|PS?
+2026-11-29 20:00|Real Sociedad|Sevilla|LL|Premier Sports 1
 2026-11-27 20:00|Levante|Racing Santander|LL|Premier Sports 1
-2026-11-29 15:15|Deportivo La Coruña|Barcelona|LL|PS?
+2026-11-29 15:15|Deportivo La Coruña|Barcelona|LL|Premier Sports 1
 2026-11-28 15:15|Málaga|Athletic Club|LL|NOTV|Saturday 3pm blackout, so it won't be shown live in the UK
 2026-12-06 TBC|Osasuna|Elche|LL|PS?|Matchday 15, the weekend of 5 to 6 Dec. Exact day and kick-off not set yet. Premier Sports, or Disney+ for its one Saturday night game
 2026-12-06 TBC|Sevilla|Málaga|LL|PS?|Matchday 15, the weekend of 5 to 6 Dec. Exact day and kick-off not set yet. Premier Sports, or Disney+ for its one Saturday night game
@@ -1115,10 +1118,10 @@ const RAW = `
 2026-11-28 14:00|Frosinone|Parma|SA|NOTV|Saturday afternoon kick-off, so it can't be shown live in the UK
 2026-11-28 17:00|Torino|Lazio|SA|DZ|Starts inside the Saturday 3pm blackout, so live coverage may not begin until 5:15pm
 2026-11-28 19:45|Inter|Genoa|SA|DZ
-2026-11-29 11:30|Udinese|Fiorentina|SA|DZ?
-2026-11-29 14:00|Sassuolo|Napoli|SA|DZ?
-2026-11-29 17:00|Roma|Monza|SA|DZ?
-2026-11-29 19:45|Como|Juventus|SA|DZ?
+2026-11-29 11:30|Udinese|Fiorentina|SA|DZ
+2026-11-29 14:00|Sassuolo|Napoli|SA|DZ,BBC ALBA,BBC iPlayer
+2026-11-29 17:00|Roma|Monza|SA|DZ
+2026-11-29 19:45|Como|Juventus|SA|TNT Sports 1,DAZN,HBO Max
 2026-11-30 17:30|Lecce|Atalanta|SA|DZ?
 2026-11-30 19:45|Cagliari|AC Milan|SA|DZ?
 2026-12-04 19:45|Bologna|Roma|SA|DZ?
@@ -1420,7 +1423,7 @@ const RAW = `
 2026-11-28 12:30|Exeter City|Crawley Town|L2|Sky Sports+,NOW
 2026-11-28 17:30|Ipswich Town|Aston Villa|PL|Sky Sports Main Event,Sky Sports Premier League,Sky Sports Ultra HDR,NOW
 2026-11-29 12:00|Everton|Liverpool|PL|TNT Sports 1,TNT Sports Ultimate,HBO Max
-2026-11-29 12:00|Swansea City|Cardiff City|CH|S
+2026-11-29 12:00|Swansea City|Cardiff City|CH|Sky Sports Football,NOW
 2026-11-29 14:05|Brighton|Newcastle United|PL|Sky Sports Premier League,NOW
 2026-11-29 14:05|Crystal Palace|Hull City|PL|Sky Sports Cricket,NOW
 2026-11-29 14:05|Fulham|Bournemouth|PL|Sky Sports+,NOW
@@ -1876,6 +1879,148 @@ const RAW = `
 2026-12-06 15:15|Crewe Alexandra|Plymouth Argyle|FA Cup|TNT Sports 2,HBO Max|Second round
 2026-12-06 17:30|Plymouth Parkway|Barnet|FA Cup|TNT Sports 1,HBO Max|Second round
 2026-12-07 19:30|Guiseley|Notts County|FA Cup|TNT Sports 1,HBO Max|Second round
+2027-01-12 19:45|Notts County|Blackpool|L1|Sky Sports+,NOW
+2027-01-15 20:00|West Ham United|Swansea City|CH|Sky Sports Football,NOW
+2027-01-16 12:30|QPR|Birmingham City|CH|Sky Sports+,NOW
+2027-01-16 12:30|Stoke City|Derby County|CH|Sky Sports+,NOW
+2027-01-16 12:30|Wolves|Burnley|CH|Sky Sports Football,NOW
+2027-01-16 12:30|Bromley|Stockport County|L1|Sky Sports+,NOW
+2027-01-16 12:30|Luton Town|MK Dons|L1|Sky Sports+,NOW
+2027-01-16 12:30|Bristol Rovers|Shrewsbury Town|L2|Sky Sports+,NOW
+2027-01-16 12:30|Chesterfield|Port Vale|L2|Sky Sports+,NOW
+2027-01-17 12:00|Charlton Athletic|Watford|CH|Sky Sports Football,NOW
+2027-01-19 19:45|Barnsley|Luton Town|L1|Sky Sports+,NOW
+2027-01-19 19:45|Bradford City|Burton Albion|L1|Sky Sports+,NOW
+2027-01-19 19:45|Leicester City|Bromley|L1|Sky Sports+,NOW
+2027-01-19 19:45|Leyton Orient|Reading|L1|Sky Sports+,NOW
+2027-01-19 19:45|MK Dons|Blackpool|L1|Sky Sports+,NOW
+2027-01-19 19:45|Mansfield Town|AFC Wimbledon|L1|Sky Sports+,NOW
+2027-01-19 19:45|Peterborough United|Huddersfield Town|L1|Sky Sports+,NOW
+2027-01-19 19:45|Plymouth Argyle|Stevenage|L1|Sky Sports+,NOW
+2027-01-19 19:45|Sheffield Wednesday|Notts County|L1|Sky Sports+,NOW
+2027-01-19 19:45|Stockport County|Doncaster Rovers|L1|Sky Sports+,NOW
+2027-01-19 19:45|Wycombe Wanderers|Cambridge United|L1|Sky Sports+,NOW
+2027-01-19 19:45|Accrington Stanley|York City|L2|Sky Sports+,NOW
+2027-01-19 19:45|Colchester United|Chesterfield|L2|Sky Sports+,NOW
+2027-01-19 19:45|Crewe Alexandra|Exeter City|L2|Sky Sports+,NOW
+2027-01-19 19:45|Fleetwood Town|Cheltenham Town|L2|Sky Sports+,NOW
+2027-01-19 19:45|Grimsby Town|Rochdale|L2|Sky Sports+,NOW
+2027-01-19 19:45|Oldham Athletic|Walsall|L2|Sky Sports+,NOW
+2027-01-19 19:45|Port Vale|Gillingham|L2|Sky Sports+,NOW
+2027-01-19 19:45|Salford City|Bristol Rovers|L2|Sky Sports+,NOW
+2027-01-19 19:45|Shrewsbury Town|Crawley Town|L2|Sky Sports+,NOW
+2027-01-19 19:45|Swindon Town|Barnet|L2|Sky Sports+,NOW
+2027-01-19 19:45|Tranmere Rovers|Northampton Town|L2|Sky Sports+,NOW
+2027-01-19 20:00|Newport County|Rotherham United|L2|Sky Sports Football,NOW
+2027-01-20 20:00|Wigan Athletic|Oxford United|L1|Sky Sports Football,NOW
+2027-01-22 20:00|Preston North End|Stoke City|CH|Sky Sports Football,NOW
+2027-01-23 12:30|Birmingham City|Lincoln City|CH|Sky Sports+,NOW
+2027-01-23 12:30|QPR|Southampton|CH|Sky Sports Football,NOW
+2027-01-23 12:30|West Bromwich Albion|West Ham United|CH|Sky Sports+,NOW
+2027-01-23 12:30|Sheffield Wednesday|Doncaster Rovers|L1|Sky Sports+,NOW
+2027-01-23 12:30|Wigan Athletic|Huddersfield Town|L1|Sky Sports+,NOW
+2027-01-23 12:30|Colchester United|Northampton Town|L2|Sky Sports+,NOW
+2027-01-23 12:30|Salford City|Walsall|L2|Sky Sports+,NOW
+2027-01-24 12:00|Cardiff City|Wolves|CH|Sky Sports Football,NOW
+2027-01-25 20:00|Plymouth Argyle|Cambridge United|L1|Sky Sports Football,NOW
+2027-01-26 19:45|Bolton Wanderers|Charlton Athletic|CH|Sky Sports+,NOW
+2027-01-26 19:45|Burnley|QPR|CH|Sky Sports+,NOW
+2027-01-26 19:45|Lincoln City|Watford|CH|Sky Sports+,NOW
+2027-01-26 19:45|Millwall|Birmingham City|CH|Sky Sports+,NOW
+2027-01-26 19:45|Sheffield United|Preston North End|CH|Sky Sports+,NOW
+2027-01-26 19:45|Southampton|West Bromwich Albion|CH|Sky Sports+,NOW
+2027-01-26 19:45|Stoke City|Blackburn Rovers|CH|Sky Sports+,NOW
+2027-01-26 19:45|AFC Wimbledon|Stevenage|L1|Sky Sports+,NOW
+2027-01-26 20:00|Norwich City|Derby County|CH|Sky Sports Football,NOW
+2027-01-27 19:45|Middlesbrough|Wrexham|CH|Sky Sports+,NOW
+2027-01-27 19:45|West Ham United|Cardiff City|CH|Sky Sports+,NOW
+2027-01-27 19:45|Wolves|Bristol City|CH|Sky Sports+,NOW
+2027-01-27 20:00|Swansea City|Portsmouth|CH|Sky Sports Football,NOW
+2027-01-29 20:00|Lincoln City|QPR|CH|Sky Sports Football,NOW
+2027-01-30 12:30|Bolton Wanderers|Derby County|CH|Sky Sports+,NOW
+2027-01-30 12:30|Swansea City|Birmingham City|CH|ITV1,ITVX,STV,STV Player,Sky Sports Football,NOW
+2027-01-30 12:30|Wolves|Wrexham|CH|Sky Sports+,NOW
+2027-01-30 12:30|Huddersfield Town|Bradford City|L1|Sky Sports+,NOW
+2027-01-30 12:30|Luton Town|Peterborough United|L1|Sky Sports+,NOW
+2027-01-30 12:30|Rotherham United|Swindon Town|L2|Sky Sports+,NOW
+2027-01-30 12:30|York City|Grimsby Town|L2|Sky Sports+,NOW
+2027-01-31 12:00|Norwich City|Bristol City|CH|Sky Sports Football,NOW
+2027-02-05 20:00|Bristol City|Middlesbrough|CH|Sky Sports Football,NOW
+2027-02-06 12:30|Charlton Athletic|Wolves|CH|Sky Sports Football,NOW
+2027-02-06 12:30|Watford|Sheffield United|CH|Sky Sports+,NOW
+2027-02-06 12:30|Wrexham|Lincoln City|CH|Sky Sports+,NOW
+2027-02-06 12:30|Leicester City|MK Dons|L1|Sky Sports+,NOW
+2027-02-06 12:30|Reading|Oxford United|L1|Sky Sports+,NOW
+2027-02-06 12:30|Crewe Alexandra|Port Vale|L2|Sky Sports+,NOW
+2027-02-06 12:30|Tranmere Rovers|Newport County|L2|Sky Sports+,NOW
+2027-02-07 12:00|Blackburn Rovers|Burnley|CH|Sky Sports Football,NOW
+2027-02-09 19:45|AFC Wimbledon|Burton Albion|L1|Sky Sports+,NOW
+2027-02-09 19:45|Blackpool|Barnsley|L1|Sky Sports+,NOW
+2027-02-09 19:45|Cambridge United|Bradford City|L1|Sky Sports+,NOW
+2027-02-09 19:45|Leyton Orient|Bromley|L1|Sky Sports+,NOW
+2027-02-09 19:45|MK Dons|Wigan Athletic|L1|Sky Sports+,NOW
+2027-02-09 19:45|Mansfield Town|Reading|L1|Sky Sports+,NOW
+2027-02-09 19:45|Notts County|Doncaster Rovers|L1|Sky Sports+,NOW
+2027-02-09 19:45|Oxford United|Huddersfield Town|L1|Sky Sports+,NOW
+2027-02-09 19:45|Sheffield Wednesday|Wycombe Wanderers|L1|Sky Sports+,NOW
+2027-02-09 19:45|Stevenage|Peterborough United|L1|Sky Sports+,NOW
+2027-02-09 19:45|Stockport County|Luton Town|L1|Sky Sports+,NOW
+2027-02-09 19:45|Barnet|Exeter City|L2|Sky Sports+,NOW
+2027-02-09 19:45|Colchester United|Bristol Rovers|L2|Sky Sports+,NOW
+2027-02-09 19:45|Crawley Town|Northampton Town|L2|Sky Sports+,NOW
+2027-02-09 19:45|Gillingham|Chesterfield|L2|Sky Sports+,NOW
+2027-02-09 19:45|Grimsby Town|Accrington Stanley|L2|Sky Sports+,NOW
+2027-02-09 19:45|Newport County|Salford City|L2|Sky Sports+,NOW
+2027-02-09 19:45|Oldham Athletic|Fleetwood Town|L2|Sky Sports+,NOW
+2027-02-09 19:45|Port Vale|Swindon Town|L2|Sky Sports+,NOW
+2027-02-09 19:45|Rotherham United|Tranmere Rovers|L2|Sky Sports+,NOW
+2027-02-09 19:45|Shrewsbury Town|Rochdale|L2|Sky Sports+,NOW
+2027-02-09 19:45|York City|Cheltenham Town|L2|Sky Sports+,NOW
+2027-02-09 20:00|Walsall|Crewe Alexandra|L2|Sky Sports Football,NOW
+2027-02-10 20:00|Plymouth Argyle|Leicester City|L1|Sky Sports Football,NOW
+2027-02-12 20:00|Birmingham City|Derby County|CH|Sky Sports Football,NOW
+2027-02-13 12:30|Bristol City|Southampton|CH|Sky Sports+,NOW
+2027-02-13 12:30|Millwall|Blackburn Rovers|CH|Sky Sports+,NOW
+2027-02-13 12:30|Portsmouth|Charlton Athletic|CH|Sky Sports Football,NOW
+2027-02-13 12:30|MK Dons|Wycombe Wanderers|L1|Sky Sports+,NOW
+2027-02-13 12:30|Mansfield Town|Bradford City|L1|Sky Sports+,NOW
+2027-02-13 12:30|Oldham Athletic|Tranmere Rovers|L2|Sky Sports+,NOW
+2027-02-13 12:30|Port Vale|Salford City|L2|Sky Sports+,NOW
+2027-02-13 17:30|Lincoln City|Preston North End|CH|Sky Sports Football,NOW
+2027-02-14 12:00|Cardiff City|Bolton Wanderers|CH|Sky Sports Football,NOW
+2027-02-16 19:45|Charlton Athletic|Burnley|CH|Sky Sports+,NOW
+2027-02-16 19:45|Derby County|QPR|CH|Sky Sports+,NOW
+2027-02-16 19:45|Middlesbrough|Stoke City|CH|Sky Sports+,NOW
+2027-02-16 19:45|Preston North End|Birmingham City|CH|Sky Sports+,NOW
+2027-02-16 19:45|Sheffield United|Portsmouth|CH|Sky Sports+,NOW
+2027-02-16 19:45|West Bromwich Albion|Wrexham|CH|Sky Sports+,NOW
+2027-02-16 19:45|West Ham United|Lincoln City|CH|Sky Sports+,NOW
+2027-02-16 20:00|Blackburn Rovers|Bristol City|CH|Sky Sports Football,NOW
+2027-02-17 19:45|Bolton Wanderers|Wolves|CH|Sky Sports+,NOW
+2027-02-17 19:45|Southampton|Norwich City|CH|Sky Sports+,NOW
+2027-02-17 19:45|Swansea City|Millwall|CH|Sky Sports+,NOW
+2027-02-17 20:00|Watford|Cardiff City|CH|Sky Sports Football,NOW
+2027-02-18 20:00|Rochdale|Walsall|L2|Sky Sports Football,NOW
+2027-02-19 20:00|Middlesbrough|Birmingham City|CH|Sky Sports Football,NOW
+2027-02-20 12:30|Sheffield United|Stoke City|CH|Sky Sports+,NOW
+2027-02-20 12:30|Watford|Bristol City|CH|Sky Sports+,NOW
+2027-02-20 12:30|West Bromwich Albion|Wolves|CH|Sky Sports Football,NOW
+2027-02-20 12:30|Leicester City|Stockport County|L1|Sky Sports+,NOW
+2027-02-20 12:30|Wigan Athletic|Sheffield Wednesday|L1|Sky Sports+,NOW
+2027-02-20 12:30|Cheltenham Town|Crawley Town|L2|Sky Sports+,NOW
+2027-02-20 12:30|Exeter City|Port Vale|L2|Sky Sports+,NOW
+2027-02-21 12:00|West Ham United|Millwall|CH|ITV1,ITVX,STV,STV Player,Sky Sports Football,NOW
+2027-02-26 20:00|Birmingham City|West Bromwich Albion|CH|Sky Sports Football,NOW
+2027-02-27 12:30|Bristol City|Charlton Athletic|CH|Sky Sports+,NOW
+2027-02-27 12:30|Norwich City|Swansea City|CH|Sky Sports+,NOW
+2027-02-27 12:30|QPR|West Ham United|CH|Sky Sports Football,NOW
+2027-02-27 12:30|Cambridge United|Peterborough United|L1|Sky Sports+,NOW
+2027-02-27 12:30|Oxford United|Luton Town|L1|Sky Sports+,NOW
+2027-02-27 12:30|Barnet|Walsall|L2|Sky Sports+,NOW
+2027-02-27 12:30|Gillingham|Colchester United|L2|Sky Sports+,NOW
+2027-02-28 12:00|Portsmouth|Southampton|CH|Sky Sports Football,NOW
+2027-03-02 20:00|Bristol City|Birmingham City|CH|Sky Sports Football,NOW
+2027-03-03 20:00|Portsmouth|Lincoln City|CH|Sky Sports Football,NOW
 `;
 
 const BIG = ['Premier League','Champions League','Europa League','Conference League','FA Cup','Carabao Cup','UEFA Nations League','Euro 2028 Qualifiers'];
