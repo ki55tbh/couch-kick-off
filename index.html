@@ -326,8 +326,8 @@ footer ul{margin:0;padding-left:18px}
 
 <footer>
   <!-- TODAYTV -->
-  <h3 id="today">Next football on UK TV</h3>
-  <p>Friday, 20 November 2026 (no televised games today). 6 televised matches, kick-off times UK time:</p>
+  <h3 id="today">On UK TV today</h3>
+  <p>Friday, 20 November 2026. 6 televised matches, kick-off times UK time:</p>
   <ul class="todaylist">
     <li><b>00:30</b> Orlando City v FC Cincinnati (MLS Cup Playoffs): Apple TV</li>
     <li><b>03:00</b> Seattle Sounders v Real Salt Lake (MLS Cup Playoffs): Apple TV</li>
@@ -407,7 +407,7 @@ const CP = {
 const PRIME_NOTE = "Prime Video shows one Tuesday game a week; its UK pick isn't confirmed";
 // date time | home | away | comp | channels | note
 // Updated by the scheduled task on every run. status: 'ok' or 'failed'.
-const UPDATED = {last_ok:'2026-11-19T09:44', last_attempt:'2026-11-19T09:44', status:'ok', summary:'142 new televised fixtures (Sky Sports EFL picks from 12 Jan to 3 Mar, announced by the EFL), 8 expected broadcasts confirmed (29 Nov LaLiga on Premier Sports 1, Serie A on DAZN, Sassuolo v Napoli also on BBC ALBA, Como v Juventus on TNT Sports 1), Swansea v Cardiff set to Sky Sports Football; today to Saturday rechecked, all correct'};
+const UPDATED = {last_ok:'2026-11-20T09:42', last_attempt:'2026-11-20T09:42', status:'ok', summary:'MLS wild card results added: FC Cincinnati face Nashville SC and Real Salt Lake face Vancouver Whitecaps in Round One (4 games updated); no other channel or time changes for today to Monday'};
 // Weekly accuracy audit history, written by the Monday audit task (not shown on the page). Newest last.
 // Each entry: {week:'YYYY-MM-DD', checked:N, correct:N, incorrect:N, unverified:N, fixed:N}
 const AUDITS = [{week:'2026-11-16', checked:81, correct:46, incorrect:2, unverified:33, missing:0, fixed:2, expected:0, promoted:0, bcast_confirmed:36}];
@@ -424,17 +424,17 @@ const RAW = `
 2026-11-21 19:00|New England Revolution|Philadelphia Union|MLS Cup Playoffs|Apple TV
 2026-11-21 21:00|FC Dallas|Portland Timbers|MLS Cup Playoffs|Apple TV
 2026-11-21 23:00|Inter Miami|Columbus Crew|MLS Cup Playoffs|Apple TV
-2026-11-22 21:00|Nashville SC|Orlando City or FC Cincinnati|MLS Cup Playoffs|Apple TV|Opponent decided by Thursday night's wild card game
+2026-11-22 21:00|Nashville SC|FC Cincinnati|MLS Cup Playoffs|Apple TV
 2026-11-22 23:30|Chicago Fire|Charlotte FC|MLS Cup Playoffs|Apple TV
-2026-11-23 01:30|Vancouver Whitecaps|Seattle Sounders or Real Salt Lake|MLS Cup Playoffs|Apple TV|Opponent decided by Thursday night's wild card game
+2026-11-23 01:30|Vancouver Whitecaps|Real Salt Lake|MLS Cup Playoffs|Apple TV
 2026-11-24 01:00|St. Louis City|LAFC|MLS Cup Playoffs|Apple TV
 2026-11-25 03:00|San Jose Earthquakes|Houston Dynamo|MLS Cup Playoffs|Apple TV
 2026-11-28 01:00|Columbus Crew|Inter Miami|MLS Cup Playoffs|Apple TV
-2026-11-28 03:00|Seattle Sounders or Real Salt Lake|Vancouver Whitecaps|MLS Cup Playoffs|Apple TV|Opponent decided by Thursday night's wild card game
+2026-11-28 03:00|Real Salt Lake|Vancouver Whitecaps|MLS Cup Playoffs|Apple TV
 2026-11-28 17:30|Charlotte FC|Chicago Fire|MLS Cup Playoffs|Apple TV
 2026-11-28 19:30|Houston Dynamo|San Jose Earthquakes|MLS Cup Playoffs|Apple TV
 2026-11-28 21:30|Philadelphia Union|New England Revolution|MLS Cup Playoffs|Apple TV
-2026-11-28 23:30|Orlando City or FC Cincinnati|Nashville SC|MLS Cup Playoffs|Apple TV|Opponent decided by Thursday night's wild card game
+2026-11-28 23:30|FC Cincinnati|Nashville SC|MLS Cup Playoffs|Apple TV
 2026-11-29 01:30|LAFC|St. Louis City|MLS Cup Playoffs|Apple TV
 2026-11-29 03:30|Portland Timbers|FC Dallas|MLS Cup Playoffs|Apple TV
 2026-11-17 10:00|Singapore|Brazil|International Friendly|NOTV|No UK broadcaster has been announced
