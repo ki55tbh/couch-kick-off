@@ -21,7 +21,7 @@
 <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <meta name="theme-color" content="#f3f6f1">
-<meta name="ck-build" content="0c97503de245">
+<meta name="ck-build" content="7446b5427266">
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="preload" href="/fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/inter-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
@@ -239,7 +239,10 @@ main>.month:first-child{margin-top:10px}
 /* Phones: shorter labels so All, Favourites, Comps and Channels fit on one row */
 .lbl-ph{display:none}@media (hover:none) and (max-width:440px),(pointer:coarse) and (max-width:440px){.lbl-ph{display:inline}.lbl-dt{display:none}}
 @media not all and (hover:hover) and (pointer:fine){.chips{flex-wrap:wrap;overflow:visible;gap:6px 5px}}
-@media (hover:none) and (max-width:440px),(pointer:coarse) and (max-width:440px){.chips .chip{padding:7px 8px;font-size:12.5px}}
+@media (hover:none) and (max-width:440px),(pointer:coarse) and (max-width:440px){.chips .chip{padding:7px 9px;font-size:12.5px}.chips .chip[data-g="0"]{padding:7px 14px}}
+.cshort{display:none}.chips.short .cfull{display:none}.chips.short .cshort{display:inline}
+.chips .chip{transition:background-color .15s,border-color .15s,color .15s}.chips.tight .chip{padding-left:6px;padding-right:6px}.chips.tight .chip[data-g="0"]{padding-left:10px;padding-right:10px}
+@media not all and (hover:hover) and (pointer:fine){.chev{font-size:1.35em;line-height:0;vertical-align:-.08em}}
 #compPanel{margin:8px 0 2px;padding:10px 12px;border:1px solid var(--line);border-radius:14px;background:#fff;box-shadow:var(--shadow)}
 #compPanel .cph{font:800 13px Inter,sans-serif;color:var(--ink,#0f172a);margin:0 0 8px}
 #compPanel .cpl{display:flex;flex-wrap:wrap;gap:6px}
@@ -2176,10 +2179,13 @@ GROUPS.forEach((g,i)=>{const b=document.createElement('button');b.className='chi
   if(i===1){const c=document.createElement('button');c.className='chip compbtn';c.id='compBtn';c.type='button';c.setAttribute('aria-expanded','false');c.innerHTML=compBtnHTML(false);c.onclick=()=>{toggleChPanel(false);toggleCompPanel()};chips.appendChild(c);
     const h=document.createElement('button');h.className='chip chbtn';h.id='chBtn';h.type='button';h.setAttribute('aria-expanded','false');h.setAttribute('aria-controls','chPanel');h.onclick=()=>{toggleCompPanel(false);toggleChPanel()};chips.appendChild(h)}});
 // Channels dropdown (touch screens): tick any number of services; none ticked = no channel filter
-function compBtnHTML(open){return '<span class="lbl-dt">Competitions</span><span class="lbl-ph">Comps</span>'+(open?' ▴':' ▾')}
-function chBtnText(open){const n=st.chs.length;return 'Channels'+(n?` (${n})`:'')+(open?' ▴':' ▾')}
+function compBtnHTML(open){return 'Comp<span class="cfull">etitions</span><span class="cshort">s</span> <span class="chev">'+(open?'▴':'▾')+'</span>'}
+function chBtnText(open){const n=st.chs.length;return 'Channels'+(n?` (${n})`:'')+' <span class="chev">'+(open?'▴':'▾')+'</span>'}
+// Phones: use the full 'Competitions' label when the filter row fits on one line, otherwise 'Comps'
+function fitChips(){chips.classList.remove('short','tight');if(window.matchMedia('(hover:hover) and (pointer:fine)').matches)return;const v=[...chips.children].filter(e=>e.offsetParent);const wraps=()=>v.length&&v[v.length-1].offsetTop>v[0].offsetTop+4;if(wraps()){chips.classList.add('short');if(wraps())chips.classList.add('tight')}}
+window.addEventListener('resize',fitChips);
 function chPanelHTML(){return `<div class="cph">Show games on any of these</div><div class="chl">${CH_NAMES.map(c=>`<label><input type="checkbox" data-ch="${esc(c)}"${st.chs.includes(c)?' checked':''}> ${esc(c)}</label>`).join('')}</div><div class="chf"><button type="button" data-chclear="1"${st.chs.length?'':' disabled'}>Clear</button><button type="button" class="done" data-chdone="1">Done</button></div>`}
-function toggleChPanel(force){const p=$('chPanel'),open=force!==undefined?force:p.hidden;if(open)p.innerHTML=chPanelHTML();p.hidden=!open;$('chBtn').setAttribute('aria-expanded',String(open));$('chBtn').textContent=chBtnText(open)}
+function toggleChPanel(force){const p=$('chPanel'),open=force!==undefined?force:p.hidden;if(open)p.innerHTML=chPanelHTML();p.hidden=!open;$('chBtn').setAttribute('aria-expanded',String(open));$('chBtn').innerHTML=chBtnText(open)}
 $('chPanel').addEventListener('change',e=>{const b=e.target.closest('[data-ch]');if(!b)return;const c=b.dataset.ch;st.chs=b.checked?[...new Set([...st.chs,c])].sort((x,y)=>CH_NAMES.indexOf(x)-CH_NAMES.indexOf(y)):st.chs.filter(x=>x!==c);save();render();const cl=$('chPanel').querySelector('[data-chclear]');if(cl)cl.disabled=!st.chs.length});
 $('chPanel').addEventListener('click',e=>{if(e.target.closest('[data-chclear]')){st.chs=[];save();render();$('chPanel').innerHTML=chPanelHTML()}else if(e.target.closest('[data-chdone]'))toggleChPanel(false)});
 // Competitions button: a list of competitions with upcoming games; picking one opens its view
@@ -2391,7 +2397,7 @@ function render(){
   if(st.grp===1&&!hasFavs())st.grp=0;
   const pill=$('teamPill'); pill.hidden=!st.q&&!st.comp; if(!st.q&&st.comp){pill.style.setProperty('--c','var(--green-d,#15803d)');const n=data.filter(m=>m.c===st.comp&&!isPast(m)).length;pill.innerHTML=`<span class="tpt"><span class="tpn"><b>${esc(st.comp)}</b> <span class="tpc">(${n})</span></span></span><button aria-label="Close and go back">✕ Close</button>`;} if(st.q) {const tc=teamColour(st.q)||'#0f172a';pill.style.setProperty('--c',tc);const n=data.filter(m=>(m.h===st.q||m.a===st.q)&&!isPast(m)).length;pill.innerHTML=`<span class="tpt">Showing all <b>${esc(short(st.q))}</b> games <span class="tpc">(${n})</span></span><button aria-label="Close and go back">✕ Close</button>`;}
   chips.querySelectorAll('[data-g]').forEach(b=>{const i=+b.dataset.g;b.classList.toggle('on',i>1?st.chs.includes(GROUPS[i][0]):i===1?st.grp===1:st.grp===0&&!st.chs.length)});
-  {const cb=$('chBtn');if(cb){cb.textContent=chBtnText(!$('chPanel').hidden);cb.classList.toggle('act',st.chs.length>0)}}
+  {const cb=$('chBtn');if(cb){cb.innerHTML=chBtnText(!$('chPanel').hidden);cb.classList.toggle('act',st.chs.length>0)}fitChips()}
   {const ab=chips.querySelector(`[data-g="${st.chs.length?CH_NAMES.indexOf(st.chs[0])+2:st.grp}"]`);if(ab&&chips.scrollWidth>chips.clientWidth){const cr=chips.getBoundingClientRect(),br=ab.getBoundingClientRect();if(br.right>cr.right-40)chips.scrollLeft+=br.right-cr.right+48;else if(br.left<cr.left)chips.scrollLeft-=cr.left-br.left+12}chipFade()}
   const now=Date.now(), today=todayStr(), tomorrow=new Date(Date.parse(today+'T12:00:00Z')+864e5).toISOString().slice(0,10);
   const base=data.filter(m=>{

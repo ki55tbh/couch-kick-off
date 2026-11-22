@@ -236,7 +236,10 @@ main>.month:first-child{margin-top:10px}
 /* Phones: shorter labels so All, Favourites, Comps and Channels fit on one row */
 .lbl-ph{display:none}@media (hover:none) and (max-width:440px),(pointer:coarse) and (max-width:440px){.lbl-ph{display:inline}.lbl-dt{display:none}}
 @media not all and (hover:hover) and (pointer:fine){.chips{flex-wrap:wrap;overflow:visible;gap:6px 5px}}
-@media (hover:none) and (max-width:440px),(pointer:coarse) and (max-width:440px){.chips .chip{padding:7px 8px;font-size:12.5px}}
+@media (hover:none) and (max-width:440px),(pointer:coarse) and (max-width:440px){.chips .chip{padding:7px 9px;font-size:12.5px}.chips .chip[data-g="0"]{padding:7px 14px}}
+.cshort{display:none}.chips.short .cfull{display:none}.chips.short .cshort{display:inline}
+.chips .chip{transition:background-color .15s,border-color .15s,color .15s}.chips.tight .chip{padding-left:6px;padding-right:6px}.chips.tight .chip[data-g="0"]{padding-left:10px;padding-right:10px}
+@media not all and (hover:hover) and (pointer:fine){.chev{font-size:1.35em;line-height:0;vertical-align:-.08em}}
 #compPanel{margin:8px 0 2px;padding:10px 12px;border:1px solid var(--line);border-radius:14px;background:#fff;box-shadow:var(--shadow)}
 #compPanel .cph{font:800 13px Inter,sans-serif;color:var(--ink,#0f172a);margin:0 0 8px}
 #compPanel .cpl{display:flex;flex-wrap:wrap;gap:6px}
