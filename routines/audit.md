@@ -46,6 +46,8 @@ Note exactly which of those eight broadcasters' schedules you could open. If ANY
 
 Record the missing list BEFORE adding anything, then add each confirmed missing game as a new RAW line in date order.
 
+Also check the past week's official fixture-change announcements (SPFL, EFL, Premier League, FA, UEFA and club news, including games moved for cup finals, cup ties or European fixtures) for any listed game on ANY date, not just the next 7 days. Fix a moved or postponed game from the official announcement, and report each one as a fixture error.
+
 ## Step 4: fix confirmed errors only
 
 - Correct each INCORRECT fixture or broadcast from the official source (keep team spellings and formats). Promote Expected lines an official source now confirms. Never change UNVERIFIED items and never remove a "?" without official confirmation. Never guess.
