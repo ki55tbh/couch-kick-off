@@ -21,7 +21,7 @@
 <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <meta name="theme-color" content="#f3f6f1">
-<meta name="ck-build" content="2e01e87ceb34">
+<meta name="ck-build" content="32babef3599d">
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="preload" href="/fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/inter-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
@@ -2370,6 +2370,7 @@ function render(){
   const base=data.filter(m=>{
     m.past=isPast(m);
     if(st.hidePast&&m.past)return false;
+    if(!st.hidePast&&m.past&&m.d!=='TBC'&&m.d<today)return false; // unticked: finished games from today only, not earlier days
     if(st.comp&&m.c!==st.comp)return false;
     if(st.big&&!BIG.includes(m.c)&&!isFavComp(m.c))return false;
     if(st.conf&&(m.ch.includes('TV pick TBC')||m.ch.includes('Not on UK TV')))return false;
