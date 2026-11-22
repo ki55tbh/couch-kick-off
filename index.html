@@ -21,7 +21,7 @@
 <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <meta name="theme-color" content="#f3f6f1">
-<meta name="ck-build" content="92cda57c2a50">
+<meta name="ck-build" content="b414c8cbb562">
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="preload" href="/fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/inter-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
@@ -2377,7 +2377,7 @@ function renderPinned(){
   rows.sort((x,y)=>order(x).localeCompare(order(y)));
   $('pinned').hidden=false;
   $('pinnedTitle').textContent = st.favs.length===1 ? `Next 3 ${short(st.favs[0])} games on TV` : 'Next 3 on TV for each of your teams';
-  const btns='<div class="seeall">'+st.favs.map(t=>{const n=data.filter(m=>(m.h===t||m.a===t)&&!isPast(m)).length;const tc=teamColour(t),fill=tc&&1.05/(lum(tc)+.05)>=4.5?` style="background:${tc};border-color:${tc};color:#fff;padding-top:5px;padding-bottom:5px"`:' style="padding-top:5px;padding-bottom:5px"';return `<button class="btn gold" data-all="${esc(t)}"${fill}>All ${esc(short(t))} games (${n}) →</button>`}).join('')+'</div>';
+  const btns='<div class="seeall">'+st.favs.map(t=>{const n=data.filter(m=>(m.h===t||m.a===t)&&!isPast(m)).length;const c0=teamColour(t),tc=c0&&1.05/(lum(c0)+.05)>=4.5?c0:'#111',fill=` style="background:#fff;background:color-mix(in srgb,${tc} 7%,#fff);border:1.5px solid ${tc};color:${tc};padding-top:5px;padding-bottom:5px"`;return `<button class="btn gold" data-all="${esc(t)}"${fill}>All ${esc(short(t))} games (${n}) →</button>`}).join('')+'</div>';
   $('pinnedList').innerHTML = (rows.length? rows.map(m=>card(m,true)).join('') : '<div class="hint">No upcoming games listed for your teams yet.</div>') + btns;
 }
 // Build-as-you-scroll engine for the fixture list
