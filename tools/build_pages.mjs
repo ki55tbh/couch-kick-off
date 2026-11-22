@@ -34,6 +34,8 @@ let src = fs.readFileSync('index.html', 'utf8');
 const cut = (from, to) => { const i = src.indexOf(from), j = src.indexOf(to, i); if (i < 0 || j < 0) throw new Error('Marker not found: ' + from); return src.slice(i, j); };
 const code = cut('const CH = {', 'const ALLTEAMS') + cut('const BRAND=[', 'function cls(') + cut('const CH_URL=', '// Match venues');
 const { data, UPDATED, expStyle, brandStyle, chURL } = new Function(code + '; return {data, UPDATED, expStyle, brandStyle, chURL};')();
+// Neutral or moved venues (e.g. a cup final at Hampden): show the venue instead of Home/Away on team pages
+const VENUES = (() => { const m = src.match(/const VENUES = (\{[\s\S]*?\n\});/); return m ? new Function('return ' + m[1])() : {}; })();
 const ext = c => chURL(c) ? '<span class="ext" aria-hidden="true">↗</span>' : '';
 const bWrap = (c, inner) => { const u = chURL(c); return u ? `<a class="bl" href="${u}" target="_blank" rel="noopener" title="Open ${esc(c)} in a new tab">${inner}</a>` : inner; };
 const slugify = t => t.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/&/g, 'and').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
@@ -77,7 +79,7 @@ function card(m, team) {
   const ko = m.t === 'TBC' ? '' : ` data-ko="${m.d}T${m.t}:00${ukOffset(m.d, m.t)}"`;
   return `<div class="m${pending ? ' tbcm' : ''}${notv ? ' notvm' : ''}"${ko}><div class="ko"><span class="dt">${longDate(m.d)}</span>${m.t}${m.t === 'TBC' ? '' : '<small>UK</small>'}</div><div>
     <div class="teams">${esc(m.h)} <span class="vaw"><span class="v">v</span>${esc(m.a)}</span></div>
-    <div class="comp">${esc(m.c)}${isRound(m.n) ? ` · ${esc(m.n)}` : ''} · ${ha === 'H' ? 'Home' : 'Away'}${notv ? `<span class="notvtag"> · ${m.c === 'Premier League' ? '3pm, not on UK TV' : 'Not on UK TV'}</span>` : ''}</div>${notv ? '' : `<div class="ch">${badges(m)}</div>`}
+    <div class="comp">${esc(m.c)}${isRound(m.n) ? ` · ${esc(m.n)}` : ''} · ${VENUES[`${m.d}|${m.h}|${m.a}`] ? esc(VENUES[`${m.d}|${m.h}|${m.a}`]) : (ha === 'H' ? 'Home' : 'Away')}${notv ? `<span class="notvtag"> · ${m.c === 'Premier League' ? '3pm, not on UK TV' : 'Not on UK TV'}</span>` : ''}</div>${notv ? '' : `<div class="ch">${badges(m)}</div>`}
     ${m.n && !notv && !isRound(m.n) ? `<div class="note">${esc(m.n)}</div>` : ''}</div></div>`;
 }
 
