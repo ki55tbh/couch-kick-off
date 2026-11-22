@@ -21,7 +21,7 @@
 <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <meta name="theme-color" content="#f3f6f1">
-<meta name="ck-build" content="7446b5427266">
+<meta name="ck-build" content="56a88d7d8b33">
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="preload" href="/fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/inter-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
@@ -242,7 +242,7 @@ main>.month:first-child{margin-top:10px}
 @media (hover:none) and (max-width:440px),(pointer:coarse) and (max-width:440px){.chips .chip{padding:7px 9px;font-size:12.5px}.chips .chip[data-g="0"]{padding:7px 14px}}
 .cshort{display:none}.chips.short .cfull{display:none}.chips.short .cshort{display:inline}
 .chips .chip{transition:background-color .15s,border-color .15s,color .15s}.chips.tight .chip{padding-left:6px;padding-right:6px}.chips.tight .chip[data-g="0"]{padding-left:10px;padding-right:10px}
-@media not all and (hover:hover) and (pointer:fine){.chev{font-size:1.35em;line-height:0;vertical-align:-.08em}}
+/* Phones: draw the arrow as a shape so it is the same size on every phone (font arrows vary a lot) */.chevs{display:none}@media not all and (hover:hover) and (pointer:fine){.chev{display:none}.chevs{display:inline-block;width:8px;height:6px;vertical-align:1px}}
 #compPanel{margin:8px 0 2px;padding:10px 12px;border:1px solid var(--line);border-radius:14px;background:#fff;box-shadow:var(--shadow)}
 #compPanel .cph{font:800 13px Inter,sans-serif;color:var(--ink,#0f172a);margin:0 0 8px}
 #compPanel .cpl{display:flex;flex-wrap:wrap;gap:6px}
@@ -2179,8 +2179,9 @@ GROUPS.forEach((g,i)=>{const b=document.createElement('button');b.className='chi
   if(i===1){const c=document.createElement('button');c.className='chip compbtn';c.id='compBtn';c.type='button';c.setAttribute('aria-expanded','false');c.innerHTML=compBtnHTML(false);c.onclick=()=>{toggleChPanel(false);toggleCompPanel()};chips.appendChild(c);
     const h=document.createElement('button');h.className='chip chbtn';h.id='chBtn';h.type='button';h.setAttribute('aria-expanded','false');h.setAttribute('aria-controls','chPanel');h.onclick=()=>{toggleCompPanel(false);toggleChPanel()};chips.appendChild(h)}});
 // Channels dropdown (touch screens): tick any number of services; none ticked = no channel filter
-function compBtnHTML(open){return 'Comp<span class="cfull">etitions</span><span class="cshort">s</span> <span class="chev">'+(open?'▴':'▾')+'</span>'}
-function chBtnText(open){const n=st.chs.length;return 'Channels'+(n?` (${n})`:'')+' <span class="chev">'+(open?'▴':'▾')+'</span>'}
+function chevSvg(open){return '<svg class="chevs" viewBox="0 0 10 7" aria-hidden="true"><path d="'+(open?'M0 7L5 0L10 7Z':'M0 0L10 0L5 7Z')+'" fill="currentColor"/></svg>'}
+function compBtnHTML(open){return 'Comp<span class="cfull">etitions</span><span class="cshort">s</span> <span class="chev">'+(open?'▴':'▾')+'</span>'+chevSvg(open)}
+function chBtnText(open){const n=st.chs.length;return 'Channels'+(n?` (${n})`:'')+' <span class="chev">'+(open?'▴':'▾')+'</span>'+chevSvg(open)}
 // Phones: use the full 'Competitions' label when the filter row fits on one line, otherwise 'Comps'
 function fitChips(){chips.classList.remove('short','tight');if(window.matchMedia('(hover:hover) and (pointer:fine)').matches)return;const v=[...chips.children].filter(e=>e.offsetParent);const wraps=()=>v.length&&v[v.length-1].offsetTop>v[0].offsetTop+4;if(wraps()){chips.classList.add('short');if(wraps())chips.classList.add('tight')}}
 window.addEventListener('resize',fitChips);
