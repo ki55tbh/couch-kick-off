@@ -43,11 +43,15 @@ const LEAGUE_OF = {};
 for (const lg of LEAGUES) for (const m of data) if (m.c === lg && m.a) for (const t of [m.h, m.a]) LEAGUE_OF[t] ??= lg;
 for (const [lg, clubs] of Object.entries(SCOTTISH)) for (const t of clubs) LEAGUE_OF[t] = lg;
 const TEAMS = Object.keys(LEAGUE_OF).sort((a, b) => a.localeCompare(b)).map(t => [t, slugify(t)]);
+const SLUG_OF = Object.fromEntries(TEAMS);
 const style = cut('<style>', '</style>') + '</style>';
 const FREE = /BBC|ITV|STV|S4C|YouTube|England App|Channel 4|Channel 5/;
 const COMPS = ['Premier League', 'Champions League', 'Europa League', 'Conference League', 'Championship', 'League One', 'League Two',
   'Scottish Premiership', 'Carabao Cup', 'LaLiga', 'Serie A', 'Bundesliga'];
 const compSlug = c => slugify(c) + '-on-tv';
+// Internal links: a team name links to its team page, a competition name to its competition page (when one exists)
+const teamLink = t => SLUG_OF[t] ? `<a class="tl" href="/${SLUG_OF[t]}/">${esc(t)}</a>` : esc(t);
+const compLink = c => COMPS.includes(c) ? `<a class="tl" href="/${compSlug(c)}/">${esc(c)}</a>` : esc(c);
 const WEEKEND = 'football-on-tv-this-weekend';
 const navLinks = () => `<p class="tfoot"><b>More:</b> <a href="/${WEEKEND}/">This weekend</a> · ` + COMPS.map(c => `<a href="/${compSlug(c)}/">${esc(c)}</a>`).join(' · ') + '</p>';
 
@@ -78,8 +82,8 @@ function card(m, team) {
   const opp = m.h === team ? m.a : m.h, ha = m.h === team ? 'H' : 'A';
   const ko = m.t === 'TBC' ? '' : ` data-ko="${m.d}T${m.t}:00${ukOffset(m.d, m.t)}"`;
   return `<div class="m${pending ? ' tbcm' : ''}${notv ? ' notvm' : ''}"${ko}><div class="ko"><span class="dt">${longDate(m.d)}</span>${m.t}${m.t === 'TBC' ? '' : '<small>UK</small>'}</div><div>
-    <div class="teams">${esc(m.h)} <span class="vaw"><span class="v">v</span>${esc(m.a)}</span></div>
-    <div class="comp">${esc(m.c)}${isRound(m.n) ? ` · ${esc(m.n)}` : ''} · ${VENUES[`${m.d}|${m.h}|${m.a}`] ? esc(VENUES[`${m.d}|${m.h}|${m.a}`]) : (ha === 'H' ? 'Home' : 'Away')}${notv ? `<span class="notvtag"> · ${m.c === 'Premier League' ? '3pm, not on UK TV' : 'Not on UK TV'}</span>` : ''}</div>${notv ? '' : `<div class="ch">${badges(m)}</div>`}
+    <div class="teams">${m.h === team ? esc(m.h) : teamLink(m.h)} <span class="vaw"><span class="v">v</span>${m.a === team ? esc(m.a) : teamLink(m.a)}</span></div>
+    <div class="comp">${compLink(m.c)}${isRound(m.n) ? ` · ${esc(m.n)}` : ''} · ${VENUES[`${m.d}|${m.h}|${m.a}`] ? esc(VENUES[`${m.d}|${m.h}|${m.a}`]) : (ha === 'H' ? 'Home' : 'Away')}${notv ? `<span class="notvtag"> · ${m.c === 'Premier League' ? '3pm, not on UK TV' : 'Not on UK TV'}</span>` : ''}</div>${notv ? '' : `<div class="ch">${badges(m)}</div>`}
     ${m.n && !notv && !isRound(m.n) ? `<div class="note">${esc(m.n)}</div>` : ''}</div></div>`;
 }
 
@@ -144,6 +148,7 @@ ${style}
 .nextbox{background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--green);border-radius:12px;padding:12px 14px;margin:0 0 6px;font-weight:600}
 .nextbox b{display:block;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--green);margin-bottom:3px}
 .tfoot{margin:26px 2px 0;font-size:13.5px;color:var(--muted)}.tfoot a{color:var(--green);font-weight:700}
+.tl{color:inherit;text-decoration:underline;text-decoration-color:rgba(20,40,30,.22);text-decoration-thickness:1px;text-underline-offset:3px}.tl:hover,.tl:focus-visible{text-decoration-color:currentColor}
 .cta{display:block;text-align:center;background:var(--green);color:#fff!important;text-decoration:none;border-radius:12px;padding:12px;margin:20px 0 0;font-weight:700}
 </style>
 </head>
@@ -191,8 +196,8 @@ const HORIZON = addDays(ukToday, 56);
 function card2(m, showComp) {
   const ko = m.t === 'TBC' ? '' : ` data-ko="${m.d}T${m.t}:00${ukOffset(m.d, m.t)}"`;
   return `<div class="m"${ko}><div class="ko">${m.t}${m.t === 'TBC' ? '' : '<small>UK</small>'}</div><div>
-    <div class="teams">${esc(m.h)} <span class="vaw"><span class="v">v</span>${esc(m.a)}</span></div>
-    ${showComp ? `<div class="comp">${esc(m.c)}${isRound(m.n) ? ` · ${esc(m.n)}` : ''}</div>` : ''}<div class="ch">${badges(m)}</div>
+    <div class="teams">${teamLink(m.h)} <span class="vaw"><span class="v">v</span>${teamLink(m.a)}</span></div>
+    ${showComp ? `<div class="comp">${compLink(m.c)}${isRound(m.n) ? ` · ${esc(m.n)}` : ''}</div>` : ''}<div class="ch">${badges(m)}</div>
     ${m.n && !isRound(m.n) ? `<div class="note">${esc(m.n)}</div>` : (m.n && !showComp ? `<div class="note">${esc(m.n)}</div>` : '')}</div></div>`;
 }
 function listPage({ slug, title, h1, desc, lead, crumb, list, showComp }) {
@@ -240,6 +245,7 @@ ${style}
 .lead{margin:0 2px 14px;color:var(--text)}.lead small{display:block;color:var(--muted);margin-top:4px}
 .empty{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px;margin:6px 0}
 .tfoot{margin:26px 2px 0;font-size:13.5px;color:var(--muted)}.tfoot a{color:var(--green);font-weight:700}
+.tl{color:inherit;text-decoration:underline;text-decoration-color:rgba(20,40,30,.22);text-decoration-thickness:1px;text-underline-offset:3px}.tl:hover,.tl:focus-visible{text-decoration-color:currentColor}
 .cta{display:block;text-align:center;background:var(--green);color:#fff!important;text-decoration:none;border-radius:12px;padding:12px;margin:20px 0 0;font-weight:700}
 </style>
 </head>
@@ -278,11 +284,15 @@ for (const c of COMPS) {
   const toFri = dow === 0 ? -2 : dow === 6 ? -1 : 5 - dow;
   const wk = [0, 1, 2].map(i => addDays(ukToday, toFri + i)).filter(d => d >= ukToday);
   const list = data.filter(m => wk.includes(m.d) && m.a && isTV(m) && !isWomen(m)).sort(byTime);
-  const range = `${longDate(wk[0])} to ${longDate(wk[wk.length - 1])}`;
+  const fri = addDays(ukToday, toFri), sun = addDays(fri, 2);
+  const dm = d => new Date(d + 'T12:00:00Z').toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', timeZone: 'UTC' });
+  const range = fri.slice(0, 7) === sun.slice(0, 7) ? `${dm(fri)} to ${longDate(sun)}` : `${longDate(fri)} to ${longDate(sun)}`;
+  const partial = wk.length < 3;
   extraPages.push({ slug: WEEKEND, crumb: 'This weekend', h1: 'Football on TV this weekend', list, showComp: true,
     title: 'Football on TV this weekend: every UK channel and kick-off time | Couch Kick-Off',
     desc: `Every football match on UK TV this weekend (${range}): Premier League, EFL, Scottish, European and more, with channels and kick-off times. Checked daily.`,
-    lead: `Every televised game from ${esc(range)}, with the UK channel and kick-off time. ${list.length} ${list.length === 1 ? 'game' : 'games'} on TV.` });
+    lead: partial ? `Every televised game still to come this weekend (${esc(range)}), with the UK channel and kick-off time. ${list.length} ${list.length === 1 ? 'game' : 'games'} on TV.`
+      : `Every televised game from ${esc(range)}, with the UK channel and kick-off time. ${list.length} ${list.length === 1 ? 'game' : 'games'} on TV.` });
 }
 for (const pg of extraPages) {
   const html = listPage(pg);
