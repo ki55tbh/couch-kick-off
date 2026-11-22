@@ -21,7 +21,7 @@
 <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <meta name="theme-color" content="#f3f6f1">
-<meta name="ck-build" content="32babef3599d">
+<meta name="ck-build" content="0c97503de245">
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="preload" href="/fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/inter-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
@@ -225,6 +225,21 @@ main>.month:first-child{margin-top:10px}
 .m.notvm .note{color:var(--muted)}
 .m.fav.notvm{background:linear-gradient(90deg,#fff1c7,#fffcf3 55%);box-shadow:0 3px 14px rgba(242,179,0,.18)}.m.fav.notvm .teams{color:inherit}
 .compbtn{color:var(--green-d,#15803d)}
+/* Channels dropdown: touch screens only; desktop keeps the channel buttons */
+.chip.chch{display:none}.chbtn{color:var(--green-d,#15803d)}.chbtn.act{border-color:var(--green-d,#15803d);background:color-mix(in srgb,var(--green-d,#15803d) 8%,#fff)}
+@media (hover:hover) and (pointer:fine){.chip.chch{display:inline-block}.chbtn,#chPanel{display:none!important}}
+#chPanel{margin:8px 0 2px;padding:10px 12px;border:1px solid var(--line);border-radius:14px;background:#fff;box-shadow:var(--shadow)}
+#chPanel .cph{font:800 13px Inter,sans-serif;color:var(--ink,#0f172a);margin:0 0 8px}
+#chPanel .chl{display:grid;grid-template-columns:1fr 1fr;gap:2px 12px}
+#chPanel label{display:flex;align-items:center;gap:8px;font:600 14px Inter,sans-serif;color:var(--ink,#0f172a);padding:7px 2px;cursor:pointer}
+#chPanel input{width:18px;height:18px;margin:0;accent-color:var(--green-d,#15803d)}
+#chPanel .chf{display:flex;justify-content:space-between;margin-top:8px;padding-top:8px;border-top:1px solid var(--line)}
+#chPanel .chf button{font:700 13px Inter,sans-serif;padding:6px 14px;border-radius:999px;border:1px solid var(--line2);background:#fff;color:var(--muted);cursor:pointer}
+#chPanel .chf button:disabled{opacity:.45;cursor:default}#chPanel .chf .done{background:var(--ink);border-color:var(--ink);color:#fff}
+/* Phones: shorter labels so All, Favourites, Comps and Channels fit on one row */
+.lbl-ph{display:none}@media (hover:none) and (max-width:440px),(pointer:coarse) and (max-width:440px){.lbl-ph{display:inline}.lbl-dt{display:none}}
+@media not all and (hover:hover) and (pointer:fine){.chips{flex-wrap:wrap;overflow:visible;gap:6px 5px}}
+@media (hover:none) and (max-width:440px),(pointer:coarse) and (max-width:440px){.chips .chip{padding:7px 8px;font-size:12.5px}}
 #compPanel{margin:8px 0 2px;padding:10px 12px;border:1px solid var(--line);border-radius:14px;background:#fff;box-shadow:var(--shadow)}
 #compPanel .cph{font:800 13px Inter,sans-serif;color:var(--ink,#0f172a);margin:0 0 8px}
 #compPanel .cpl{display:flex;flex-wrap:wrap;gap:6px}
@@ -311,6 +326,7 @@ footer ul{margin:0;padding-left:18px}
   <div class="dwrap"><button class="dnav prev" id="dPrev" type="button" aria-label="Earlier dates">‹</button><div class="days" id="days"></div><button class="dnav next" id="dNext" type="button" aria-label="Later dates">›</button></div>
   <div class="chips" id="chips"></div>
   <div id="compPanel" hidden></div>
+  <div id="chPanel" hidden></div>
   <div class="optrow">
     <div class="opts">
       <label class="tog"><input type="checkbox" id="hidePast" checked> Hide finished</label>
@@ -2128,10 +2144,11 @@ const GROUPS = [
   ['Apple TV',m=>m.ch.some(c=>/Apple TV/.test(c))],
   ['YouTube',m=>m.ch.some(c=>/YouTube/.test(c))],
 ];
-const st={q:'',comp:'',grp:0,hidePast:true,big:false,conf:false,when:'all',favs:[],favComps:[]};
+const CH_NAMES=GROUPS.slice(2).map(g=>g[0]); // channel/service filters (Free onwards)
+const st={q:'',comp:'',grp:0,chs:[],hidePast:true,big:false,conf:false,when:'all',favs:[],favComps:[]};
 function load(){try{const s=JSON.parse(localStorage.getItem('fotv2')||'{}');
-  st.favs=Array.isArray(s.favs)?s.favs:[]; st.favComps=Array.isArray(s.favComps)?s.favComps.map(c=>c==='Nations League'?'UEFA Nations League':c):[];  st.big=!!s.big; st.hidePast=s.hidePast!==false; st.day=''; st.conf=!!s.conf;}catch(e){}}
-function save(){try{localStorage.setItem('fotv2',JSON.stringify({favs:st.favs,favComps:st.favComps,big:st.big,hidePast:st.hidePast,conf:st.conf}))}catch(e){}}
+  st.favs=Array.isArray(s.favs)?s.favs:[]; st.favComps=Array.isArray(s.favComps)?s.favComps.map(c=>c==='Nations League'?'UEFA Nations League':c):[];  st.big=!!s.big; st.hidePast=s.hidePast!==false; st.day=''; st.conf=!!s.conf; st.chs=Array.isArray(s.chs)?s.chs.filter(c=>CH_NAMES.includes(c)):[];}catch(e){}}
+function save(){try{localStorage.setItem('fotv2',JSON.stringify({favs:st.favs,favComps:st.favComps,big:st.big,hidePast:st.hidePast,conf:st.conf,chs:st.chs}))}catch(e){}}
 load();
 st.favs=st.favs.filter(t=>ALLTEAMS.includes(t));
 const POPULAR=['Premier League','Champions League','FA Cup','Carabao Cup','Europa League','Conference League','Championship','UEFA Nations League','Euro 2028 Qualifiers','Scottish Premiership','LaLiga','Serie A','Bundesliga','League One','League Two','EFL Trophy','National League','International Friendly','U21 Friendly','Scottish Championship','Scottish League One','NIFL Premiership','LaLiga2','Serie C','Brasileirão'];
@@ -2155,8 +2172,16 @@ $('days').addEventListener('scroll',dayNav,{passive:true});window.addEventListen
 $('dPrev').onclick=()=>$('days').scrollBy({left:-$('days').clientWidth*0.8,behavior:'smooth'});$('dNext').onclick=()=>$('days').scrollBy({left:$('days').clientWidth*0.8,behavior:'smooth'});
 function chipFade(){chips.classList.toggle('more',chips.scrollLeft+chips.clientWidth<chips.scrollWidth-4)}
 chips.addEventListener('scroll',chipFade,{passive:true});window.addEventListener('resize',chipFade);
-GROUPS.forEach((g,i)=>{const b=document.createElement('button');b.className='chip'+(i===1?' fav':'');b.dataset.g=i;b.textContent=g[0];b.onclick=()=>{st.grp=i;save();render()};chips.appendChild(b);
-  if(i===1){const c=document.createElement('button');c.className='chip compbtn';c.id='compBtn';c.type='button';c.setAttribute('aria-expanded','false');c.textContent='Competitions ▾';c.onclick=()=>toggleCompPanel();chips.appendChild(c)}});
+GROUPS.forEach((g,i)=>{const b=document.createElement('button');b.className='chip'+(i===1?' fav':'')+(i>1?' chch':'');b.dataset.g=i;if(i===1)b.innerHTML='★ <span class="lbl-dt">My favourites</span><span class="lbl-ph">Favourites</span>';else b.textContent=g[0];b.onclick=()=>{if(i>1){st.grp=0;st.chs=[g[0]]}else{st.grp=i;st.chs=[]}save();render()};chips.appendChild(b);
+  if(i===1){const c=document.createElement('button');c.className='chip compbtn';c.id='compBtn';c.type='button';c.setAttribute('aria-expanded','false');c.innerHTML=compBtnHTML(false);c.onclick=()=>{toggleChPanel(false);toggleCompPanel()};chips.appendChild(c);
+    const h=document.createElement('button');h.className='chip chbtn';h.id='chBtn';h.type='button';h.setAttribute('aria-expanded','false');h.setAttribute('aria-controls','chPanel');h.onclick=()=>{toggleCompPanel(false);toggleChPanel()};chips.appendChild(h)}});
+// Channels dropdown (touch screens): tick any number of services; none ticked = no channel filter
+function compBtnHTML(open){return '<span class="lbl-dt">Competitions</span><span class="lbl-ph">Comps</span>'+(open?' ▴':' ▾')}
+function chBtnText(open){const n=st.chs.length;return 'Channels'+(n?` (${n})`:'')+(open?' ▴':' ▾')}
+function chPanelHTML(){return `<div class="cph">Show games on any of these</div><div class="chl">${CH_NAMES.map(c=>`<label><input type="checkbox" data-ch="${esc(c)}"${st.chs.includes(c)?' checked':''}> ${esc(c)}</label>`).join('')}</div><div class="chf"><button type="button" data-chclear="1"${st.chs.length?'':' disabled'}>Clear</button><button type="button" class="done" data-chdone="1">Done</button></div>`}
+function toggleChPanel(force){const p=$('chPanel'),open=force!==undefined?force:p.hidden;if(open)p.innerHTML=chPanelHTML();p.hidden=!open;$('chBtn').setAttribute('aria-expanded',String(open));$('chBtn').textContent=chBtnText(open)}
+$('chPanel').addEventListener('change',e=>{const b=e.target.closest('[data-ch]');if(!b)return;const c=b.dataset.ch;st.chs=b.checked?[...new Set([...st.chs,c])].sort((x,y)=>CH_NAMES.indexOf(x)-CH_NAMES.indexOf(y)):st.chs.filter(x=>x!==c);save();render();const cl=$('chPanel').querySelector('[data-chclear]');if(cl)cl.disabled=!st.chs.length});
+$('chPanel').addEventListener('click',e=>{if(e.target.closest('[data-chclear]')){st.chs=[];save();render();$('chPanel').innerHTML=chPanelHTML()}else if(e.target.closest('[data-chdone]'))toggleChPanel(false)});
 // Competitions button: a list of competitions with upcoming games; picking one opens its view
 const PANEL_MAIN=['Premier League','Champions League','Europa League','Conference League','FA Cup','Carabao Cup','Championship','League One','League Two','Scottish Premiership','LaLiga','Serie A','Bundesliga'];
 const PANEL_NEXT=['UEFA Nations League','Euro 2028 Qualifiers','International Friendly'];
@@ -2165,7 +2190,7 @@ function compPanelHTML(all){const counts={};for(const m of data){if(isPast(m))co
   const rest=PANEL_NEXT.filter(c=>counts[c]).concat(POPULAR.filter(c=>counts[c]&&!head.includes(c)),Object.keys(counts).filter(c=>!head.includes(c)&&!POPULAR.includes(c)).sort());
   const list=main.concat(rest);const show=all?list:main;
   return `<div class="cph">Show games for a competition</div><div class="cpl">${show.map(c=>`<button type="button" data-cv="${esc(c)}"${COMPCOL[c]?` style="--c:${COMPCOL[c]}"`:''}>${esc(c)}<span class="n">${counts[c]}</span></button>`).join('')}${!all&&rest.length?`<button type="button" class="more" data-cpmore="1">More ▾</button>`:''}</div>`}
-function toggleCompPanel(force){const p=$('compPanel'),open=force!==undefined?force:p.hidden;if(open)p.innerHTML=compPanelHTML(false);p.hidden=!open;$('compBtn').setAttribute('aria-expanded',String(open));$('compBtn').textContent=open?'Competitions ▴':'Competitions ▾'}
+function toggleCompPanel(force){const p=$('compPanel'),open=force!==undefined?force:p.hidden;if(open)p.innerHTML=compPanelHTML(false);p.hidden=!open;$('compBtn').setAttribute('aria-expanded',String(open));$('compBtn').innerHTML=compBtnHTML(open)}
 document.addEventListener('click',e=>{if(e.target.closest('[data-cpmore]'))$('compPanel').innerHTML=compPanelHTML(true)});
 $('days').addEventListener('click',e=>{const b=e.target.closest('[data-day]');if(!b)return;st.day=b.dataset.day;render();try{window.scrollTo({top:$('list').offsetTop-$('days').closest('.controls').offsetHeight-10,behavior:'smooth'})}catch(_){}});
 $('hidePast').checked=st.hidePast; $('hidePast').onchange=e=>{st.hidePast=e.target.checked;save();renderAll()};
@@ -2218,8 +2243,9 @@ function twoTap(btn,fn){ if(btn.classList.contains('armed')){fn();btn.classList.
 $('clearTeams').onclick=e=>twoTap(e.currentTarget,()=>{st.favs=[];save();renderAll()});
 $('clearComps').onclick=e=>twoTap(e.currentTarget,()=>{st.favComps=[];save();renderAll()});
 function resetFilters(){
-  st.prev=null;st.q='';st.comp='';st.grp=hasFavs()?1:0;st.day='';st.hidePast=true;st.big=false;st.conf=false;
+  st.prev=null;st.q='';st.comp='';st.grp=hasFavs()?1:0;st.chs=[];st.day='';st.hidePast=true;st.big=false;st.conf=false;
   $('hidePast').checked=true;$('bigOnly').checked=false;$('confOnly').checked=false;
+  if($('chPanel')&&!$('chPanel').hidden)$('chPanel').innerHTML=chPanelHTML();
   save();renderAll();
 }
 $('resetBtn').onclick=resetFilters;
@@ -2364,8 +2390,9 @@ function render(){
   {const L=document.querySelector('.layout');if(L)L.classList.toggle('solo',!(st.favs.length||st.favComps.length));}
   if(st.grp===1&&!hasFavs())st.grp=0;
   const pill=$('teamPill'); pill.hidden=!st.q&&!st.comp; if(!st.q&&st.comp){pill.style.setProperty('--c','var(--green-d,#15803d)');const n=data.filter(m=>m.c===st.comp&&!isPast(m)).length;pill.innerHTML=`<span class="tpt"><span class="tpn"><b>${esc(st.comp)}</b> <span class="tpc">(${n})</span></span></span><button aria-label="Close and go back">✕ Close</button>`;} if(st.q) {const tc=teamColour(st.q)||'#0f172a';pill.style.setProperty('--c',tc);const n=data.filter(m=>(m.h===st.q||m.a===st.q)&&!isPast(m)).length;pill.innerHTML=`<span class="tpt">Showing all <b>${esc(short(st.q))}</b> games <span class="tpc">(${n})</span></span><button aria-label="Close and go back">✕ Close</button>`;}
-  chips.querySelectorAll('[data-g]').forEach(b=>b.classList.toggle('on',+b.dataset.g===st.grp));
-  {const ab=chips.querySelector(`[data-g="${st.grp}"]`);if(ab&&chips.scrollWidth>chips.clientWidth){const cr=chips.getBoundingClientRect(),br=ab.getBoundingClientRect();if(br.right>cr.right-40)chips.scrollLeft+=br.right-cr.right+48;else if(br.left<cr.left)chips.scrollLeft-=cr.left-br.left+12}chipFade()}
+  chips.querySelectorAll('[data-g]').forEach(b=>{const i=+b.dataset.g;b.classList.toggle('on',i>1?st.chs.includes(GROUPS[i][0]):i===1?st.grp===1:st.grp===0&&!st.chs.length)});
+  {const cb=$('chBtn');if(cb){cb.textContent=chBtnText(!$('chPanel').hidden);cb.classList.toggle('act',st.chs.length>0)}}
+  {const ab=chips.querySelector(`[data-g="${st.chs.length?CH_NAMES.indexOf(st.chs[0])+2:st.grp}"]`);if(ab&&chips.scrollWidth>chips.clientWidth){const cr=chips.getBoundingClientRect(),br=ab.getBoundingClientRect();if(br.right>cr.right-40)chips.scrollLeft+=br.right-cr.right+48;else if(br.left<cr.left)chips.scrollLeft-=cr.left-br.left+12}chipFade()}
   const now=Date.now(), today=todayStr(), tomorrow=new Date(Date.parse(today+'T12:00:00Z')+864e5).toISOString().slice(0,10);
   const base=data.filter(m=>{
     m.past=isPast(m);
@@ -2375,6 +2402,7 @@ function render(){
     if(st.big&&!BIG.includes(m.c)&&!isFavComp(m.c))return false;
     if(st.conf&&(m.ch.includes('TV pick TBC')||m.ch.includes('Not on UK TV')))return false;
     if(!GROUPS[st.grp][1](m))return false;
+    if(st.chs.length&&!st.chs.some(c=>GROUPS[CH_NAMES.indexOf(c)+2][1](m)))return false;
     if(st.q&&m.h!==st.q&&m.a!==st.q)return false;
     return true;
   });
@@ -2409,7 +2437,7 @@ function render(){
       return head+`<section class="day" data-d="${d}"><div class="dayhead"><h2>${label}${tag}</h2><span class="count">${ms.length} game${ms.length>1?'s':''}</span></div>${ms.map(m=>card(m,false)).join('')}</section>`}};
   });
   // The 5-minute refresh redraws as many days as were already showing, so the page doesn't jump
-  const key=JSON.stringify([st.day,st.grp,st.comp,st.big,st.conf,st.q,st.hidePast,st.favs,st.favComps]);
+  const key=JSON.stringify([st.day,st.grp,st.chs,st.comp,st.big,st.conf,st.q,st.hidePast,st.favs,st.favComps]);
   const keep=lazy.key===key?lazy.built:0;
   lazy.key=key;lazy.queue=queue;lazy.built=0;lazy.out=out;
   out.innerHTML='';
