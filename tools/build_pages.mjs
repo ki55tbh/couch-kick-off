@@ -95,6 +95,24 @@ function jsonLd(team, slug) {
     { '@type': 'ListItem', position: 2, name: `${team} on TV`, item: `${SITE}/${slug}/` } ] }).replace(/</g, '\\u003c');
 }
 
+// Where-to-watch notes for clubs with no televised games listed (Scottish leagues only for now).
+// Checked 22 Nov 2026 (SPFL 2026/27 fixtures Q&A: BBC Scotland Championship on Fridays, BBC ALBA up to 12 League 1 games; SPFL Player UK and Ireland). Re-check each summer with the SCOTTISH lists.
+const SPFLP = 'Selected matches may also be available on SPFL Player on eligible dates (pay-per-view, UK and Ireland only).';
+const CUP = 'Selected Scottish Cup ties are on Premier Sports or BBC Scotland.';
+const WHERE = {
+  'Scottish Premiership': `Sky Sports and Premier Sports show selected Scottish Premiership games live. ${CUP}`,
+  'Scottish Championship': `BBC Scotland shows selected Scottish Championship games live, mostly on Friday nights. ${SPFLP} ${CUP}`,
+  'Scottish League One': `BBC ALBA shows up to 12 Scottish League One games live a season. ${SPFLP} ${CUP}`,
+  'Scottish League Two': `Scottish League Two games are rarely on TV. ${SPFLP} ${CUP}`,
+};
+function whereBox(team) {
+  const lg = LEAGUE_OF[team], w = WHERE[lg];
+  if (!w) return '';
+  const others = (SCOTTISH[lg] || []).filter(t => t !== team && SLUG_OF[t]).map(t => `<a href="/${SLUG_OF[t]}/">${esc(t)}</a>`).join(' · ');
+  return `<div class="nextbox wherebox"><b>Where to watch</b>${esc(w)}</div>` +
+    (others ? `<p class="tfoot otherclubs"><b>Other ${esc(lg)} clubs:</b> ${others}</p>` : '');
+}
+
 function page(team, slug) {
   const list = data.filter(m => (m.h === team || m.a === team) && m.d !== 'TBC' && m.d >= ukToday);
   const next = list.find(isTV);
@@ -147,6 +165,7 @@ ${style}
 .lead{margin:0 2px 14px;color:var(--text)}.lead small{display:block;color:var(--muted);margin-top:4px}
 .nextbox{background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--green);border-radius:12px;padding:12px 14px;margin:0 0 6px;font-weight:600}
 .nextbox b{display:block;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--green);margin-bottom:3px}
+.wherebox{border-left-color:var(--line);font-weight:400}.wherebox b{color:var(--muted)}.otherclubs{margin-top:14px}
 .tfoot{margin:26px 2px 0;font-size:13.5px;color:var(--muted)}.tfoot a{color:var(--green);font-weight:700}
 .tl{color:inherit;text-decoration:underline;text-decoration-color:rgba(20,40,30,.22);text-decoration-thickness:1px;text-underline-offset:3px}.tl:hover,.tl:focus-visible{text-decoration-color:currentColor}
 .cta{display:block;text-align:center;background:var(--green);color:#fff!important;text-decoration:none;border-radius:12px;padding:12px;margin:20px 0 0;font-weight:700}
@@ -160,12 +179,12 @@ ${style}
 <p class="lead">${LEAGUE_OF[team] === 'Premier League'
   ? `Every upcoming ${esc(team)} match, with the UK TV channel and kick-off time. ${tvCount} of the ${list.length} games listed are already confirmed or expected on TV.`
   : list.length ? `Upcoming ${esc(team)} matches confirmed or expected on UK TV, with channels and kick-off times. More games are added as broadcasters announce their picks.`
-  : `No ${esc(team)} games are confirmed for UK TV right now. Broadcasters announce their picks a few weeks ahead, so check back soon.`}<small>Checked every morning. Last updated ${esc(upd)}. Times are UK time.</small></p>
-${next ? `<div class="nextbox"><b>Next on TV</b>${esc(nextText)}</div>` : ''}
+  : `No ${esc(team)} games are listed for UK TV right now. We add televised games as soon as they're announced.`}<small>Checked every morning. Last updated ${esc(upd)}. Times are UK time.</small></p>
+${next ? `<div class="nextbox"><b>Next on TV</b>${esc(nextText)}</div>` : whereBox(team)}
 ${months}
 <a class="cta" href="/">See all football on UK TV today</a>
 ${navLinks()}
-<p class="tfoot">A solid badge means the broadcaster has confirmed the match. An outlined badge marked Expected means it holds the rights but hasn't confirmed this game yet. Saturday 3pm games aren't shown live in the UK. Spotted a mistake? Email <a href="mailto:hello@couchkickoff.co.uk">hello@couchkickoff.co.uk</a>.<br><br>Couch Kick-Off is independent and not connected to ${esc(team)}, any league or any broadcaster. <a href="/#about">About</a><br><br>© 2026 Couch Kick-Off. All rights reserved.</p>
+<p class="tfoot">A solid badge means the broadcaster has confirmed the match. An outlined badge marked Expected means it holds the rights but hasn't confirmed this game yet. Saturday 3pm games generally aren't shown live in the UK, except on a few dates each season. Spotted a mistake? Email <a href="mailto:hello@couchkickoff.co.uk">hello@couchkickoff.co.uk</a>.<br><br>Couch Kick-Off is independent and not connected to ${esc(team)}, any league or any broadcaster. <a href="/#about">About</a><br><br>© 2026 Couch Kick-Off. All rights reserved.</p>
 </div>
 <script>(function(){var n=Date.now();document.querySelectorAll('.m[data-ko]').forEach(function(e){if(Date.parse(e.dataset.ko)+150*60000<n)e.remove()});document.querySelectorAll('section.day').forEach(function(s){if(!s.querySelector('.m'))s.remove()})})();</script>
 <!-- Cloudflare Web Analytics -->
