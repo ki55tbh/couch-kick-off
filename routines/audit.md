@@ -16,7 +16,7 @@ Skip games the website does not show. The page hides women's football: any RAW l
 
 Audit every RAW line in the window whose CHANNELS is a real broadcaster (not NOTV, not TBC, not a placeholder with empty Away), including Expected ("?") lines. Also spot-check NOTV and TBC lines: Saturday 3pm PL games still at 3pm, TBC games not since picked, blackout NOTV lines for LaLiga/Serie A/Bundesliga really not live in the UK. Every line you look at counts as checked.
 
-Give each checked line TWO separate verdicts. Never let one decide the other.
+Give each checked line TWO separate verdicts. Never let one decide the other. The fixture verdict is CORRECT, INCORRECT or UNVERIFIED; the broadcast verdict can also be PARTIAL (see B).
 
 **A) Fixture verdict: date, UK kick-off and the two teams.**
 - Official sources only: competition sites (premierleague.com, efl.com, spfl.co.uk, laliga.com, legaseriea.it, bundesliga.com, uefa.com, mlssoccer.com), club sites, or a broadcaster's own schedule.
@@ -25,9 +25,10 @@ Give each checked line TWO separate verdicts. Never let one decide the other.
 **B) Broadcast verdict: the UK channel(s) as listed, or the "not on UK TV" claim.**
 - Official sources only: Sky Sports, TNT Sports, BBC Sport / iPlayer / ALBA, ITV / ITVX, Premier Sports, DAZN, Prime Video, Disney+, Apple TV, or a competition or club announcement naming the UK broadcaster for that match.
 - Rights ownership is never proof of an individual broadcast. A blanket statement ("every match live on X") counts only if it is official and clearly covers this match; say so in the evidence line.
+- Record the basis of every CORRECT or PARTIAL broadcast verdict: MATCH (an official source names this specific match on that broadcaster) or BLANKET (only an official statement that the broadcaster shows every match of the competition, e.g. HBO Max UK's football page https://www.hbomax.com/gb/en/sports/football: every Europa League and Conference League match live). BLANKET is weaker evidence than MATCH: still look for a match-specific source first, and use BLANKET only when none is found. Rights ownership on its own is never BLANKET.
 - A confirmed line (no "?") is CORRECT only if an official source lists that specific match on that broadcaster. INCORRECT if it is clearly absent from that broadcaster's published schedule or shown on another channel. Otherwise UNVERIFIED.
 - An Expected line is CORRECT only when an official source confirms that specific match on that broadcaster; then also promote it in step 4. Rights ownership alone is NOT enough: if the broadcaster holds the competition's rights but nothing official names this match, the broadcast verdict is UNVERIFIED. INCORRECT if an official source shows a different broadcaster or not on UK TV.
-- Multiple channels: verify EVERY channel listed. A channel's own streaming service can share that channel's verdict (NOW with Sky Sports, HBO Max with TNT Sports, BBC iPlayer with BBC channels, ITVX with ITV, STV Player with STV), but only where it carries that channel's coverage of this match. Do not assume it always does: if a source suggests the match is excluded from that service (for example a rights or regional restriction), check the service separately. The broadcast verdict is CORRECT only if every listed channel is confirmed for that match; INCORRECT if any listed channel is clearly wrong; otherwise UNVERIFIED, and the evidence line names which channels were confirmed and which were not.
+- Multiple channels: verify EVERY channel listed. A channel's own streaming service can share that channel's verdict (NOW with Sky Sports, HBO Max with TNT Sports, BBC iPlayer with BBC channels, ITVX with ITV, STV Player with STV), but only where it carries that channel's coverage of this match. Do not assume it always does: if a source suggests the match is excluded from that service (for example a rights or regional restriction), check the service separately. The broadcast verdict is CORRECT only if every listed channel is confirmed for that match; INCORRECT if any listed channel is clearly wrong; PARTIAL if at least one listed channel is confirmed for that match by an official source and none is clearly wrong, but another listed channel is not confirmed (e.g. Sky Sports Main Event confirmed, Sky Sports Ultra HDR not found); UNVERIFIED if no listed channel is confirmed. For PARTIAL and UNVERIFIED the evidence line names which channels were confirmed and which were not. PARTIAL is not CORRECT: it never counts in an accuracy numerator or denominator, and step 4 never removes or changes the unconfirmed channel because of it.
 - Never two broadcasters on one game unless an official source shows that match on both.
 
 **Aggregators** (FotMob, live-footballontv.com, wheresthematch.com, 101greatgoals, footballwebpages, fantacalcio.it and similar) only help you find things to check. An aggregator alone, or several agreeing, never makes either verdict CORRECT or INCORRECT.
@@ -40,7 +41,7 @@ Record all verdicts BEFORE fixing anything.
 
 ## Step 3: completeness. Missing televised games in the same 7 days
 
-Go the other way round: take the official UK TV schedules for the window (Sky Sports, TNT Sports, BBC, ITV, Premier Sports, DAZN, Prime Video, Disney+; aggregators only to find candidates). Count as MISSING any live men's game broadcast in the UK that has no RAW line at all, in a covered competition (Premier League, Championship, League One, League Two, EFL Trophy, FA Cup, Carabao Cup, Scottish Premiership and cups, Champions/Europa/Conference League, LaLiga, Serie A, Bundesliga, Nations League, Euro qualifiers, friendlies involving home nations or major nations, CONCACAF Nations League League A only, usually free on CONCACAF's YouTube channel: check https://www.youtube.com/@concacaf/streams, MLS Cup Playoffs and MLS Cup on Apple TV: check mlssoccer.com). A listed placeholder/TBC since confirmed is INCORRECT, not MISSING; a listed Expected game counts as listed.
+Go the other way round: take the official UK TV schedules for the window (Sky Sports, TNT Sports, BBC, ITV, Premier Sports, DAZN, Prime Video, Disney+; aggregators only to find candidates). Count as MISSING any live men's game broadcast in the UK that has no RAW line at all, in a covered competition (Premier League, Championship, League One, League Two, EFL Trophy, FA Cup, Carabao Cup, Scottish Premiership and cups, Champions/Europa/Conference League, LaLiga, Serie A, Bundesliga, Nations League, Euro qualifiers, friendlies involving home nations or major nations, CONCACAF Nations League League A only, usually free on CONCACAF's YouTube channel: check https://www.youtube.com/@concacaf/streams, MLS Cup Playoffs and MLS Cup on Apple TV: check mlssoccer.com). A listed placeholder/TBC since confirmed is INCORRECT, not MISSING; a listed Expected game counts as listed. Europa League and Conference League games streamed live only on HBO Max (TNT Sports' streaming service) count as televised: list them with channel "HBO Max", as the Europa League already is. HBO Max UK's football page (https://www.hbomax.com/gb/en/sports/football) says every Europa League and Conference League match is live (a BLANKET basis).
 
 Note exactly which of those eight broadcasters' schedules you could open. If ANY could not be checked, completeness is PARTIAL: it only describes the schedules you did check, and the report must name the ones you could not.
 
@@ -53,8 +54,8 @@ Also check the past week's official fixture-change announcements (SPFL, EFL, Pre
 - Correct each INCORRECT fixture or broadcast from the official source (keep team spellings and formats). Promote Expected lines an official source now confirms. Never change UNVERIFIED items and never remove a "?" without official confirmation. Never guess.
 - Update UPDATED.summary to mention the audit (e.g. "Weekly audit: 2 corrections, 1 missing game added, 5 Expected games confirmed"). Leave last_ok and last_attempt alone.
 - Append this week's entry to AUDITS, on ONE line, keeping earlier entries exactly as they are:
-  `{week:'<Monday YYYY-MM-DD>', method:2, f_checked:N, f_correct:N, f_incorrect:N, f_unverified:N, b_checked:N, b_correct:N, b_incorrect:N, b_unverified:N, missing:N, completeness:'full' or 'partial', fixed:N, expected:N, promoted:N, ppv_exceptions:N}`
-  f_ = fixture verdicts, b_ = broadcast verdicts (f_checked and b_checked are both the number of lines checked). Entries without `method:2` used the old single-score method.
+  `{week:'<Monday YYYY-MM-DD>', method:2, f_checked:N, f_correct:N, f_incorrect:N, f_unverified:N, b_checked:N, b_correct:N, b_partial:N, b_incorrect:N, b_unverified:N, b_blanket:N, missing:N, completeness:'full' or 'partial', fixed:N, expected:N, promoted:N, ppv_exceptions:N}`
+  f_ = fixture verdicts, b_ = broadcast verdicts (f_checked and b_checked are both the number of lines checked; b_correct + b_partial + b_incorrect + b_unverified = b_checked; b_blanket = how many of the CORRECT and PARTIAL verdicts rest only on a BLANKET basis). Entries without `method:2` used the old single-score method.
 - Rebuild the team pages: `node tools/build_pages.mjs`. It regenerates the team folders (e.g. `liverpool/index.html`), the competition and weekend folders (e.g. `premier-league-on-tv/index.html`, `football-on-tv-this-weekend/index.html`), `sitemap.xml`, the team links between the TEAMPAGES markers and the "On UK TV today" summary between the TODAYTV markers in `index.html` from RAW. Never edit those by hand.
 - Run `python3 tools/validate.py`. It checks index.html AND that every team page and the sitemap exactly match RAW. If it fails, fix the problem, then run `node tools/build_pages.mjs` and `python3 tools/validate.py` once more (one retry only). If it still fails, publish NOTHING: run `git checkout . && git clean -fd` so the last fully validated website stays live, and report the failure clearly with the validator's error. Never publish index.html without matching team pages.
 - Confirm `git diff --stat` and `git status --short` only touch index.html, sitemap.xml and the team, competition and weekend page folders.
@@ -65,7 +66,8 @@ Also check the past week's official fixture-change announcements (SPFL, EFL, Pre
 Definitions (all counts are from BEFORE corrections; every percentage must show its numerator and denominator):
 - Fixture verified = f_correct + f_incorrect. Fixture accuracy = f_correct / fixture verified. Fixture coverage = fixture verified / f_checked.
 - Broadcast verified = b_correct + b_incorrect. Broadcast accuracy = b_correct / broadcast verified. Broadcast coverage = broadcast verified / b_checked.
-- UNVERIFIED items never count as correct and never appear in an accuracy numerator or denominator.
+- UNVERIFIED and PARTIAL items never count as correct and never appear in an accuracy numerator or denominator.
+- Broadcast at least partly confirmed = b_correct + b_partial, shown with its share of b_checked.
 - Completeness = listed televised games / (listed + missing), on the schedules you could check only.
 
 ```
@@ -83,7 +85,10 @@ BROADCASTS (UK channels)
 Accuracy: NN.N% (C of V verified)
 Coverage: NN.N% (V of N checked)
 Incorrect before fixing: N, all fixed / N fixed
-Unverified: N
+Partly confirmed: N (at least one listed channel confirmed, another not)
+Unverified: N (no listed channel confirmed)
+At least partly confirmed: NN.N% (C+P of N checked)
+Confirmed by blanket statement only: N of C+P (the rest named the specific match)
 Expected listings: N (N confirmed and promoted, N rights-based only so UNVERIFIED)
 Prime Video PPV exceptions: N
 

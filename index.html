@@ -427,7 +427,7 @@ const PRIME_NOTE = "Prime Video shows one Tuesday game a week; its UK pick isn't
 const UPDATED = {last_ok:'2026-11-23T09:41', last_attempt:'2026-11-23T09:41', status:'ok', summary:'No fixture changes: today and the next 2 days checked against FotMob and live-footballontv, no new TV picks, YouTube Bundesliga picks or MLS Game 3s announced since the last run. Weekly audit: 0 corrections, 4 missing EFL Trophy games added, no Expected games in the next 7 days'};
 // Weekly accuracy audit history, written by the Monday audit task (not shown on the page). Newest last.
 // Each entry: {week:'YYYY-MM-DD', checked:N, correct:N, incorrect:N, unverified:N, fixed:N}
-const AUDITS = [{week:'2026-11-16', checked:81, correct:46, incorrect:2, unverified:33, missing:0, fixed:2, expected:0, promoted:0, bcast_confirmed:36}, {week:'2026-11-23', method:2, f_checked:120, f_correct:120, f_incorrect:0, f_unverified:0, b_checked:120, b_correct:79, b_incorrect:0, b_unverified:41, missing:4, completeness:'partial', fixed:0, expected:0, promoted:0, ppv_exceptions:3}];
+const AUDITS = [{week:'2026-11-16', checked:81, correct:46, incorrect:2, unverified:33, missing:0, fixed:2, expected:0, promoted:0, bcast_confirmed:36}, {week:'2026-11-23', method:2, f_checked:120, f_correct:120, f_incorrect:0, f_unverified:0, b_checked:120, b_correct:79, b_partial:13, b_incorrect:0, b_unverified:28, missing:20, completeness:'partial', fixed:0, expected:0, promoted:0, ppv_exceptions:3, note:'Revised 23 Nov after review: 13 of the 41 unverified broadcasts were PARTIAL (split from ChatGPT re-reading the report, not re-checked by Claude); 16 Conference League games streamed only on HBO Max were missing and added (BLANKET basis: hbomax.com/gb/en/sports/football)'}];
 const RAW = `
 2026-11-14 10:15|Japan|Brazil|International Friendly|NOTV|No UK broadcaster has been announced. Played at the National Stadium, Singapore
 2026-11-14 21:30|Haiti|USA|CONCACAF Nations League|YouTube (CONCACAF)|Free to watch on CONCACAF's YouTube channel
@@ -1413,6 +1413,7 @@ const RAW = `
 2026-11-25 19:45|Bolton Wanderers|West Bromwich Albion|CH|Sky Sports+,NOW
 2026-11-25 19:45|Burnley|Birmingham City|CH|Sky Sports+,NOW
 2026-11-25 19:45|Watford|Blackburn Rovers|CH|Sky Sports+,NOW
+2026-11-26 15:30|Kairat Almaty|Mjällby|UECL|HBO Max
 2026-11-26 17:45|Celta Vigo|Bournemouth|UEL|TNT Sports 1,HBO Max
 2026-11-26 17:45|Olympiacos|AC Milan|UEL|TNT Sports 4,HBO Max
 2026-11-26 17:45|Dinamo Zagreb|Bayer Leverkusen|UEL|TNT Sports 6,HBO Max
@@ -1423,6 +1424,13 @@ const RAW = `
 2026-11-26 17:45|Viktoria Plzeň|Benfica|UEL|TNT Sports 8,HBO Max
 2026-11-26 17:45|Brighton|Universitatea Craiova|UECL|TNT Sports 2,HBO Max
 2026-11-26 17:45|Hearts|Monaco|UECL|TNT Sports 3,HBO Max
+2026-11-26 17:45|Ajax|Thun|UECL|HBO Max
+2026-11-26 17:45|Iberia Tbilisi|Getafe|UECL|HBO Max
+2026-11-26 17:45|Jablonec|Lugano|UECL|HBO Max
+2026-11-26 17:45|Kauno Žalgiris|Riga|UECL|HBO Max
+2026-11-26 17:45|Egnatia|Lincoln Red Imps|UECL|HBO Max
+2026-11-26 17:45|Pafos|Midtjylland|UECL|HBO Max
+2026-11-26 17:45|Brann|Aarhus|UECL|HBO Max
 2026-11-26 20:00|Crystal Palace|Real Sociedad|UEL|TNT Sports 1,TNT Sports Ultimate,HBO Max
 2026-11-26 20:00|Sunderland|Jagiellonia Białystok|UEL|TNT Sports 2,HBO Max
 2026-11-26 20:00|Torreense|Celtic|UEL|TNT Sports 3,HBO Max
@@ -1434,6 +1442,14 @@ const RAW = `
 2026-11-26 20:00|Ferencváros|Celje|UEL|HBO Max
 2026-11-26 20:00|OFI Crete|Anderlecht|UEL|HBO Max
 2026-11-26 20:00|Doncaster Rovers|Huddersfield Town|L1|Sky Sports Football,NOW
+2026-11-26 20:00|Nordsjælland|Panathinaikos|UECL|HBO Max
+2026-11-26 20:00|Borac Banja Luka|Atalanta|UECL|HBO Max
+2026-11-26 20:00|Hajduk Split|Sint-Truiden|UECL|HBO Max
+2026-11-26 20:00|Inter Escaldes|Copenhagen|UECL|HBO Max
+2026-11-26 20:00|Gent|Red Star Belgrade|UECL|HBO Max
+2026-11-26 20:00|CSKA Sofia|Trabzonspor|UECL|HBO Max
+2026-11-26 20:00|Braga|KuPS|UECL|HBO Max
+2026-11-26 20:00|Freiburg|Twente|UECL|HBO Max
 2026-11-27 20:00|Nottingham Forest|Chelsea|PL|Sky Sports Main Event,Sky Sports Premier League,Sky Sports Ultra HDR,NOW
 2026-11-28 12:30|Blackburn Rovers|Charlton Athletic|CH|Sky Sports+,NOW
 2026-11-28 12:30|Lincoln City|Wolves|CH|Sky Sports+,NOW
