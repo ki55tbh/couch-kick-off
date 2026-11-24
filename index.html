@@ -21,7 +21,7 @@
 <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <meta name="theme-color" content="#f3f6f1">
-<meta name="ck-build" content="f06f7a2e2f5f">
+<meta name="ck-build" content="6490ce0b81ef">
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="preload" href="/fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/inter-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
@@ -209,7 +209,7 @@ main>.month:first-child{margin-top:10px}
 .ev{font-weight:700}
 .comp{color:var(--muted);font-size:12.5px;margin-top:3px;font-weight:500}
 .cp{cursor:pointer}
-.cp.on{color:var(--green-d);font-weight:700}
+.cp.on{color:var(--green-d);font-weight:700}.cp.on[style]{color:var(--c)}
 .cp.on::before{content:"★ ";color:var(--gold)}
 .ch{display:flex;flex-wrap:wrap;gap:5px;margin-top:9px}
 .rep{margin-left:auto;align-self:center;font-size:11px;font-weight:600;color:#5f6d64;text-decoration:none;padding:2px 0 2px 6px;white-space:nowrap}.rep:hover{text-decoration:underline;color:var(--text)}.comp .rep{float:right;margin-left:8px;padding:0;line-height:inherit}
@@ -2372,10 +2372,12 @@ function card(m,showDate){
   const live=isLive(m)&&!notv&&!pending;
   return `<div class="m${isFav(m)?' fav':isFavComp(m.c)?' favc':''}${m.past?' past':''}${pending?' tbcm':''}${notv?' notvm':''}${live?' onair':''}">${live?`<span class="tagrow"><span class="livetag"><i></i>On now</span>${!showDate&&isFav(m)?'<span class="favtag">★ FAVOURITE</span>':''}</span>`:''}<div class="ko">${showDate?`<span class="dt">${shortDate(m.d)}</span>`:''}${m.t}${m.t==='TBC'?'':'<small>UK</small>'}</div><div>
     <div class="teams">${m.a?`${teamHTML(m.h)} <span class="vaw"><span class="v">v</span>${teamHTML(m.a)}</span>`:`<span class="ev">${esc(m.h)}</span>`}</div>
-    ${venueOf(m)?`<div class="venue"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>${esc(venueOf(m))}</div>`:''}<div class="comp"><span class="cp${isFavComp(m.c)?' on':''}" data-cv="${esc(m.c)}" role="button" tabindex="0" title="Show all ${esc(m.c)} games">${esc(CARD_COMP[m.c]||m.c)}</span>${isRound(m.n)?`<span class="rnd"> · ${esc(m.n)}</span>`:''}${notv?`<span class="notvtag"> · ${m.c==='Premier League'?'3pm, not on UK TV':'Not on UK TV'}</span>`:''}${!showDate&&isFav(m)&&!live?'<span class="favtag">★ FAVOURITE</span>':''}${notv&&!showDate?repLink(m):''}</div>${notv?(showDate?`<div class="ch">${repLink(m)}</div>`:''):`<div class="ch">${badges}${repLink(m)}</div>`}
+    ${venueOf(m)?`<div class="venue"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>${esc(venueOf(m))}</div>`:''}<div class="comp"><span class="cp${isFavComp(m.c)?' on':''}"${isFavComp(m.c)&&compTxt(m.c)?` style="--c:${compTxt(m.c)}"`:''} data-cv="${esc(m.c)}" role="button" tabindex="0" title="Show all ${esc(m.c)} games">${esc(CARD_COMP[m.c]||m.c)}</span>${isRound(m.n)?`<span class="rnd"> · ${esc(m.n)}</span>`:''}${notv?`<span class="notvtag"> · ${m.c==='Premier League'?'3pm, not on UK TV':'Not on UK TV'}</span>`:''}${!showDate&&isFav(m)&&!live?'<span class="favtag">★ FAVOURITE</span>':''}${notv&&!showDate?repLink(m):''}</div>${notv?(showDate?`<div class="ch">${repLink(m)}</div>`:''):`<div class="ch">${badges}${repLink(m)}</div>`}
     ${m.n&&!notv&&!isRound(m.n)?`<div class="note">${esc(m.n)}</div>`:''}</div></div>`;
 }
 const COMPCOL={'LaLiga':'#ff4b44','Serie A':'#024494','Bundesliga':'#d20515','Premier League':'#3d195b','Champions League':'#0b1d5c','FA Cup':'#c8102e','Carabao Cup':'#00843d','Europa League':'#e2620a','Conference League':'#00953a','Championship':'#0b3d91','League One':'#e2001a','League Two':'#1f7a3c','UEFA Nations League':'#0b2a5b','Euro 2028 Qualifiers':'#143cdb','Scottish Premiership':'#4b2d84','EFL Trophy':'#0b3d91','National League':'#a0001e','International Friendly':'#1d3b8b','U21 Friendly':'#1d3b8b','Scottish Championship':'#4b2d84','Scottish League One':'#4b2d84','NIFL Premiership':'#00295f','LaLiga2':'#ff4b44','Serie C':'#0055a4','Brasileirão':'#009c3b'};
+// Favourite competitions on cards use their chip colour when it is dark enough to read as text (4.5:1 on white); lighter ones keep the green
+const compTxt=c=>{const k=COMPCOL[c];return k&&1.05/(lum(k)+.05)>=4.5?k:''};
 function renderComps(){
   $('mcList').innerHTML = st.favComps.length
     ? [...st.favComps].sort((a,b)=>rank(a)-rank(b)).map(c=>{const k=COMPCOL[c];return `<span class="ft${k?' col':''}"${k?` style="--c:${k}"`:''}><span class="st">★</span> ${esc(c)}<button data-rmc="${esc(c)}" aria-label="Remove ${esc(c)}">×</button></span>`}).join('')
