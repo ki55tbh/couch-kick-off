@@ -154,7 +154,7 @@ function page(team, slug) {
 <meta property="og:title" content="${esc(team)} on TV | Couch Kick-Off">
 <meta property="og:description" content="${esc(desc)}">
 <meta property="og:url" content="${SITE}/${slug}/">
-<meta property="og:image" content="${SITE}/og-image.png">
+<meta property="og:image" content="${SITE}/og-image-v2.png">
 <meta property="og:locale" content="en_GB">
 <meta name="twitter:card" content="summary_large_image">
 <script type="application/ld+json">${jsonLd(team, slug)}</script>
@@ -253,7 +253,7 @@ function listPage({ slug, title, h1, desc, lead, crumb, list, showComp }) {
 <meta property="og:title" content="${esc(h1)} | Couch Kick-Off">
 <meta property="og:description" content="${esc(desc)}">
 <meta property="og:url" content="${SITE}/${slug}/">
-<meta property="og:image" content="${SITE}/og-image.png">
+<meta property="og:image" content="${SITE}/og-image-v2.png">
 <meta property="og:locale" content="en_GB">
 <meta name="twitter:card" content="summary_large_image">
 <script type="application/ld+json">${ld}</script>
