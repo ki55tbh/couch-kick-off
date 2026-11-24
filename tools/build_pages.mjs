@@ -52,6 +52,9 @@ const compSlug = c => slugify(c) + '-on-tv';
 // Internal links: a team name links to its team page, a competition name to its competition page (when one exists)
 const teamLink = t => SLUG_OF[t] ? `<a class="tl" href="/${SLUG_OF[t]}/">${esc(t)}</a>` : esc(t);
 const compLink = c => COMPS.includes(c) ? `<a class="tl" href="/${compSlug(c)}/">${esc(c)}</a>` : esc(c);
+// Fuller names on fixture cards only (same list as CARD_COMP in index.html)
+const CARD_COMP = {'Champions League':'UEFA Champions League','Europa League':'UEFA Europa League','Conference League':'UEFA Conference League','Championship':'EFL Championship','League One':'EFL League One','League Two':'EFL League Two'};
+const cardCompLink = c => COMPS.includes(c) ? `<a class="tl" href="/${compSlug(c)}/">${esc(CARD_COMP[c] || c)}</a>` : esc(CARD_COMP[c] || c);
 const WEEKEND = 'football-on-tv-this-weekend';
 const navLinks = () => `<p class="tfoot"><b>More:</b> <a href="/${WEEKEND}/">This weekend</a> · ` + COMPS.map(c => `<a href="/${compSlug(c)}/">${esc(c)}</a>`).join(' · ') + '</p>';
 
@@ -83,7 +86,7 @@ function card(m, team) {
   const ko = m.t === 'TBC' ? '' : ` data-ko="${m.d}T${m.t}:00${ukOffset(m.d, m.t)}"`;
   return `<div class="m${pending ? ' tbcm' : ''}${notv ? ' notvm' : ''}"${ko}><div class="ko"><span class="dt">${longDate(m.d)}</span>${m.t}${m.t === 'TBC' ? '' : '<small>UK</small>'}</div><div>
     <div class="teams">${m.h === team ? esc(m.h) : teamLink(m.h)} <span class="vaw"><span class="v">v</span>${m.a === team ? esc(m.a) : teamLink(m.a)}</span></div>
-    <div class="comp">${compLink(m.c)}${isRound(m.n) ? ` · ${esc(m.n)}` : ''} · ${VENUES[`${m.d}|${m.h}|${m.a}`] ? esc(VENUES[`${m.d}|${m.h}|${m.a}`]) : (ha === 'H' ? 'Home' : 'Away')}${notv ? `<span class="notvtag"> · ${m.c === 'Premier League' ? '3pm, not on UK TV' : 'Not on UK TV'}</span>` : ''}</div>${notv ? '' : `<div class="ch">${badges(m)}</div>`}
+    <div class="comp">${cardCompLink(m.c)}${isRound(m.n) ? ` · ${esc(m.n)}` : ''} · ${VENUES[`${m.d}|${m.h}|${m.a}`] ? esc(VENUES[`${m.d}|${m.h}|${m.a}`]) : (ha === 'H' ? 'Home' : 'Away')}${notv ? `<span class="notvtag"> · ${m.c === 'Premier League' ? '3pm, not on UK TV' : 'Not on UK TV'}</span>` : ''}</div>${notv ? '' : `<div class="ch">${badges(m)}</div>`}
     ${m.n && !notv && !isRound(m.n) ? `<div class="note">${esc(m.n)}</div>` : ''}</div></div>`;
 }
 
@@ -216,7 +219,7 @@ function card2(m, showComp) {
   const ko = m.t === 'TBC' ? '' : ` data-ko="${m.d}T${m.t}:00${ukOffset(m.d, m.t)}"`;
   return `<div class="m"${ko}><div class="ko">${m.t}${m.t === 'TBC' ? '' : '<small>UK</small>'}</div><div>
     <div class="teams">${teamLink(m.h)} <span class="vaw"><span class="v">v</span>${teamLink(m.a)}</span></div>
-    ${showComp ? `<div class="comp">${compLink(m.c)}${isRound(m.n) ? ` · ${esc(m.n)}` : ''}</div>` : ''}<div class="ch">${badges(m)}</div>
+    ${showComp ? `<div class="comp">${cardCompLink(m.c)}${isRound(m.n) ? ` · ${esc(m.n)}` : ''}</div>` : ''}<div class="ch">${badges(m)}</div>
     ${m.n && !isRound(m.n) ? `<div class="note">${esc(m.n)}</div>` : (m.n && !showComp ? `<div class="note">${esc(m.n)}</div>` : '')}</div></div>`;
 }
 function listPage({ slug, title, h1, desc, lead, crumb, list, showComp }) {

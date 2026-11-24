@@ -21,7 +21,7 @@
 <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <meta name="theme-color" content="#f3f6f1">
-<meta name="ck-build" content="9f4ae1374167">
+<meta name="ck-build" content="f06f7a2e2f5f">
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="preload" href="/fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/inter-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
@@ -346,12 +346,37 @@ footer ul{margin:0;padding-left:18px}
 <footer>
   <!-- TODAYTV -->
   <h3 id="today">On UK TV today</h3>
-  <p>Monday, 23 November 2026. 4 televised matches, kick-off times UK time:</p>
+  <p>Tuesday, 24 November 2026. 29 televised matches, kick-off times UK time:</p>
   <ul class="todaylist">
-    <li><b>01:30</b> Vancouver Whitecaps v Real Salt Lake (MLS Cup Playoffs): Apple TV</li>
-    <li><b>19:45</b> Monza v Fiorentina (Serie A): DAZN</li>
-    <li><b>20:00</b> Levante v Elche (LaLiga): Premier Sports 1</li>
-    <li><b>20:00</b> Brentford v Everton (Premier League): Sky Sports Main Event, Sky Sports Premier League, Sky Sports Ultra HDR</li>
+    <li><b>01:00</b> St. Louis City v LAFC (MLS Cup Playoffs): Apple TV</li>
+    <li><b>17:45</b> Bodø/Glimt v LASK (Champions League): TNT Sports 4</li>
+    <li><b>17:45</b> Galatasaray v Aston Villa (Champions League): TNT Sports 2</li>
+    <li><b>19:00</b> Fleetwood Town v Leeds United U21 (EFL Trophy): Sky Sports+</li>
+    <li><b>19:00</b> Oxford United v Tottenham Hotspur U21 (EFL Trophy): Sky Sports+</li>
+    <li><b>19:00</b> Salford City v Sunderland U21 (EFL Trophy): Sky Sports+</li>
+    <li><b>19:00</b> Tranmere Rovers v Everton U21 (EFL Trophy): Sky Sports+</li>
+    <li><b>19:45</b> Bristol City v Wrexham (Championship): Sky Sports+</li>
+    <li><b>19:45</b> Cardiff City v Preston North End (Championship): Sky Sports+</li>
+    <li><b>19:45</b> Charlton Athletic v Lincoln City (Championship): Sky Sports+</li>
+    <li><b>19:45</b> Middlesbrough v Swansea City (Championship): Sky Sports+</li>
+    <li><b>19:45</b> Norwich City v QPR (Championship): Sky Sports+</li>
+    <li><b>19:45</b> Portsmouth v West Ham United (Championship): Sky Sports+</li>
+    <li><b>19:45</b> Sheffield United v Southampton (Championship): Sky Sports+</li>
+    <li><b>19:45</b> Blackpool v Leicester City (League One): Sky Sports+</li>
+    <li><b>19:45</b> Bradford City v Barnsley (League One): Sky Sports+</li>
+    <li><b>19:45</b> Bromley v Wycombe Wanderers (League One): Sky Sports+</li>
+    <li><b>19:45</b> Stevenage v Sheffield Wednesday (League One): Sky Sports+</li>
+    <li><b>19:45</b> Crawley Town v Barnet (League Two): Sky Sports+</li>
+    <li><b>19:45</b> Port Vale v Northampton Town (League Two): Sky Sports+</li>
+    <li><b>20:00</b> Arsenal v Borussia Dortmund (Champions League): Prime Video</li>
+    <li><b>20:00</b> Manchester City v Napoli (Champions League): TNT Sports 1, TNT Sports Ultimate</li>
+    <li><b>20:00</b> Real Madrid v PSV Eindhoven (Champions League): TNT Sports 2, TNT Sports 9</li>
+    <li><b>20:00</b> RB Leipzig v Lens (Champions League): TNT Sports 6</li>
+    <li><b>20:00</b> Feyenoord v Porto (Champions League): TNT Sports 7</li>
+    <li><b>20:00</b> Slovan Bratislava v Real Betis (Champions League): TNT Sports 5</li>
+    <li><b>20:00</b> Como v AEK Athens (Champions League): TNT Sports 4, TNT Sports 8</li>
+    <li><b>20:00</b> Wolves v Derby County (Championship): Sky Sports Main Event, Sky Sports Ultra HDR</li>
+    <li><b>20:00</b> Rangers v Aberdeen (Scottish Premiership): Sky Sports Football</li>
   </ul>
   <!-- /TODAYTV -->
   <!-- TEAMPAGES -->
@@ -421,6 +446,8 @@ const CP = {
   U21:'U21 Friendly', ALW:'A-League Women', FBL:'Frauen-Bundesliga', SAF:'Serie A Femminile',
   WSL2:'WSL 2', WLC:"Women's League Cup", NIP:'NIFL Premiership', SCH:'Scottish Championship'
 };
+// Fuller names shown on fixture cards only (filters, favourites, pages and URLs keep the names in CP)
+const CARD_COMP = {'Champions League':'UEFA Champions League','Europa League':'UEFA Europa League','Conference League':'UEFA Conference League','Championship':'EFL Championship','League One':'EFL League One','League Two':'EFL League Two'};
 const PRIME_NOTE = "Prime Video shows one Tuesday game a week; its UK pick isn't confirmed";
 // date time | home | away | comp | channels | note
 // Updated by the scheduled task on every run. status: 'ok' or 'failed'.
@@ -2345,7 +2372,7 @@ function card(m,showDate){
   const live=isLive(m)&&!notv&&!pending;
   return `<div class="m${isFav(m)?' fav':isFavComp(m.c)?' favc':''}${m.past?' past':''}${pending?' tbcm':''}${notv?' notvm':''}${live?' onair':''}">${live?`<span class="tagrow"><span class="livetag"><i></i>On now</span>${!showDate&&isFav(m)?'<span class="favtag">★ FAVOURITE</span>':''}</span>`:''}<div class="ko">${showDate?`<span class="dt">${shortDate(m.d)}</span>`:''}${m.t}${m.t==='TBC'?'':'<small>UK</small>'}</div><div>
     <div class="teams">${m.a?`${teamHTML(m.h)} <span class="vaw"><span class="v">v</span>${teamHTML(m.a)}</span>`:`<span class="ev">${esc(m.h)}</span>`}</div>
-    ${venueOf(m)?`<div class="venue"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>${esc(venueOf(m))}</div>`:''}<div class="comp"><span class="cp${isFavComp(m.c)?' on':''}" data-cv="${esc(m.c)}" role="button" tabindex="0" title="Show all ${esc(m.c)} games">${esc(m.c)}</span>${isRound(m.n)?`<span class="rnd"> · ${esc(m.n)}</span>`:''}${notv?`<span class="notvtag"> · ${m.c==='Premier League'?'3pm, not on UK TV':'Not on UK TV'}</span>`:''}${!showDate&&isFav(m)&&!live?'<span class="favtag">★ FAVOURITE</span>':''}${notv&&!showDate?repLink(m):''}</div>${notv?(showDate?`<div class="ch">${repLink(m)}</div>`:''):`<div class="ch">${badges}${repLink(m)}</div>`}
+    ${venueOf(m)?`<div class="venue"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>${esc(venueOf(m))}</div>`:''}<div class="comp"><span class="cp${isFavComp(m.c)?' on':''}" data-cv="${esc(m.c)}" role="button" tabindex="0" title="Show all ${esc(m.c)} games">${esc(CARD_COMP[m.c]||m.c)}</span>${isRound(m.n)?`<span class="rnd"> · ${esc(m.n)}</span>`:''}${notv?`<span class="notvtag"> · ${m.c==='Premier League'?'3pm, not on UK TV':'Not on UK TV'}</span>`:''}${!showDate&&isFav(m)&&!live?'<span class="favtag">★ FAVOURITE</span>':''}${notv&&!showDate?repLink(m):''}</div>${notv?(showDate?`<div class="ch">${repLink(m)}</div>`:''):`<div class="ch">${badges}${repLink(m)}</div>`}
     ${m.n&&!notv&&!isRound(m.n)?`<div class="note">${esc(m.n)}</div>`:''}</div></div>`;
 }
 const COMPCOL={'LaLiga':'#ff4b44','Serie A':'#024494','Bundesliga':'#d20515','Premier League':'#3d195b','Champions League':'#0b1d5c','FA Cup':'#c8102e','Carabao Cup':'#00843d','Europa League':'#e2620a','Conference League':'#00953a','Championship':'#0b3d91','League One':'#e2001a','League Two':'#1f7a3c','UEFA Nations League':'#0b2a5b','Euro 2028 Qualifiers':'#143cdb','Scottish Premiership':'#4b2d84','EFL Trophy':'#0b3d91','National League':'#a0001e','International Friendly':'#1d3b8b','U21 Friendly':'#1d3b8b','Scottish Championship':'#4b2d84','Scottish League One':'#4b2d84','NIFL Premiership':'#00295f','LaLiga2':'#ff4b44','Serie C':'#0055a4','Brasileirão':'#009c3b'};
