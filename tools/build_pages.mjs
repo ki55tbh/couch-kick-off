@@ -120,7 +120,6 @@ function page(team, slug) {
   const list = data.filter(m => (m.h === team || m.a === team) && m.d !== 'TBC' && m.d >= ukToday);
   const next = list.find(isTV);
   const opp = m => m.h === team ? `${m.a} (H)` : `${m.h} (A)`;
-  const nextText = next ? `${next.h} v ${next.a}, ${next.c}, ${longDate(next.d)}${next.t === 'TBC' ? '' : ' at ' + next.t} on ${chanText(next)}` : '';
   const upd = UPDATED.last_ok ? new Date(UPDATED.last_ok + 'Z').toLocaleString('en-GB', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' }) : '';
   const title = `${team} on TV: next match, channels and kick-off times | Couch Kick-Off`;
   const desc = !list.length ? `When is ${team} on TV? UK TV channels and kick-off times for ${team}, checked daily.` : next ? `When is ${team} on TV? Next: ${opp(next)}, ${longDate(next.d)}${next.t === 'TBC' ? '' : ' ' + next.t} on ${chanText(next)}. Every upcoming ${team} game with UK channels, checked daily.`
@@ -182,8 +181,8 @@ ${style}
 <p class="lead">${LEAGUE_OF[team] === 'Premier League'
   ? `Every upcoming ${esc(team)} match, with the UK TV channel and kick-off time. ${tvCount} of the ${list.length} games listed are already confirmed or expected on TV.`
   : list.length ? `Upcoming ${esc(team)} matches confirmed or expected on UK TV, with channels and kick-off times. More games are added as broadcasters announce their picks.`
-  : `No ${esc(team)} games are listed for UK TV right now. We add televised games as soon as they're announced.`}<small>Checked every morning. Last updated ${esc(upd)}. Times are UK time.</small></p>
-${next ? `<div class="nextbox"><b>Next on TV</b>${esc(nextText)}</div>` : whereBox(team)}
+  : `No ${esc(team)} games are listed for UK TV right now. We add televised games as soon as they're announced.`}<small>Checked every morning. Last updated ${esc(upd)}.</small></p>
+${next ? '' : whereBox(team)}
 ${months}
 <a class="cta" href="/">See all football on UK TV today</a>
 ${navLinks()}
@@ -276,7 +275,7 @@ ${style}
 <a class="tlogo" href="/" aria-label="Couch Kick-Off home"><img src="/logo.webp" width="1100" height="355" alt="Couch Kick-Off"></a>
 <nav class="crumb"><a href="/">Couch Kick-Off</a> › ${esc(crumb)}</nav>
 <h1 class="th1">${esc(h1)}</h1>
-<p class="lead">${lead}<small>Checked every morning. Last updated ${esc(upd)}. Times are UK time.</small></p>
+<p class="lead">${lead}<small>Checked every morning. Last updated ${esc(upd)}.</small></p>
 ${days || '<p class="empty">No televised games are listed right now. Broadcasters announce their picks a few weeks ahead, so check back soon.</p>'}
 <a class="cta" href="/">See all football on UK TV today</a>
 ${navLinks()}
