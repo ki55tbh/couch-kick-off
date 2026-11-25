@@ -21,7 +21,7 @@
 <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <meta name="theme-color" content="#f3f6f1">
-<meta name="ck-build" content="f0c15ebeb04a">
+<meta name="ck-build" content="c97af7e058d9">
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="preload" href="/fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/inter-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
@@ -255,6 +255,7 @@ main>.month:first-child{margin-top:10px}
 .m.onair:not(.fav)::before{content:"";position:absolute;left:-1px;top:12px;bottom:12px;width:4px;border-radius:0 4px 4px 0;background:#16a34a}
 .tagrow{position:absolute;top:12px;right:12px;display:flex;gap:6px;z-index:2}
 @media(max-width:699px){.tagrow{top:-10px}.m.onair{margin-top:14px}}
+/* Next 3 box is a narrow column on wide screens too: put the pill on the card's top edge so it never covers the team names */#pinnedList .tagrow{top:-10px}#pinnedList .m.onair{margin-top:14px}
 .tagrow .favtag{position:static}
 .livetag{display:inline-flex;align-items:center;gap:5px;font:800 10px/1 Inter,sans-serif;letter-spacing:.06em;text-transform:uppercase;padding:4px 8px;border-radius:999px;background:#15803d;color:#fff;box-shadow:0 1px 4px rgba(0,0,0,.15);white-space:nowrap}
 .livetag i{width:6px;height:6px;border-radius:50%;background:#fff;animation:livep 1.6s ease-in-out infinite}
