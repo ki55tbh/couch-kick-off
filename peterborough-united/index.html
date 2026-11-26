@@ -195,7 +195,7 @@ main>.month:first-child{margin-top:10px}
 .ko{font-family:Outfit,Inter,sans-serif;font-weight:700;font-size:19px;font-variant-numeric:tabular-nums;padding-top:1px;letter-spacing:-.01em}
 .ko small{display:block;font-family:Inter,sans-serif;font-size:10px;color:var(--muted);font-weight:700;letter-spacing:.06em}
 .live{display:flex;align-items:center;gap:3px;margin-top:6px;color:#15803d;font-family:Inter,sans-serif;font-size:9.5px;font-weight:800;letter-spacing:.02em;text-transform:uppercase;white-space:nowrap}.live i{width:6px;height:6px;border-radius:50%;background:#16a34a;animation:livep 1.6s ease-in-out infinite}@keyframes livep{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.7)}}@media(prefers-reduced-motion:reduce){.live i{animation:none}}
-.ko .dt{font-family:Inter,sans-serif;font-size:11px;color:var(--gold-d);font-weight:800;display:block;margin-bottom:2px}
+.ko .dt span{display:block}.ko .dt{font-family:Inter,sans-serif;font-size:11px;color:var(--gold-d);font-weight:800;display:block;margin-bottom:2px}
 .teams{font-weight:800;font-size:16px;letter-spacing:-.005em}
 .tm{cursor:pointer;border-radius:4px;white-space:nowrap}
 .tm:hover{text-decoration:underline dotted;text-underline-offset:3px}
@@ -252,7 +252,7 @@ main>.month:first-child{margin-top:10px}
 .m.onair:not(.fav)::before{content:"";position:absolute;left:-1px;top:12px;bottom:12px;width:4px;border-radius:0 4px 4px 0;background:#16a34a}
 .tagrow{position:absolute;top:12px;right:12px;display:flex;gap:6px;z-index:2}
 @media(max-width:699px){.tagrow{top:-10px}.m.onair{margin-top:14px}}
-/* Next 3 box is a narrow column on wide screens too: put the pill on the card's top edge so it never covers the team names */#pinnedList .tagrow{top:-10px}#pinnedList .m.onair{margin-top:14px}
+/* Next 3 box is a narrow column on wide screens too: put the pill on the card's top edge so it never covers the team names */#pinnedList .tagrow{top:-10px}#pinnedList .m.onair{margin-top:14px}#pinnedList .m:first-child:not(.onair){margin-top:4px}
 .tagrow .favtag{position:static}
 .livetag{display:inline-flex;align-items:center;gap:5px;font:800 10px/1 Inter,sans-serif;letter-spacing:.06em;text-transform:uppercase;padding:4px 8px;border-radius:999px;background:#15803d;color:#fff;box-shadow:0 1px 4px rgba(0,0,0,.15);white-space:nowrap}
 .livetag i{width:6px;height:6px;border-radius:50%;background:#fff;animation:livep 1.6s ease-in-out infinite}

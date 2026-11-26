@@ -21,7 +21,7 @@
 <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <meta name="theme-color" content="#f3f6f1">
-<meta name="ck-build" content="1691ee6f6b5e">
+<meta name="ck-build" content="4ac69ddc2985">
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="preload" href="/fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/inter-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
@@ -198,7 +198,7 @@ main>.month:first-child{margin-top:10px}
 .ko{font-family:Outfit,Inter,sans-serif;font-weight:700;font-size:19px;font-variant-numeric:tabular-nums;padding-top:1px;letter-spacing:-.01em}
 .ko small{display:block;font-family:Inter,sans-serif;font-size:10px;color:var(--muted);font-weight:700;letter-spacing:.06em}
 .live{display:flex;align-items:center;gap:3px;margin-top:6px;color:#15803d;font-family:Inter,sans-serif;font-size:9.5px;font-weight:800;letter-spacing:.02em;text-transform:uppercase;white-space:nowrap}.live i{width:6px;height:6px;border-radius:50%;background:#16a34a;animation:livep 1.6s ease-in-out infinite}@keyframes livep{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.7)}}@media(prefers-reduced-motion:reduce){.live i{animation:none}}
-.ko .dt{font-family:Inter,sans-serif;font-size:11px;color:var(--gold-d);font-weight:800;display:block;margin-bottom:2px}
+.ko .dt span{display:block}.ko .dt{font-family:Inter,sans-serif;font-size:11px;color:var(--gold-d);font-weight:800;display:block;margin-bottom:2px}
 .teams{font-weight:800;font-size:16px;letter-spacing:-.005em}
 .tm{cursor:pointer;border-radius:4px;white-space:nowrap}
 .tm:hover{text-decoration:underline dotted;text-underline-offset:3px}
@@ -255,7 +255,7 @@ main>.month:first-child{margin-top:10px}
 .m.onair:not(.fav)::before{content:"";position:absolute;left:-1px;top:12px;bottom:12px;width:4px;border-radius:0 4px 4px 0;background:#16a34a}
 .tagrow{position:absolute;top:12px;right:12px;display:flex;gap:6px;z-index:2}
 @media(max-width:699px){.tagrow{top:-10px}.m.onair{margin-top:14px}}
-/* Next 3 box is a narrow column on wide screens too: put the pill on the card's top edge so it never covers the team names */#pinnedList .tagrow{top:-10px}#pinnedList .m.onair{margin-top:14px}
+/* Next 3 box is a narrow column on wide screens too: put the pill on the card's top edge so it never covers the team names */#pinnedList .tagrow{top:-10px}#pinnedList .m.onair{margin-top:14px}#pinnedList .m:first-child:not(.onair){margin-top:4px}
 .tagrow .favtag{position:static}
 .livetag{display:inline-flex;align-items:center;gap:5px;font:800 10px/1 Inter,sans-serif;letter-spacing:.06em;text-transform:uppercase;padding:4px 8px;border-radius:999px;background:#15803d;color:#fff;box-shadow:0 1px 4px rgba(0,0,0,.15);white-space:nowrap}
 .livetag i{width:6px;height:6px;border-radius:50%;background:#fff;animation:livep 1.6s ease-in-out infinite}
@@ -2387,7 +2387,7 @@ function card(m,showDate){
   const badges=m.ch.map(c=>(c==='Not on UK TV'||c==='TV pick TBC')?`<span class="b ${c==='Not on UK TV'?'notv':'tbc'}">${esc(c)}</span>`:(/^Sky (Sports|Mix)/.test(c)?bWrap(c,`<span class="b skyb"><span class="s1">${esc(c.split(' ')[0])}</span><span class="s2">${swrap(c.split(' ').slice(1).join(' '))}${ext(c)}</span></span>`):(m.exp.includes(c)?bWrap(c,`<span class="b exp" style="${expStyle(c)}" title="${esc(c)} holds the rights but hasn't confirmed this match yet">${swrap(c)}${ext(c)}</span>`)+(c===m.ch.filter(x=>m.exp.includes(x)).pop()?`<span class="exptag">Expected</span>`:''):bWrap(c,`<span class="b" style="${brandStyle(c)}">${swrap(c)}${ext(c)}</span>`)))).join('')+(m.ch.some(c=>FREE.test(c))?'<span class="freetag">FREE</span>':'');
   const pending=m.ch.includes('TV pick TBC'); const notv=m.ch.includes('Not on UK TV');
   const live=isLive(m)&&!notv&&!pending;
-  return `<div class="m${isFav(m)?' fav':isFavComp(m.c)?' favc':''}${m.past?' past':''}${pending?' tbcm':''}${notv?' notvm':''}${live?' onair':''}">${live?`<span class="tagrow"><span class="livetag"><i></i>On now</span>${!showDate&&isFav(m)?'<span class="favtag"><i class="sv" aria-hidden="true"></i> FAVOURITE</span>':''}</span>`:''}<div class="ko">${showDate?`<span class="dt">${shortDate(m.d)}</span>`:''}${m.t}${m.t==='TBC'?'':'<small>UK</small>'}</div><div>
+  return `<div class="m${isFav(m)?' fav':isFavComp(m.c)?' favc':''}${m.past?' past':''}${pending?' tbcm':''}${notv?' notvm':''}${live?' onair':''}">${live?`<span class="tagrow"><span class="livetag"><i></i>On now</span>${!showDate&&isFav(m)?'<span class="favtag"><i class="sv" aria-hidden="true"></i> FAVOURITE</span>':''}</span>`:''}<div class="ko">${showDate?`<span class="dt">${m.d==='TBC'?'TBC':shortDate(m.d).replace(/^(\S+) /,'<span>$1</span> ')}</span>`:''}${m.t}${m.t==='TBC'?'':'<small>UK</small>'}</div><div>
     <div class="teams">${m.a?`${teamHTML(m.h)} <span class="vaw"><span class="v">v</span>${teamHTML(m.a)}</span>`:`<span class="ev">${esc(m.h)}</span>`}</div>
     ${venueOf(m)?`<div class="venue"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>${esc(venueOf(m))}</div>`:''}<div class="comp"><span class="cp${isFavComp(m.c)?' on':''}"${isFavComp(m.c)&&compTxt(m.c)?` style="--c:${compTxt(m.c)}"`:''} data-cv="${esc(m.c)}" role="button" tabindex="0" title="Show all ${esc(m.c)} games">${esc(CARD_COMP[m.c]||m.c)}</span>${isRound(m.n)?`<span class="rnd"> · ${esc(m.n)}</span>`:''}${notv?`<span class="notvtag"> · ${m.c==='Premier League'?'3pm, not on UK TV':'Not on UK TV'}</span>`:''}${!showDate&&isFav(m)&&!live?'<span class="favtag"><i class="sv" aria-hidden="true"></i> FAVOURITE</span>':''}${notv&&!showDate?repLink(m):''}</div>${notv?(showDate?`<div class="ch">${repLink(m)}</div>`:''):`<div class="ch">${badges}${repLink(m)}</div>`}
     ${m.n&&!notv&&!isRound(m.n)?`<div class="note">${esc(m.n)}</div>`:''}</div></div>`;
