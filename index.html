@@ -21,7 +21,7 @@
 <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <meta name="theme-color" content="#f3f6f1">
-<meta name="ck-build" content="c97af7e058d9">
+<meta name="ck-build" content="41e919334076">
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="preload" href="/fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/inter-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
@@ -2400,7 +2400,7 @@ function renderComps(){
     ? [...st.favComps].sort((a,b)=>rank(a)-rank(b)).map(c=>{const k=COMPCOL[c];return `<span class="ft${k?' col':''}"${k?` style="--c:${k}"`:''}><span class="st"><i class="sv" aria-hidden="true"></i></span> ${esc(c)}<button data-rmc="${esc(c)}" aria-label="Remove ${esc(c)}">×</button></span>`}).join('')
     : '';
   $('clearComps').hidden=!st.favComps.length;
-  if(!$('compPick').hidden){const cq=cnorm(($('compInput').value||'').trim());const left=ALLCOMPS.filter(c=>!isFavComp(c)&&compMatch(c,cq)); const btn=c=>`<button data-c="${esc(c)}"${COMPCOL[c]?` style="color:${COMPCOL[c]};border-color:color-mix(in srgb,${COMPCOL[c]} 35%,#fff)"`:''}>${esc(c)}</button>`; const club=left.filter(c=>!INTL.includes(c)), intl=left.filter(c=>INTL.includes(c)); $('compPick').innerHTML=left.length?(club.length?`<div class="cpg">Club</div>${club.map(btn).join('')}`:'')+(intl.length?`<div class="cpg">International</div>${intl.map(btn).join('')}`:''):(cq?'<span class="hint" style="margin:0">No competitions match that.</span>':'<span class="hint" style="margin:0">You\'ve starred every competition.</span>');}
+  if(!$('compPick').hidden){const cq=cnorm(($('compInput').value||'').trim());const lbl=c=>CARD_COMP[c]||c;const left=ALLCOMPS.filter(c=>!isFavComp(c)&&(compMatch(c,cq)||compMatch(lbl(c),cq))).sort((a,b)=>lbl(a).localeCompare(lbl(b),'en-GB')); const btn=c=>`<button data-c="${esc(c)}"${COMPCOL[c]?` style="color:${COMPCOL[c]};border-color:color-mix(in srgb,${COMPCOL[c]} 35%,#fff)"`:''}>${esc(lbl(c))}</button>`; const club=left.filter(c=>!INTL.includes(c)), intl=left.filter(c=>INTL.includes(c)); $('compPick').innerHTML=left.length?(club.length?`<div class="cpg">Club</div>${club.map(btn).join('')}`:'')+(intl.length?`<div class="cpg">International</div>${intl.map(btn).join('')}`:''):(cq?'<span class="hint" style="margin:0">No competitions match that.</span>':'<span class="hint" style="margin:0">You\'ve starred every competition.</span>');}
   $('compToggle').textContent=$('compPick').hidden?(st.favComps.length?'+ Add':'+ Add competition'):'Close';
   if(typeof renderSum==='function')renderSum();
 }
