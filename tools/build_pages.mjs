@@ -170,6 +170,7 @@ ${style}
 .wherebox{border-left-color:var(--line);font-weight:400}.wherebox b{color:var(--muted)}.otherclubs{margin-top:14px}
 .tfoot{margin:26px 2px 0;font-size:13.5px;color:var(--muted)}.tfoot a{color:var(--green);font-weight:700}
 .tl{color:inherit;text-decoration:underline;text-decoration-color:rgba(20,40,30,.22);text-decoration-thickness:1px;text-underline-offset:3px}.tl:hover,.tl:focus-visible{text-decoration-color:currentColor}
+.calwrap{position:relative;margin:-4px 2px 16px}.calbtn-h{display:inline-flex;align-items:center;gap:4px;border:0;background:none;padding:2px 0;font:700 14px/1.2 Inter,sans-serif;color:var(--green-d,#15803d);cursor:pointer;text-align:left}.calbtn-h svg{display:block;flex:none;transform:translateY(-1.5px)}.calbtn-h:hover{text-decoration:underline;text-underline-offset:3px}.calmenu{position:absolute;left:0;top:100%;margin-top:6px;z-index:5;width:min(300px,100%);background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,.14);padding:10px 12px}.calmenu a{display:inline-block;margin:0 6px 6px 0;font:700 12.5px Inter,sans-serif;color:var(--text);text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:5px 10px}.calmenu small{display:block;margin-top:4px;color:var(--muted);font-size:11.5px;line-height:1.4}
 .cta{display:block;text-align:center;background:var(--green);color:#fff!important;text-decoration:none;border-radius:12px;padding:12px;margin:20px 0 0;font-weight:700}
 </style>
 </head>
@@ -183,12 +184,15 @@ ${style}
   : list.length ? `Upcoming ${esc(team)} matches confirmed or expected on UK TV, with channels and kick-off times. More games are added as broadcasters announce their picks.`
   : `No ${esc(team)} games are listed for UK TV right now. We add televised games as soon as they're announced.`}<small>Checked every morning. Last updated ${esc(upd)}.</small></p>
 ${next ? '' : whereBox(team)}
+<div class="calwrap"><button type="button" class="calbtn-h" id="calOpen" aria-expanded="false" data-sl="${slug}" data-t="${esc(team)}"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M8 3v4M16 3v4M3.5 10h17"/></svg>Add ${esc(team)} games to your calendar</button><div class="calmenu" id="calMenu" hidden></div></div>
 ${months}
 <a class="cta" href="/">See all football on UK TV today</a>
 ${navLinks()}
 <p class="tfoot">A solid badge means the broadcaster has confirmed the match. An outlined badge marked Expected means it holds the rights but hasn't confirmed this game yet. Saturday 3pm games generally aren't shown live in the UK, except on a few dates each season. Spotted a mistake? Email <a href="mailto:hello@couchkickoff.co.uk">hello@couchkickoff.co.uk</a>.<br><br>Couch Kick-Off is independent and not connected to ${esc(team)}, any league or any broadcaster. <a href="/#about">About</a><br><br>© 2026 Couch Kick-Off. All rights reserved.</p>
 </div>
 <script>(function(){var n=Date.now();document.querySelectorAll('.m[data-ko]').forEach(function(e){if(Date.parse(e.dataset.ko)+150*60000<n)e.remove()});document.querySelectorAll('section.day').forEach(function(s){if(!s.querySelector('.m'))s.remove()})})();</script>
+<script>(function(){var b=document.getElementById('calOpen'),m=document.getElementById('calMenu');if(!b)return;var u=navigator.userAgent,dev=/iPad|iPhone|iPod/.test(u)||(/Macintosh/.test(u)&&navigator.maxTouchPoints>1)?'apple':/Android/i.test(u)?'google':'';var sl=b.dataset.sl,t=b.dataset.t,web='webcal://couchkickoff.co.uk/'+sl+'/calendar.ics',L={apple:web,google:'https://calendar.google.com/calendar/render?cid='+encodeURIComponent(web),outlook:'https://outlook.live.com/calendar/0/addfromweb?url='+encodeURIComponent('https://couchkickoff.co.uk/'+sl+'/calendar.ics')+'&name='+encodeURIComponent(t+' on TV')};
+b.addEventListener('click',function(e){e.stopPropagation();if(dev==='apple'){location.href=L.apple;return}if(dev==='google'){window.open(L.google,'_blank','noopener');return}if(m.hidden){m.innerHTML='<a href="'+L.apple+'">Apple</a><a href="'+L.google+'" target="_blank" rel="noopener">Google</a><a href="'+L.outlook.replace(/&/g,'&amp;')+'" target="_blank" rel="noopener">Outlook</a><small>Every TV game, with a reminder an hour before. Updates itself as new games are picked. In Google Calendar, turn on notifications for it to get reminders.</small>'}m.hidden=!m.hidden;b.setAttribute('aria-expanded',String(!m.hidden))});document.addEventListener('click',function(e){if(!m.hidden&&!m.contains(e.target)){m.hidden=true;b.setAttribute('aria-expanded','false')}})})();</script>
 <!-- Cloudflare Web Analytics -->
 <script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "1c6cd6949d724fe697ffd4b014f24d91"}'></script>
 <!-- End Cloudflare Web Analytics -->
@@ -361,7 +365,34 @@ if (!/<meta name="ck-build" content="[^"]*">/.test(mainHTML)) throw new Error('c
 mainHTML = mainHTML.replace(/<meta name="ck-build" content="[^"]*">/, `<meta name="ck-build" content="${fp}">`);
 out('index.html', mainHTML);
 out('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map(u => `  <url>\n    <loc>${u}</loc>\n    <changefreq>daily</changefreq>\n  </url>`).join('\n')}\n</urlset>\n`);
+// ---- Team calendar feeds (/<team>/calendar.ics): every upcoming televised game, with a reminder 1 hour before.
+// Calendar apps re-download the file every few hours, so new picks and time changes reach subscribers on their own.
+const icsEsc = s => String(s).replace(/\\/g, '\\\\').replace(/;/g, '\;').replace(/,/g, '\\,').replace(/\n/g, '\\n');
+const icsFold = line => { const out = []; let cur = ''; for (const ch of line) { if (Buffer.byteLength(cur + ch) > (out.length ? 74 : 75)) { out.push(cur); cur = ''; } cur += ch; } out.push(cur); return out.join('\r\n '); };
+const icsTime = dt => dt.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
+const stamp = icsTime(UPDATED.last_ok ? new Date(UPDATED.last_ok + 'Z') : new Date(ukToday + 'T00:00:00Z'));
+function calendar(team, slug) {
+  const games = data.filter(m => (m.h === team || m.a === team) && m.a && m.d !== 'TBC' && m.d >= ukToday && isTV(m));
+  const L = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Couch Kick-Off//Team TV calendar//EN', 'CALSCALE:GREGORIAN', 'METHOD:PUBLISH',
+    `X-WR-CALNAME:${icsEsc(team + ' on TV')}`, `X-WR-CALDESC:${icsEsc(`${team} games on UK TV, from couchkickoff.co.uk. Updated daily.`)}`,
+    'X-WR-TIMEZONE:Europe/London', 'REFRESH-INTERVAL;VALUE=DURATION:PT6H', 'X-PUBLISHED-TTL:PT6H'];
+  for (const m of games) {
+    const ch = chanNames(m), first = ch.split(', ')[0], venue = VENUES[`${m.d}|${m.h}|${m.a}`];
+    const desc = `${CARD_COMP[m.c] || m.c}${isRound(m.n) ? ' · ' + m.n : ''}${venue ? ' · ' + venue : ''}\nOn TV: ${ch}\n${SITE}/${slug}/`;
+    L.push('BEGIN:VEVENT', `UID:${slugify(m.h + '-' + m.a + '-' + m.c)}@couchkickoff.co.uk`, `DTSTAMP:${stamp}`);
+    if (m.t === 'TBC') { const nx = new Date(m.d + 'T12:00:00Z'); nx.setUTCDate(nx.getUTCDate() + 1); L.push(`DTSTART;VALUE=DATE:${m.d.replace(/-/g, '')}`, `DTEND;VALUE=DATE:${nx.toISOString().slice(0, 10).replace(/-/g, '')}`); }
+    else { const s = new Date(`${m.d}T${m.t}:00${ukOffset(m.d, m.t)}`); L.push(`DTSTART:${icsTime(s)}`, `DTEND:${icsTime(new Date(s.getTime() + 2 * 3600e3))}`); }
+    L.push(`SUMMARY:${icsEsc(`${m.h} v ${m.a}${m.t === 'TBC' ? ' (kick-off TBC)' : ''} · ${first}`)}`, `LOCATION:${icsEsc(ch)}`, `DESCRIPTION:${icsEsc(desc)}`, `URL:${SITE}/${slug}/`, 'TRANSP:TRANSPARENT');
+    if (m.t !== 'TBC') L.push('BEGIN:VALARM', 'ACTION:DISPLAY', `DESCRIPTION:${icsEsc(`${m.h} v ${m.a} on ${first} in 1 hour`)}`, 'TRIGGER:-PT1H', 'END:VALARM');
+    L.push('END:VEVENT');
+  }
+  L.push('END:VCALENDAR');
+  return L.map(icsFold).join('\r\n') + '\r\n';
+}
+for (const [team, slug] of TEAMS) out(`${slug}/calendar.ics`, calendar(team, slug));
+
 if (problems.length) {
+
   console.log((CHECK ? 'TEAM PAGES CHECK FAILED' : 'TEAM PAGES BUILD PROBLEM') + ' (run node tools/build_pages.mjs to rebuild):\n- ' + problems.slice(0, 15).join('\n- ') + (problems.length > 15 ? `\n- ...and ${problems.length - 15} more` : ''));
   process.exit(1);
 }

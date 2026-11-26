@@ -1,0 +1,236 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Couch Kick-Off//Team TV calendar//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Chelsea on TV
+X-WR-CALDESC:Chelsea games on UK TV\, from couchkickoff.co.uk. Updated dail
+ y.
+X-WR-TIMEZONE:Europe/London
+REFRESH-INTERVAL;VALUE=DURATION:PT6H
+X-PUBLISHED-TTL:PT6H
+BEGIN:VEVENT
+UID:nottingham-forest-chelsea-premier-league@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART:20261127T200000Z
+DTEND:20261127T220000Z
+SUMMARY:Nottingham Forest v Chelsea · Sky Sports Main Event
+LOCATION:Sky Sports Main Event\, Sky Sports Premier League\, Sky Sports Ult
+ ra HDR
+DESCRIPTION:Premier League\nOn TV: Sky Sports Main Event\, Sky Sports Premi
+ er League\, Sky Sports Ultra HDR\nhttps://couchkickoff.co.uk/chelsea/
+URL:https://couchkickoff.co.uk/chelsea/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Nottingham Forest v Chelsea on Sky Sports Main Event in 1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:chelsea-crystal-palace-premier-league@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART:20261202T193000Z
+DTEND:20261202T213000Z
+SUMMARY:Chelsea v Crystal Palace · Sky Sports Cricket
+LOCATION:Sky Sports Cricket
+DESCRIPTION:Premier League\nOn TV: Sky Sports Cricket\nhttps://couchkickoff
+ .co.uk/chelsea/
+URL:https://couchkickoff.co.uk/chelsea/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Chelsea v Crystal Palace on Sky Sports Cricket in 1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:chelsea-liverpool-premier-league@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART:20261205T123000Z
+DTEND:20261205T143000Z
+SUMMARY:Chelsea v Liverpool · TNT Sports 1
+LOCATION:TNT Sports 1\, TNT Sports Ultimate
+DESCRIPTION:Premier League\nOn TV: TNT Sports 1\, TNT Sports Ultimate\nhttp
+ s://couchkickoff.co.uk/chelsea/
+URL:https://couchkickoff.co.uk/chelsea/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Chelsea v Liverpool on TNT Sports 1 in 1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:manchester-city-chelsea-premier-league@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART:20261212T173000Z
+DTEND:20261212T193000Z
+SUMMARY:Manchester City v Chelsea · Sky Sports
+LOCATION:Sky Sports
+DESCRIPTION:Premier League\nOn TV: Sky Sports\nhttps://couchkickoff.co.uk/c
+ helsea/
+URL:https://couchkickoff.co.uk/chelsea/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Manchester City v Chelsea on Sky Sports in 1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:chelsea-aston-villa-premier-league@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART:20261221T200000Z
+DTEND:20261221T220000Z
+SUMMARY:Chelsea v Aston Villa · Sky Sports
+LOCATION:Sky Sports
+DESCRIPTION:Premier League\nOn TV: Sky Sports\nhttps://couchkickoff.co.uk/c
+ helsea/
+URL:https://couchkickoff.co.uk/chelsea/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Chelsea v Aston Villa on Sky Sports in 1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:coventry-city-chelsea-premier-league@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART:20261227T140000Z
+DTEND:20261227T160000Z
+SUMMARY:Coventry City v Chelsea · Sky Sports
+LOCATION:Sky Sports
+DESCRIPTION:Premier League\nOn TV: Sky Sports\nhttps://couchkickoff.co.uk/c
+ helsea/
+URL:https://couchkickoff.co.uk/chelsea/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Coventry City v Chelsea on Sky Sports in 1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:ipswich-town-chelsea-premier-league@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART:20261230T201500Z
+DTEND:20261230T221500Z
+SUMMARY:Ipswich Town v Chelsea · Sky Sports
+LOCATION:Sky Sports
+DESCRIPTION:Premier League\nOn TV: Sky Sports\nhttps://couchkickoff.co.uk/c
+ helsea/
+URL:https://couchkickoff.co.uk/chelsea/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Ipswich Town v Chelsea on Sky Sports in 1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:chelsea-newcastle-united-premier-league@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART:20270103T140000Z
+DTEND:20270103T160000Z
+SUMMARY:Chelsea v Newcastle United · Sky Sports
+LOCATION:Sky Sports
+DESCRIPTION:Premier League\nOn TV: Sky Sports\nhttps://couchkickoff.co.uk/c
+ helsea/
+URL:https://couchkickoff.co.uk/chelsea/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Chelsea v Newcastle United on Sky Sports in 1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:crystal-palace-chelsea-premier-league@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART:20270106T193000Z
+DTEND:20270106T213000Z
+SUMMARY:Crystal Palace v Chelsea · Sky Sports
+LOCATION:Sky Sports
+DESCRIPTION:Premier League\nOn TV: Sky Sports\nhttps://couchkickoff.co.uk/c
+ helsea/
+URL:https://couchkickoff.co.uk/chelsea/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Crystal Palace v Chelsea on Sky Sports in 1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:leeds-united-chelsea-premier-league@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART:20270125T200000Z
+DTEND:20270125T220000Z
+SUMMARY:Leeds United v Chelsea · Sky Sports
+LOCATION:Sky Sports
+DESCRIPTION:Premier League\nOn TV: Sky Sports\nhttps://couchkickoff.co.uk/c
+ helsea/
+URL:https://couchkickoff.co.uk/chelsea/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Leeds United v Chelsea on Sky Sports in 1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:chelsea-nottingham-forest-premier-league@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART:20270130T173000Z
+DTEND:20270130T193000Z
+SUMMARY:Chelsea v Nottingham Forest · Sky Sports
+LOCATION:Sky Sports
+DESCRIPTION:Premier League\nOn TV: Sky Sports\nhttps://couchkickoff.co.uk/c
+ helsea/
+URL:https://couchkickoff.co.uk/chelsea/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Chelsea v Nottingham Forest on Sky Sports in 1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:newcastle-united-chelsea-premier-league@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART;VALUE=DATE:20270210
+DTEND;VALUE=DATE:20270211
+SUMMARY:Newcastle United v Chelsea (kick-off TBC) · TNT Sports
+LOCATION:TNT Sports
+DESCRIPTION:Premier League\nOn TV: TNT Sports\nhttps://couchkickoff.co.uk/c
+ helsea/
+URL:https://couchkickoff.co.uk/chelsea/
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:chelsea-coventry-city-premier-league@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART;VALUE=DATE:20270303
+DTEND;VALUE=DATE:20270304
+SUMMARY:Chelsea v Coventry City (kick-off TBC) · TNT Sports
+LOCATION:TNT Sports
+DESCRIPTION:Premier League\nOn TV: TNT Sports\nhttps://couchkickoff.co.uk/c
+ helsea/
+URL:https://couchkickoff.co.uk/chelsea/
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:chelsea-brentford-premier-league@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART;VALUE=DATE:20270530
+DTEND;VALUE=DATE:20270531
+SUMMARY:Chelsea v Brentford (kick-off TBC) · Sky Sports
+LOCATION:Sky Sports
+DESCRIPTION:Premier League\nOn TV: Sky Sports\nhttps://couchkickoff.co.uk/c
+ helsea/
+URL:https://couchkickoff.co.uk/chelsea/
+TRANSP:TRANSPARENT
+END:VEVENT
+END:VCALENDAR

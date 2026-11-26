@@ -1,0 +1,133 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Couch Kick-Off//Team TV calendar//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Huddersfield Town on TV
+X-WR-CALDESC:Huddersfield Town games on UK TV\, from couchkickoff.co.uk. Up
+ dated daily.
+X-WR-TIMEZONE:Europe/London
+REFRESH-INTERVAL;VALUE=DURATION:PT6H
+X-PUBLISHED-TTL:PT6H
+BEGIN:VEVENT
+UID:doncaster-rovers-huddersfield-town-league-one@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART:20261126T200000Z
+DTEND:20261126T220000Z
+SUMMARY:Doncaster Rovers v Huddersfield Town · Sky Sports Football
+LOCATION:Sky Sports Football\, Sky Sports Ultra HDR
+DESCRIPTION:EFL League One\nOn TV: Sky Sports Football\, Sky Sports Ultra H
+ DR\nhttps://couchkickoff.co.uk/huddersfield-town/
+URL:https://couchkickoff.co.uk/huddersfield-town/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Doncaster Rovers v Huddersfield Town on Sky Sports Football in 
+ 1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:huddersfield-town-stevenage-league-one@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART:20261201T194500Z
+DTEND:20261201T214500Z
+SUMMARY:Huddersfield Town v Stevenage · Sky Sports+
+LOCATION:Sky Sports+
+DESCRIPTION:EFL League One\nOn TV: Sky Sports+\nhttps://couchkickoff.co.uk/
+ huddersfield-town/
+URL:https://couchkickoff.co.uk/huddersfield-town/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Huddersfield Town v Stevenage on Sky Sports+ in 1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:barnsley-huddersfield-town-league-one@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART:20261219T123000Z
+DTEND:20261219T143000Z
+SUMMARY:Barnsley v Huddersfield Town · Sky Sports
+LOCATION:Sky Sports
+DESCRIPTION:EFL League One\nOn TV: Sky Sports\nhttps://couchkickoff.co.uk/h
+ uddersfield-town/
+URL:https://couchkickoff.co.uk/huddersfield-town/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Barnsley v Huddersfield Town on Sky Sports in 1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:peterborough-united-huddersfield-town-league-one@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART:20270119T194500Z
+DTEND:20270119T214500Z
+SUMMARY:Peterborough United v Huddersfield Town · Sky Sports+
+LOCATION:Sky Sports+
+DESCRIPTION:EFL League One\nOn TV: Sky Sports+\nhttps://couchkickoff.co.uk/
+ huddersfield-town/
+URL:https://couchkickoff.co.uk/huddersfield-town/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Peterborough United v Huddersfield Town on Sky Sports+ in 1 hou
+ r
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wigan-athletic-huddersfield-town-league-one@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART:20270123T123000Z
+DTEND:20270123T143000Z
+SUMMARY:Wigan Athletic v Huddersfield Town · Sky Sports+
+LOCATION:Sky Sports+
+DESCRIPTION:EFL League One\nOn TV: Sky Sports+\nhttps://couchkickoff.co.uk/
+ huddersfield-town/
+URL:https://couchkickoff.co.uk/huddersfield-town/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Wigan Athletic v Huddersfield Town on Sky Sports+ in 1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:huddersfield-town-bradford-city-league-one@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART:20270130T123000Z
+DTEND:20270130T143000Z
+SUMMARY:Huddersfield Town v Bradford City · Sky Sports+
+LOCATION:Sky Sports+
+DESCRIPTION:EFL League One\nOn TV: Sky Sports+\nhttps://couchkickoff.co.uk/
+ huddersfield-town/
+URL:https://couchkickoff.co.uk/huddersfield-town/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Huddersfield Town v Bradford City on Sky Sports+ in 1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:oxford-united-huddersfield-town-league-one@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART:20270209T194500Z
+DTEND:20270209T214500Z
+SUMMARY:Oxford United v Huddersfield Town · Sky Sports+
+LOCATION:Sky Sports+
+DESCRIPTION:EFL League One\nOn TV: Sky Sports+\nhttps://couchkickoff.co.uk/
+ huddersfield-town/
+URL:https://couchkickoff.co.uk/huddersfield-town/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Oxford United v Huddersfield Town on Sky Sports+ in 1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+END:VCALENDAR

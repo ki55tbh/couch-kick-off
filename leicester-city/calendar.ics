@@ -1,0 +1,149 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Couch Kick-Off//Team TV calendar//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Leicester City on TV
+X-WR-CALDESC:Leicester City games on UK TV\, from couchkickoff.co.uk. Updat
+ ed daily.
+X-WR-TIMEZONE:Europe/London
+REFRESH-INTERVAL;VALUE=DURATION:PT6H
+X-PUBLISHED-TTL:PT6H
+BEGIN:VEVENT
+UID:cambridge-united-leicester-city-league-one@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART:20261201T194500Z
+DTEND:20261201T214500Z
+SUMMARY:Cambridge United v Leicester City · Sky Sports+
+LOCATION:Sky Sports+
+DESCRIPTION:EFL League One\nOn TV: Sky Sports+\nhttps://couchkickoff.co.uk/
+ leicester-city/
+URL:https://couchkickoff.co.uk/leicester-city/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Cambridge United v Leicester City on Sky Sports+ in 1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:dover-athletic-leicester-city-fa-cup@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART:20261205T171500Z
+DTEND:20261205T191500Z
+SUMMARY:Dover Athletic v Leicester City · BBC Two
+LOCATION:BBC Two\, BBC iPlayer\, TNT Sports 2
+DESCRIPTION:FA Cup · Second round\nOn TV: BBC Two\, BBC iPlayer\, TNT Spor
+ ts 2\nhttps://couchkickoff.co.uk/leicester-city/
+URL:https://couchkickoff.co.uk/leicester-city/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Dover Athletic v Leicester City on BBC Two in 1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:leicester-city-sheffield-wednesday-league-one@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART:20261210T200000Z
+DTEND:20261210T220000Z
+SUMMARY:Leicester City v Sheffield Wednesday · Sky Sports
+LOCATION:Sky Sports
+DESCRIPTION:EFL League One\nOn TV: Sky Sports\nhttps://couchkickoff.co.uk/l
+ eicester-city/
+URL:https://couchkickoff.co.uk/leicester-city/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Leicester City v Sheffield Wednesday on Sky Sports in 1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:leyton-orient-leicester-city-league-one@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART:20261229T194500Z
+DTEND:20261229T214500Z
+SUMMARY:Leyton Orient v Leicester City · Sky Sports
+LOCATION:Sky Sports
+DESCRIPTION:EFL League One\nOn TV: Sky Sports\nhttps://couchkickoff.co.uk/l
+ eicester-city/
+URL:https://couchkickoff.co.uk/leicester-city/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Leyton Orient v Leicester City on Sky Sports in 1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:leicester-city-bromley-league-one@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART:20270119T194500Z
+DTEND:20270119T214500Z
+SUMMARY:Leicester City v Bromley · Sky Sports+
+LOCATION:Sky Sports+
+DESCRIPTION:EFL League One\nOn TV: Sky Sports+\nhttps://couchkickoff.co.uk/
+ leicester-city/
+URL:https://couchkickoff.co.uk/leicester-city/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Leicester City v Bromley on Sky Sports+ in 1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:leicester-city-mk-dons-league-one@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART:20270206T123000Z
+DTEND:20270206T143000Z
+SUMMARY:Leicester City v MK Dons · Sky Sports+
+LOCATION:Sky Sports+
+DESCRIPTION:EFL League One\nOn TV: Sky Sports+\nhttps://couchkickoff.co.uk/
+ leicester-city/
+URL:https://couchkickoff.co.uk/leicester-city/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Leicester City v MK Dons on Sky Sports+ in 1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:plymouth-argyle-leicester-city-league-one@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART:20270210T200000Z
+DTEND:20270210T220000Z
+SUMMARY:Plymouth Argyle v Leicester City · Sky Sports Football
+LOCATION:Sky Sports Football
+DESCRIPTION:EFL League One\nOn TV: Sky Sports Football\nhttps://couchkickof
+ f.co.uk/leicester-city/
+URL:https://couchkickoff.co.uk/leicester-city/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Plymouth Argyle v Leicester City on Sky Sports Football in 1 ho
+ ur
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:leicester-city-stockport-county-league-one@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART:20270220T123000Z
+DTEND:20270220T143000Z
+SUMMARY:Leicester City v Stockport County · Sky Sports+
+LOCATION:Sky Sports+
+DESCRIPTION:EFL League One\nOn TV: Sky Sports+\nhttps://couchkickoff.co.uk/
+ leicester-city/
+URL:https://couchkickoff.co.uk/leicester-city/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Leicester City v Stockport County on Sky Sports+ in 1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+END:VCALENDAR

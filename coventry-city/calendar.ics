@@ -1,0 +1,186 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Couch Kick-Off//Team TV calendar//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Coventry City on TV
+X-WR-CALDESC:Coventry City games on UK TV\, from couchkickoff.co.uk. Update
+ d daily.
+X-WR-TIMEZONE:Europe/London
+REFRESH-INTERVAL;VALUE=DURATION:PT6H
+X-PUBLISHED-TTL:PT6H
+BEGIN:VEVENT
+UID:coventry-city-ipswich-town-premier-league@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART:20261201T200000Z
+DTEND:20261201T220000Z
+SUMMARY:Coventry City v Ipswich Town · Sky Sports Main Event
+LOCATION:Sky Sports Main Event\, Sky Sports Premier League\, Sky Sports Ult
+ ra HDR
+DESCRIPTION:Premier League\nOn TV: Sky Sports Main Event\, Sky Sports Premi
+ er League\, Sky Sports Ultra HDR\nhttps://couchkickoff.co.uk/coventry-city
+ /
+URL:https://couchkickoff.co.uk/coventry-city/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Coventry City v Ipswich Town on Sky Sports Main Event in 1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:coventry-city-aston-villa-premier-league@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART:20261213T163000Z
+DTEND:20261213T183000Z
+SUMMARY:Coventry City v Aston Villa · Sky Sports
+LOCATION:Sky Sports
+DESCRIPTION:Premier League\nOn TV: Sky Sports\nhttps://couchkickoff.co.uk/c
+ oventry-city/
+URL:https://couchkickoff.co.uk/coventry-city/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Coventry City v Aston Villa on Sky Sports in 1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:coventry-city-chelsea-premier-league@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART:20261227T140000Z
+DTEND:20261227T160000Z
+SUMMARY:Coventry City v Chelsea · Sky Sports
+LOCATION:Sky Sports
+DESCRIPTION:Premier League\nOn TV: Sky Sports\nhttps://couchkickoff.co.uk/c
+ oventry-city/
+URL:https://couchkickoff.co.uk/coventry-city/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Coventry City v Chelsea on Sky Sports in 1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:coventry-city-brentford-premier-league@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART:20261230T193000Z
+DTEND:20261230T213000Z
+SUMMARY:Coventry City v Brentford · Sky Sports
+LOCATION:Sky Sports
+DESCRIPTION:Premier League\nOn TV: Sky Sports\nhttps://couchkickoff.co.uk/c
+ oventry-city/
+URL:https://couchkickoff.co.uk/coventry-city/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Coventry City v Brentford on Sky Sports in 1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:ipswich-town-coventry-city-premier-league@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART:20270106T193000Z
+DTEND:20270106T213000Z
+SUMMARY:Ipswich Town v Coventry City · Sky Sports
+LOCATION:Sky Sports
+DESCRIPTION:Premier League\nOn TV: Sky Sports\nhttps://couchkickoff.co.uk/c
+ oventry-city/
+URL:https://couchkickoff.co.uk/coventry-city/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Ipswich Town v Coventry City on Sky Sports in 1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:coventry-city-everton-premier-league@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART:20270116T123000Z
+DTEND:20270116T143000Z
+SUMMARY:Coventry City v Everton · TNT Sports
+LOCATION:TNT Sports
+DESCRIPTION:Premier League\nOn TV: TNT Sports\nhttps://couchkickoff.co.uk/c
+ oventry-city/
+URL:https://couchkickoff.co.uk/coventry-city/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Coventry City v Everton on TNT Sports in 1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:sunderland-coventry-city-premier-league@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART:20270124T140000Z
+DTEND:20270124T160000Z
+SUMMARY:Sunderland v Coventry City · Sky Sports
+LOCATION:Sky Sports
+DESCRIPTION:Premier League\nOn TV: Sky Sports\nhttps://couchkickoff.co.uk/c
+ oventry-city/
+URL:https://couchkickoff.co.uk/coventry-city/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Sunderland v Coventry City on Sky Sports in 1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:coventry-city-leeds-united-premier-league@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART:20270131T140000Z
+DTEND:20270131T160000Z
+SUMMARY:Coventry City v Leeds United · Sky Sports
+LOCATION:Sky Sports
+DESCRIPTION:Premier League\nOn TV: Sky Sports\nhttps://couchkickoff.co.uk/c
+ oventry-city/
+URL:https://couchkickoff.co.uk/coventry-city/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Coventry City v Leeds United on Sky Sports in 1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:coventry-city-liverpool-premier-league@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART;VALUE=DATE:20270210
+DTEND;VALUE=DATE:20270211
+SUMMARY:Coventry City v Liverpool (kick-off TBC) · TNT Sports
+LOCATION:TNT Sports
+DESCRIPTION:Premier League\nOn TV: TNT Sports\nhttps://couchkickoff.co.uk/c
+ oventry-city/
+URL:https://couchkickoff.co.uk/coventry-city/
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:chelsea-coventry-city-premier-league@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART;VALUE=DATE:20270303
+DTEND;VALUE=DATE:20270304
+SUMMARY:Chelsea v Coventry City (kick-off TBC) · TNT Sports
+LOCATION:TNT Sports
+DESCRIPTION:Premier League\nOn TV: TNT Sports\nhttps://couchkickoff.co.uk/c
+ oventry-city/
+URL:https://couchkickoff.co.uk/coventry-city/
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:coventry-city-nottingham-forest-premier-league@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART;VALUE=DATE:20270530
+DTEND;VALUE=DATE:20270531
+SUMMARY:Coventry City v Nottingham Forest (kick-off TBC) · Sky Sports
+LOCATION:Sky Sports
+DESCRIPTION:Premier League\nOn TV: Sky Sports\nhttps://couchkickoff.co.uk/c
+ oventry-city/
+URL:https://couchkickoff.co.uk/coventry-city/
+TRANSP:TRANSPARENT
+END:VEVENT
+END:VCALENDAR

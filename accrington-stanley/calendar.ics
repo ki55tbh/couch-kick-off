@@ -1,0 +1,114 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Couch Kick-Off//Team TV calendar//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Accrington Stanley on TV
+X-WR-CALDESC:Accrington Stanley games on UK TV\, from couchkickoff.co.uk. U
+ pdated daily.
+X-WR-TIMEZONE:Europe/London
+REFRESH-INTERVAL;VALUE=DURATION:PT6H
+X-PUBLISHED-TTL:PT6H
+BEGIN:VEVENT
+UID:accrington-stanley-crewe-alexandra-league-two@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART:20261201T194500Z
+DTEND:20261201T214500Z
+SUMMARY:Accrington Stanley v Crewe Alexandra · Sky Sports+
+LOCATION:Sky Sports+
+DESCRIPTION:EFL League Two\nOn TV: Sky Sports+\nhttps://couchkickoff.co.uk/
+ accrington-stanley/
+URL:https://couchkickoff.co.uk/accrington-stanley/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Accrington Stanley v Crewe Alexandra on Sky Sports+ in 1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:accrington-stanley-rotherham-united-league-two@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART:20261229T194500Z
+DTEND:20261229T214500Z
+SUMMARY:Accrington Stanley v Rotherham United · Sky Sports
+LOCATION:Sky Sports
+DESCRIPTION:EFL League Two\nOn TV: Sky Sports\nhttps://couchkickoff.co.uk/a
+ ccrington-stanley/
+URL:https://couchkickoff.co.uk/accrington-stanley/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Accrington Stanley v Rotherham United on Sky Sports in 1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:accrington-stanley-shrewsbury-town-league-two@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART:20270101T150000Z
+DTEND:20270101T170000Z
+SUMMARY:Accrington Stanley v Shrewsbury Town · Sky Sports
+LOCATION:Sky Sports
+DESCRIPTION:EFL League Two\nOn TV: Sky Sports\nhttps://couchkickoff.co.uk/a
+ ccrington-stanley/
+URL:https://couchkickoff.co.uk/accrington-stanley/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Accrington Stanley v Shrewsbury Town on Sky Sports in 1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:chesterfield-accrington-stanley-league-two@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART:20270109T123000Z
+DTEND:20270109T143000Z
+SUMMARY:Chesterfield v Accrington Stanley · Sky Sports
+LOCATION:Sky Sports
+DESCRIPTION:EFL League Two\nOn TV: Sky Sports\nhttps://couchkickoff.co.uk/a
+ ccrington-stanley/
+URL:https://couchkickoff.co.uk/accrington-stanley/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Chesterfield v Accrington Stanley on Sky Sports in 1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:accrington-stanley-york-city-league-two@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART:20270119T194500Z
+DTEND:20270119T214500Z
+SUMMARY:Accrington Stanley v York City · Sky Sports+
+LOCATION:Sky Sports+
+DESCRIPTION:EFL League Two\nOn TV: Sky Sports+\nhttps://couchkickoff.co.uk/
+ accrington-stanley/
+URL:https://couchkickoff.co.uk/accrington-stanley/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Accrington Stanley v York City on Sky Sports+ in 1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:grimsby-town-accrington-stanley-league-two@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART:20270209T194500Z
+DTEND:20270209T214500Z
+SUMMARY:Grimsby Town v Accrington Stanley · Sky Sports+
+LOCATION:Sky Sports+
+DESCRIPTION:EFL League Two\nOn TV: Sky Sports+\nhttps://couchkickoff.co.uk/
+ accrington-stanley/
+URL:https://couchkickoff.co.uk/accrington-stanley/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Grimsby Town v Accrington Stanley on Sky Sports+ in 1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+END:VCALENDAR

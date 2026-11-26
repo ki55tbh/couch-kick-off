@@ -1,0 +1,292 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Couch Kick-Off//Team TV calendar//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Manchester City on TV
+X-WR-CALDESC:Manchester City games on UK TV\, from couchkickoff.co.uk. Upda
+ ted daily.
+X-WR-TIMEZONE:Europe/London
+REFRESH-INTERVAL;VALUE=DURATION:PT6H
+X-PUBLISHED-TTL:PT6H
+BEGIN:VEVENT
+UID:arsenal-manchester-city-premier-league@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART:20261129T163000Z
+DTEND:20261129T183000Z
+SUMMARY:Arsenal v Manchester City · Sky Sports Main Event
+LOCATION:Sky Sports Main Event\, Sky Sports Premier League\, Sky Sports Ult
+ ra HDR
+DESCRIPTION:Premier League\nOn TV: Sky Sports Main Event\, Sky Sports Premi
+ er League\, Sky Sports Ultra HDR\nhttps://couchkickoff.co.uk/manchester-ci
+ ty/
+URL:https://couchkickoff.co.uk/manchester-city/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Arsenal v Manchester City on Sky Sports Main Event in 1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:manchester-city-leeds-united-premier-league@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART:20261202T193000Z
+DTEND:20261202T213000Z
+SUMMARY:Manchester City v Leeds United · Sky Sports+
+LOCATION:Sky Sports+
+DESCRIPTION:Premier League\nOn TV: Sky Sports+\nhttps://couchkickoff.co.uk/
+ manchester-city/
+URL:https://couchkickoff.co.uk/manchester-city/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Manchester City v Leeds United on Sky Sports+ in 1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:brentford-manchester-city-premier-league@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART:20261205T200000Z
+DTEND:20261205T220000Z
+SUMMARY:Brentford v Manchester City · Sky Sports Main Event
+LOCATION:Sky Sports Main Event\, Sky Sports Premier League\, Sky Sports Ult
+ ra HDR
+DESCRIPTION:Premier League\nOn TV: Sky Sports Main Event\, Sky Sports Premi
+ er League\, Sky Sports Ultra HDR\nhttps://couchkickoff.co.uk/manchester-ci
+ ty/
+URL:https://couchkickoff.co.uk/manchester-city/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Brentford v Manchester City on Sky Sports Main Event in 1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:barcelona-manchester-city-champions-league@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART:20261208T200000Z
+DTEND:20261208T220000Z
+SUMMARY:Barcelona v Manchester City · Prime Video
+LOCATION:Prime Video
+DESCRIPTION:UEFA Champions League\nOn TV: Prime Video\nhttps://couchkickoff
+ .co.uk/manchester-city/
+URL:https://couchkickoff.co.uk/manchester-city/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Barcelona v Manchester City on Prime Video in 1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:manchester-city-chelsea-premier-league@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART:20261212T173000Z
+DTEND:20261212T193000Z
+SUMMARY:Manchester City v Chelsea · Sky Sports
+LOCATION:Sky Sports
+DESCRIPTION:Premier League\nOn TV: Sky Sports\nhttps://couchkickoff.co.uk/m
+ anchester-city/
+URL:https://couchkickoff.co.uk/manchester-city/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Manchester City v Chelsea on Sky Sports in 1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:manchester-city-bradford-city-carabao-cup@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART:20261215T200000Z
+DTEND:20261215T220000Z
+SUMMARY:Manchester City v Bradford City · Sky Sports Main Event
+LOCATION:Sky Sports Main Event\, Sky Sports Football\, Sky Sports Ultra HDR
+DESCRIPTION:Carabao Cup · Quarter-final\nOn TV: Sky Sports Main Event\, Sk
+ y Sports Football\, Sky Sports Ultra HDR\nhttps://couchkickoff.co.uk/manch
+ ester-city/
+URL:https://couchkickoff.co.uk/manchester-city/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Manchester City v Bradford City on Sky Sports Main Event in 1 h
+ our
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:newcastle-united-manchester-city-premier-league@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART:20261226T200000Z
+DTEND:20261226T220000Z
+SUMMARY:Newcastle United v Manchester City · Sky Sports
+LOCATION:Sky Sports
+DESCRIPTION:Premier League\nOn TV: Sky Sports\nhttps://couchkickoff.co.uk/m
+ anchester-city/
+URL:https://couchkickoff.co.uk/manchester-city/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Newcastle United v Manchester City on Sky Sports in 1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:everton-manchester-city-premier-league@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART:20261229T201500Z
+DTEND:20261229T221500Z
+SUMMARY:Everton v Manchester City · Sky Sports
+LOCATION:Sky Sports
+DESCRIPTION:Premier League\nOn TV: Sky Sports\nhttps://couchkickoff.co.uk/m
+ anchester-city/
+URL:https://couchkickoff.co.uk/manchester-city/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Everton v Manchester City on Sky Sports in 1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:manchester-city-tottenham-hotspur-premier-league@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART:20270103T163000Z
+DTEND:20270103T183000Z
+SUMMARY:Manchester City v Tottenham Hotspur · Sky Sports
+LOCATION:Sky Sports
+DESCRIPTION:Premier League\nOn TV: Sky Sports\nhttps://couchkickoff.co.uk/m
+ anchester-city/
+URL:https://couchkickoff.co.uk/manchester-city/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Manchester City v Tottenham Hotspur on Sky Sports in 1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:leeds-united-manchester-city-premier-league@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART:20270106T201500Z
+DTEND:20270106T221500Z
+SUMMARY:Leeds United v Manchester City · Sky Sports
+LOCATION:Sky Sports
+DESCRIPTION:Premier League\nOn TV: Sky Sports\nhttps://couchkickoff.co.uk/m
+ anchester-city/
+URL:https://couchkickoff.co.uk/manchester-city/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Leeds United v Manchester City on Sky Sports in 1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:lens-manchester-city-champions-league@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART:20270120T200000Z
+DTEND:20270120T220000Z
+SUMMARY:Lens v Manchester City · TNT Sports
+LOCATION:TNT Sports
+DESCRIPTION:UEFA Champions League\nOn TV: TNT Sports\nhttps://couchkickoff.
+ co.uk/manchester-city/
+URL:https://couchkickoff.co.uk/manchester-city/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Lens v Manchester City on TNT Sports in 1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:brighton-manchester-city-premier-league@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART:20270123T200000Z
+DTEND:20270123T220000Z
+SUMMARY:Brighton v Manchester City · TNT Sports
+LOCATION:TNT Sports
+DESCRIPTION:Premier League\nOn TV: TNT Sports\nhttps://couchkickoff.co.uk/m
+ anchester-city/
+URL:https://couchkickoff.co.uk/manchester-city/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Brighton v Manchester City on TNT Sports in 1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:manchester-city-sporting-cp-champions-league@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART:20270127T200000Z
+DTEND:20270127T220000Z
+SUMMARY:Manchester City v Sporting CP · TNT Sports
+LOCATION:TNT Sports
+DESCRIPTION:UEFA Champions League\nOn TV: TNT Sports\nhttps://couchkickoff.
+ co.uk/manchester-city/
+URL:https://couchkickoff.co.uk/manchester-city/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Manchester City v Sporting CP on TNT Sports in 1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:manchester-city-arsenal-premier-league@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART:20270131T163000Z
+DTEND:20270131T183000Z
+SUMMARY:Manchester City v Arsenal · Sky Sports
+LOCATION:Sky Sports
+DESCRIPTION:Premier League\nOn TV: Sky Sports\nhttps://couchkickoff.co.uk/m
+ anchester-city/
+URL:https://couchkickoff.co.uk/manchester-city/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Manchester City v Arsenal on Sky Sports in 1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:tottenham-hotspur-manchester-city-premier-league@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART;VALUE=DATE:20270210
+DTEND;VALUE=DATE:20270211
+SUMMARY:Tottenham Hotspur v Manchester City (kick-off TBC) · TNT Sports
+LOCATION:TNT Sports
+DESCRIPTION:Premier League\nOn TV: TNT Sports\nhttps://couchkickoff.co.uk/m
+ anchester-city/
+URL:https://couchkickoff.co.uk/manchester-city/
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:manchester-city-everton-premier-league@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART;VALUE=DATE:20270303
+DTEND;VALUE=DATE:20270304
+SUMMARY:Manchester City v Everton (kick-off TBC) · TNT Sports
+LOCATION:TNT Sports
+DESCRIPTION:Premier League\nOn TV: TNT Sports\nhttps://couchkickoff.co.uk/m
+ anchester-city/
+URL:https://couchkickoff.co.uk/manchester-city/
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:sunderland-manchester-city-premier-league@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART;VALUE=DATE:20270530
+DTEND;VALUE=DATE:20270531
+SUMMARY:Sunderland v Manchester City (kick-off TBC) · Sky Sports
+LOCATION:Sky Sports
+DESCRIPTION:Premier League\nOn TV: Sky Sports\nhttps://couchkickoff.co.uk/m
+ anchester-city/
+URL:https://couchkickoff.co.uk/manchester-city/
+TRANSP:TRANSPARENT
+END:VEVENT
+END:VCALENDAR

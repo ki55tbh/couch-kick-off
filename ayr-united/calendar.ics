@@ -1,0 +1,29 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Couch Kick-Off//Team TV calendar//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Ayr United on TV
+X-WR-CALDESC:Ayr United games on UK TV\, from couchkickoff.co.uk. Updated d
+ aily.
+X-WR-TIMEZONE:Europe/London
+REFRESH-INTERVAL;VALUE=DURATION:PT6H
+X-PUBLISHED-TTL:PT6H
+BEGIN:VEVENT
+UID:largs-thistle-ayr-united-scottish-cup@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART:20261127T193000Z
+DTEND:20261127T213000Z
+SUMMARY:Largs Thistle v Ayr United · BBC Scotland
+LOCATION:BBC Scotland\, BBC iPlayer
+DESCRIPTION:Scottish Cup · Third round\nOn TV: BBC Scotland\, BBC iPlayer\
+ nhttps://couchkickoff.co.uk/ayr-united/
+URL:https://couchkickoff.co.uk/ayr-united/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Largs Thistle v Ayr United on BBC Scotland in 1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+END:VCALENDAR

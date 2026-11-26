@@ -1,0 +1,114 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Couch Kick-Off//Team TV calendar//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Derby County on TV
+X-WR-CALDESC:Derby County games on UK TV\, from couchkickoff.co.uk. Updated
+  daily.
+X-WR-TIMEZONE:Europe/London
+REFRESH-INTERVAL;VALUE=DURATION:PT6H
+X-PUBLISHED-TTL:PT6H
+BEGIN:VEVENT
+UID:middlesbrough-derby-county-championship@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART:20261205T123000Z
+DTEND:20261205T143000Z
+SUMMARY:Middlesbrough v Derby County · Sky Sports+
+LOCATION:Sky Sports+
+DESCRIPTION:EFL Championship\nOn TV: Sky Sports+\nhttps://couchkickoff.co.u
+ k/derby-county/
+URL:https://couchkickoff.co.uk/derby-county/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Middlesbrough v Derby County on Sky Sports+ in 1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:stoke-city-derby-county-championship@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART:20270116T123000Z
+DTEND:20270116T143000Z
+SUMMARY:Stoke City v Derby County · Sky Sports+
+LOCATION:Sky Sports+
+DESCRIPTION:EFL Championship\nOn TV: Sky Sports+\nhttps://couchkickoff.co.u
+ k/derby-county/
+URL:https://couchkickoff.co.uk/derby-county/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Stoke City v Derby County on Sky Sports+ in 1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:norwich-city-derby-county-championship@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART:20270126T200000Z
+DTEND:20270126T220000Z
+SUMMARY:Norwich City v Derby County · Sky Sports Football
+LOCATION:Sky Sports Football
+DESCRIPTION:EFL Championship\nOn TV: Sky Sports Football\nhttps://couchkick
+ off.co.uk/derby-county/
+URL:https://couchkickoff.co.uk/derby-county/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Norwich City v Derby County on Sky Sports Football in 1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:bolton-wanderers-derby-county-championship@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART:20270130T123000Z
+DTEND:20270130T143000Z
+SUMMARY:Bolton Wanderers v Derby County · Sky Sports+
+LOCATION:Sky Sports+
+DESCRIPTION:EFL Championship\nOn TV: Sky Sports+\nhttps://couchkickoff.co.u
+ k/derby-county/
+URL:https://couchkickoff.co.uk/derby-county/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Bolton Wanderers v Derby County on Sky Sports+ in 1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:birmingham-city-derby-county-championship@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART:20270212T200000Z
+DTEND:20270212T220000Z
+SUMMARY:Birmingham City v Derby County · Sky Sports Football
+LOCATION:Sky Sports Football
+DESCRIPTION:EFL Championship\nOn TV: Sky Sports Football\nhttps://couchkick
+ off.co.uk/derby-county/
+URL:https://couchkickoff.co.uk/derby-county/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Birmingham City v Derby County on Sky Sports Football in 1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:derby-county-qpr-championship@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART:20270216T194500Z
+DTEND:20270216T214500Z
+SUMMARY:Derby County v QPR · Sky Sports+
+LOCATION:Sky Sports+
+DESCRIPTION:EFL Championship\nOn TV: Sky Sports+\nhttps://couchkickoff.co.u
+ k/derby-county/
+URL:https://couchkickoff.co.uk/derby-county/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Derby County v QPR on Sky Sports+ in 1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+END:VCALENDAR

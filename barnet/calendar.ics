@@ -1,0 +1,131 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Couch Kick-Off//Team TV calendar//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Barnet on TV
+X-WR-CALDESC:Barnet games on UK TV\, from couchkickoff.co.uk. Updated daily
+ .
+X-WR-TIMEZONE:Europe/London
+REFRESH-INTERVAL;VALUE=DURATION:PT6H
+X-PUBLISHED-TTL:PT6H
+BEGIN:VEVENT
+UID:barnet-rotherham-united-league-two@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART:20261201T194500Z
+DTEND:20261201T214500Z
+SUMMARY:Barnet v Rotherham United · Sky Sports+
+LOCATION:Sky Sports+
+DESCRIPTION:EFL League Two\nOn TV: Sky Sports+\nhttps://couchkickoff.co.uk/
+ barnet/
+URL:https://couchkickoff.co.uk/barnet/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Barnet v Rotherham United on Sky Sports+ in 1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:plymouth-parkway-barnet-fa-cup@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART:20261206T173000Z
+DTEND:20261206T193000Z
+SUMMARY:Plymouth Parkway v Barnet · TNT Sports 1
+LOCATION:TNT Sports 1\, TNT Sports 2
+DESCRIPTION:FA Cup · Second round\nOn TV: TNT Sports 1\, TNT Sports 2\nhtt
+ ps://couchkickoff.co.uk/barnet/
+URL:https://couchkickoff.co.uk/barnet/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Plymouth Parkway v Barnet on TNT Sports 1 in 1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:gillingham-barnet-league-two@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART:20261229T194500Z
+DTEND:20261229T214500Z
+SUMMARY:Gillingham v Barnet · Sky Sports
+LOCATION:Sky Sports
+DESCRIPTION:EFL League Two\nOn TV: Sky Sports\nhttps://couchkickoff.co.uk/b
+ arnet/
+URL:https://couchkickoff.co.uk/barnet/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Gillingham v Barnet on Sky Sports in 1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:barnet-grimsby-town-league-two@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART:20270109T123000Z
+DTEND:20270109T143000Z
+SUMMARY:Barnet v Grimsby Town · Sky Sports
+LOCATION:Sky Sports
+DESCRIPTION:EFL League Two\nOn TV: Sky Sports\nhttps://couchkickoff.co.uk/b
+ arnet/
+URL:https://couchkickoff.co.uk/barnet/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Barnet v Grimsby Town on Sky Sports in 1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:swindon-town-barnet-league-two@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART:20270119T194500Z
+DTEND:20270119T214500Z
+SUMMARY:Swindon Town v Barnet · Sky Sports+
+LOCATION:Sky Sports+
+DESCRIPTION:EFL League Two\nOn TV: Sky Sports+\nhttps://couchkickoff.co.uk/
+ barnet/
+URL:https://couchkickoff.co.uk/barnet/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Swindon Town v Barnet on Sky Sports+ in 1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:barnet-exeter-city-league-two@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART:20270209T194500Z
+DTEND:20270209T214500Z
+SUMMARY:Barnet v Exeter City · Sky Sports+
+LOCATION:Sky Sports+
+DESCRIPTION:EFL League Two\nOn TV: Sky Sports+\nhttps://couchkickoff.co.uk/
+ barnet/
+URL:https://couchkickoff.co.uk/barnet/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Barnet v Exeter City on Sky Sports+ in 1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:barnet-walsall-league-two@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART:20270227T123000Z
+DTEND:20270227T143000Z
+SUMMARY:Barnet v Walsall · Sky Sports+
+LOCATION:Sky Sports+
+DESCRIPTION:EFL League Two\nOn TV: Sky Sports+\nhttps://couchkickoff.co.uk/
+ barnet/
+URL:https://couchkickoff.co.uk/barnet/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Barnet v Walsall on Sky Sports+ in 1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+END:VCALENDAR

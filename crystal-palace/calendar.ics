@@ -1,0 +1,286 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Couch Kick-Off//Team TV calendar//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Crystal Palace on TV
+X-WR-CALDESC:Crystal Palace games on UK TV\, from couchkickoff.co.uk. Updat
+ ed daily.
+X-WR-TIMEZONE:Europe/London
+REFRESH-INTERVAL;VALUE=DURATION:PT6H
+X-PUBLISHED-TTL:PT6H
+BEGIN:VEVENT
+UID:crystal-palace-real-sociedad-europa-league@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART:20261126T200000Z
+DTEND:20261126T220000Z
+SUMMARY:Crystal Palace v Real Sociedad · TNT Sports 1
+LOCATION:TNT Sports 1\, TNT Sports Ultimate
+DESCRIPTION:UEFA Europa League\nOn TV: TNT Sports 1\, TNT Sports Ultimate\n
+ https://couchkickoff.co.uk/crystal-palace/
+URL:https://couchkickoff.co.uk/crystal-palace/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Crystal Palace v Real Sociedad on TNT Sports 1 in 1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:crystal-palace-hull-city-premier-league@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART:20261129T140500Z
+DTEND:20261129T160500Z
+SUMMARY:Crystal Palace v Hull City · Sky Sports Cricket
+LOCATION:Sky Sports Cricket
+DESCRIPTION:Premier League\nOn TV: Sky Sports Cricket\nhttps://couchkickoff
+ .co.uk/crystal-palace/
+URL:https://couchkickoff.co.uk/crystal-palace/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Crystal Palace v Hull City on Sky Sports Cricket in 1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:chelsea-crystal-palace-premier-league@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART:20261202T193000Z
+DTEND:20261202T213000Z
+SUMMARY:Chelsea v Crystal Palace · Sky Sports Cricket
+LOCATION:Sky Sports Cricket
+DESCRIPTION:Premier League\nOn TV: Sky Sports Cricket\nhttps://couchkickoff
+ .co.uk/crystal-palace/
+URL:https://couchkickoff.co.uk/crystal-palace/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Chelsea v Crystal Palace on Sky Sports Cricket in 1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:jagiellonia-bia-ystok-crystal-palace-europa-league@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART:20261210T174500Z
+DTEND:20261210T194500Z
+SUMMARY:Jagiellonia Białystok v Crystal Palace · TNT Sports
+LOCATION:TNT Sports
+DESCRIPTION:UEFA Europa League\nOn TV: TNT Sports\nhttps://couchkickoff.co.
+ uk/crystal-palace/
+URL:https://couchkickoff.co.uk/crystal-palace/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Jagiellonia Białystok v Crystal Palace on TNT Sports in 1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:crystal-palace-manchester-united-premier-league@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART:20261213T190000Z
+DTEND:20261213T210000Z
+SUMMARY:Crystal Palace v Manchester United · TNT Sports
+LOCATION:TNT Sports
+DESCRIPTION:Premier League\nOn TV: TNT Sports\nhttps://couchkickoff.co.uk/c
+ rystal-palace/
+URL:https://couchkickoff.co.uk/crystal-palace/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Crystal Palace v Manchester United on TNT Sports in 1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:crystal-palace-sunderland-carabao-cup@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART:20261216T193000Z
+DTEND:20261216T213000Z
+SUMMARY:Crystal Palace v Sunderland · Sky Sports+
+LOCATION:Sky Sports+
+DESCRIPTION:Carabao Cup · Quarter-final\nOn TV: Sky Sports+\nhttps://couch
+ kickoff.co.uk/crystal-palace/
+URL:https://couchkickoff.co.uk/crystal-palace/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Crystal Palace v Sunderland on Sky Sports+ in 1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:sunderland-crystal-palace-premier-league@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART:20261220T140000Z
+DTEND:20261220T160000Z
+SUMMARY:Sunderland v Crystal Palace · Sky Sports
+LOCATION:Sky Sports
+DESCRIPTION:Premier League\nOn TV: Sky Sports\nhttps://couchkickoff.co.uk/c
+ rystal-palace/
+URL:https://couchkickoff.co.uk/crystal-palace/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Sunderland v Crystal Palace on Sky Sports in 1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:crystal-palace-arsenal-premier-league@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART:20261227T190000Z
+DTEND:20261227T210000Z
+SUMMARY:Crystal Palace v Arsenal · Sky Sports
+LOCATION:Sky Sports
+DESCRIPTION:Premier League\nOn TV: Sky Sports\nhttps://couchkickoff.co.uk/c
+ rystal-palace/
+URL:https://couchkickoff.co.uk/crystal-palace/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Crystal Palace v Arsenal on Sky Sports in 1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:crystal-palace-bournemouth-premier-league@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART:20261230T193000Z
+DTEND:20261230T213000Z
+SUMMARY:Crystal Palace v Bournemouth · Sky Sports
+LOCATION:Sky Sports
+DESCRIPTION:Premier League\nOn TV: Sky Sports\nhttps://couchkickoff.co.uk/c
+ rystal-palace/
+URL:https://couchkickoff.co.uk/crystal-palace/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Crystal Palace v Bournemouth on Sky Sports in 1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:crystal-palace-chelsea-premier-league@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART:20270106T193000Z
+DTEND:20270106T213000Z
+SUMMARY:Crystal Palace v Chelsea · Sky Sports
+LOCATION:Sky Sports
+DESCRIPTION:Premier League\nOn TV: Sky Sports\nhttps://couchkickoff.co.uk/c
+ rystal-palace/
+URL:https://couchkickoff.co.uk/crystal-palace/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Crystal Palace v Chelsea on Sky Sports in 1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:crystal-palace-sparta-prague-europa-league@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART:20270121T200000Z
+DTEND:20270121T220000Z
+SUMMARY:Crystal Palace v Sparta Prague · TNT Sports
+LOCATION:TNT Sports
+DESCRIPTION:UEFA Europa League\nOn TV: TNT Sports\nhttps://couchkickoff.co.
+ uk/crystal-palace/
+URL:https://couchkickoff.co.uk/crystal-palace/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Crystal Palace v Sparta Prague on TNT Sports in 1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:crystal-palace-tottenham-hotspur-premier-league@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART:20270124T140000Z
+DTEND:20270124T160000Z
+SUMMARY:Crystal Palace v Tottenham Hotspur · Sky Sports
+LOCATION:Sky Sports
+DESCRIPTION:Premier League\nOn TV: Sky Sports\nhttps://couchkickoff.co.uk/c
+ rystal-palace/
+URL:https://couchkickoff.co.uk/crystal-palace/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Crystal Palace v Tottenham Hotspur on Sky Sports in 1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:rb-salzburg-crystal-palace-europa-league@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART:20270128T200000Z
+DTEND:20270128T220000Z
+SUMMARY:RB Salzburg v Crystal Palace · TNT Sports
+LOCATION:TNT Sports
+DESCRIPTION:UEFA Europa League\nOn TV: TNT Sports\nhttps://couchkickoff.co.
+ uk/crystal-palace/
+URL:https://couchkickoff.co.uk/crystal-palace/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:RB Salzburg v Crystal Palace on TNT Sports in 1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:hull-city-crystal-palace-premier-league@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART:20270131T140000Z
+DTEND:20270131T160000Z
+SUMMARY:Hull City v Crystal Palace · Sky Sports
+LOCATION:Sky Sports
+DESCRIPTION:Premier League\nOn TV: Sky Sports\nhttps://couchkickoff.co.uk/c
+ rystal-palace/
+URL:https://couchkickoff.co.uk/crystal-palace/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Hull City v Crystal Palace on Sky Sports in 1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:crystal-palace-brentford-premier-league@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART;VALUE=DATE:20270210
+DTEND;VALUE=DATE:20270211
+SUMMARY:Crystal Palace v Brentford (kick-off TBC) · TNT Sports
+LOCATION:TNT Sports
+DESCRIPTION:Premier League\nOn TV: TNT Sports\nhttps://couchkickoff.co.uk/c
+ rystal-palace/
+URL:https://couchkickoff.co.uk/crystal-palace/
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:arsenal-crystal-palace-premier-league@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART;VALUE=DATE:20270303
+DTEND;VALUE=DATE:20270304
+SUMMARY:Arsenal v Crystal Palace (kick-off TBC) · TNT Sports
+LOCATION:TNT Sports
+DESCRIPTION:Premier League\nOn TV: TNT Sports\nhttps://couchkickoff.co.uk/c
+ rystal-palace/
+URL:https://couchkickoff.co.uk/crystal-palace/
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:crystal-palace-leeds-united-premier-league@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART;VALUE=DATE:20270530
+DTEND;VALUE=DATE:20270531
+SUMMARY:Crystal Palace v Leeds United (kick-off TBC) · Sky Sports
+LOCATION:Sky Sports
+DESCRIPTION:Premier League\nOn TV: Sky Sports\nhttps://couchkickoff.co.uk/c
+ rystal-palace/
+URL:https://couchkickoff.co.uk/crystal-palace/
+TRANSP:TRANSPARENT
+END:VEVENT
+END:VCALENDAR

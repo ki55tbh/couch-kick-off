@@ -1,0 +1,131 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Couch Kick-Off//Team TV calendar//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Charlton Athletic on TV
+X-WR-CALDESC:Charlton Athletic games on UK TV\, from couchkickoff.co.uk. Up
+ dated daily.
+X-WR-TIMEZONE:Europe/London
+REFRESH-INTERVAL;VALUE=DURATION:PT6H
+X-PUBLISHED-TTL:PT6H
+BEGIN:VEVENT
+UID:blackburn-rovers-charlton-athletic-championship@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART:20261128T123000Z
+DTEND:20261128T143000Z
+SUMMARY:Blackburn Rovers v Charlton Athletic · Sky Sports+
+LOCATION:Sky Sports+
+DESCRIPTION:EFL Championship\nOn TV: Sky Sports+\nhttps://couchkickoff.co.u
+ k/charlton-athletic/
+URL:https://couchkickoff.co.uk/charlton-athletic/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Blackburn Rovers v Charlton Athletic on Sky Sports+ in 1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:charlton-athletic-watford-championship@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART:20270117T120000Z
+DTEND:20270117T140000Z
+SUMMARY:Charlton Athletic v Watford · Sky Sports Football
+LOCATION:Sky Sports Football
+DESCRIPTION:EFL Championship\nOn TV: Sky Sports Football\nhttps://couchkick
+ off.co.uk/charlton-athletic/
+URL:https://couchkickoff.co.uk/charlton-athletic/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Charlton Athletic v Watford on Sky Sports Football in 1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:bolton-wanderers-charlton-athletic-championship@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART:20270126T194500Z
+DTEND:20270126T214500Z
+SUMMARY:Bolton Wanderers v Charlton Athletic · Sky Sports+
+LOCATION:Sky Sports+
+DESCRIPTION:EFL Championship\nOn TV: Sky Sports+\nhttps://couchkickoff.co.u
+ k/charlton-athletic/
+URL:https://couchkickoff.co.uk/charlton-athletic/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Bolton Wanderers v Charlton Athletic on Sky Sports+ in 1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:charlton-athletic-wolves-championship@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART:20270206T123000Z
+DTEND:20270206T143000Z
+SUMMARY:Charlton Athletic v Wolves · Sky Sports Football
+LOCATION:Sky Sports Football
+DESCRIPTION:EFL Championship\nOn TV: Sky Sports Football\nhttps://couchkick
+ off.co.uk/charlton-athletic/
+URL:https://couchkickoff.co.uk/charlton-athletic/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Charlton Athletic v Wolves on Sky Sports Football in 1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:portsmouth-charlton-athletic-championship@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART:20270213T123000Z
+DTEND:20270213T143000Z
+SUMMARY:Portsmouth v Charlton Athletic · Sky Sports Football
+LOCATION:Sky Sports Football
+DESCRIPTION:EFL Championship\nOn TV: Sky Sports Football\nhttps://couchkick
+ off.co.uk/charlton-athletic/
+URL:https://couchkickoff.co.uk/charlton-athletic/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Portsmouth v Charlton Athletic on Sky Sports Football in 1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:charlton-athletic-burnley-championship@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART:20270216T194500Z
+DTEND:20270216T214500Z
+SUMMARY:Charlton Athletic v Burnley · Sky Sports+
+LOCATION:Sky Sports+
+DESCRIPTION:EFL Championship\nOn TV: Sky Sports+\nhttps://couchkickoff.co.u
+ k/charlton-athletic/
+URL:https://couchkickoff.co.uk/charlton-athletic/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Charlton Athletic v Burnley on Sky Sports+ in 1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:bristol-city-charlton-athletic-championship@couchkickoff.co.uk
+DTSTAMP:20261126T094200Z
+DTSTART:20270227T123000Z
+DTEND:20270227T143000Z
+SUMMARY:Bristol City v Charlton Athletic · Sky Sports+
+LOCATION:Sky Sports+
+DESCRIPTION:EFL Championship\nOn TV: Sky Sports+\nhttps://couchkickoff.co.u
+ k/charlton-athletic/
+URL:https://couchkickoff.co.uk/charlton-athletic/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Bristol City v Charlton Athletic on Sky Sports+ in 1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+END:VCALENDAR

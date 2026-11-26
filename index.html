@@ -21,7 +21,7 @@
 <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <meta name="theme-color" content="#f3f6f1">
-<meta name="ck-build" content="41e919334076">
+<meta name="ck-build" content="cf234f6d1268">
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="preload" href="/fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/inter-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
@@ -112,7 +112,7 @@ input[type=text]:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(21,12
 .pinned-box{background:linear-gradient(180deg,#fffaf0,#fff 60%);border:1px solid #f1e2b0;border-radius:var(--r);padding:14px;box-shadow:var(--shadow);position:relative;overflow:hidden}
 .pinned-box::before{content:"";position:absolute;inset:0 0 auto 0;height:4px;background:linear-gradient(90deg,var(--gold),var(--lime))}
 .pinned-box h2{margin:0 0 8px;font-family:Outfit,Inter,sans-serif;font-size:16px;font-weight:700}
-.seeall{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.seeall{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}.pin-head{display:flex;align-items:baseline;gap:10px}.pin-head h2{flex:1;min-width:0}.calbtn-h{display:inline-flex;align-items:center;gap:4px;flex:none;border:0;background:none;padding:2px 0;font:700 13px/1 Inter,sans-serif;color:var(--green-d,#15803d);cursor:pointer;align-self:flex-start;margin-top:2px}.calbtn-h svg{display:block;flex:none;transform:translateY(-1.5px)}.cl-s{display:none}.pin-head{container-type:inline-size}@container (max-width:430px){.cl-l{display:none}.cl-s{display:inline}}.calbtn-h:hover .cl-l,.calbtn-h:hover .cl-s{text-decoration:underline;text-underline-offset:3px}.pinned-box{overflow:visible}.pinned-box::before{border-radius:var(--r) var(--r) 0 0}.calmenu{position:absolute;right:14px;top:44px;z-index:5;width:min(300px,calc(100% - 28px));background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,.14);padding:6px 12px 10px}.calrow{display:flex;flex-wrap:wrap;align-items:center;gap:6px;padding:9px 0;border-bottom:1px solid var(--line)}.calname{flex:1 0 100%;font-weight:700;font-size:13.5px;margin-bottom:1px}.calrow a{font:700 12.5px Inter,sans-serif;color:var(--text);text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:5px 10px}.calmenu small{display:block;margin-top:8px;color:var(--muted);font-size:11.5px;line-height:1.4}
 /* Sticky controls */
 .controls{position:sticky;top:0;z-index:5;background:rgba(243,246,241,.88);backdrop-filter:saturate(1.4) blur(12px);-webkit-backdrop-filter:saturate(1.4) blur(12px);border-bottom:1px solid var(--line);margin-top:14px}
 .controls-inner{max-width:880px;margin:0 auto;padding:10px 12px;display:flex;flex-direction:column;gap:9px}
@@ -323,7 +323,7 @@ footer ul{margin:0;padding-left:18px}
 <script>/* Show the folded favourites box straight away, so it doesn't open out and snap shut while the page loads */(function(){try{var s=JSON.parse(localStorage.getItem('fotv2')||'{}'),n=[].concat(s.favs||[],s.favComps||[]);if(!n.length)return;document.querySelector('.myteams').classList.add('collapsed');document.getElementById('mtSum').hidden=false;document.getElementById('mtSumText').textContent=n.join(' · ')}catch(e){}})();</script>
 
 <section class="pinned" id="pinned" hidden>
-  <div class="pinned-box"><h2 id="pinnedTitle">Next 3 on TV for each of your teams</h2><div id="pinnedList"></div></div>
+  <div class="pinned-box"><div class="pin-head"><h2 id="pinnedTitle">Next 3 on TV for each of your teams</h2><button type="button" class="calbtn-h" id="calOpen" aria-expanded="false" hidden><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M8 3v4M16 3v4M3.5 10h17"/></svg><span class="cl-l">Add to calendar</span><span class="cl-s">Calendar</span></button></div><div class="calmenu" id="calMenu" hidden></div><div id="pinnedList"></div></div>
 </section>
 </aside><div class="mainc">
 
@@ -2421,6 +2421,17 @@ function renderTeams(){
     : '';
   renderSum();
 }
+// Team calendar feeds: team pages have /<slug>/calendar.ics (built by tools/build_pages.mjs)
+function teamSlug(t){const s=t.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/&/g,'and').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');return document.querySelector(`.teamlinks a[href="/${s}/"]`)?s:''}
+const CAL_DEV=/iPad|iPhone|iPod/.test(navigator.userAgent)||(/Macintosh/.test(navigator.userAgent)&&navigator.maxTouchPoints>1)?'apple':/Android/i.test(navigator.userAgent)?'google':'';
+function calLinks(sl,t){const web=`webcal://couchkickoff.co.uk/${sl}/calendar.ics`;return {apple:web,google:`https://calendar.google.com/calendar/render?cid=${encodeURIComponent(web)}`,outlook:`https://outlook.live.com/calendar/0/addfromweb?url=${encodeURIComponent(`https://couchkickoff.co.uk/${sl}/calendar.ics`)}&name=${encodeURIComponent(t+' on TV')}`}}
+function calMenuHTML(){const ts=st.favs.map(t=>[t,teamSlug(t)]).filter(x=>x[1]);return ts.map(([t,sl])=>{const L=calLinks(sl,t),a=(k,n)=>`<a href="${esc(L[k])}"${k==='apple'?'':' target="_blank" rel="noopener"'}>${n}</a>`;
+  return `<div class="calrow"><span class="calname">${esc(short(t))}</span>${CAL_DEV?a(CAL_DEV,'Add'):a('apple','Apple')+a('google','Google')+a('outlook','Outlook')}</div>`}).join('')+`<small>Every TV game, with a reminder an hour before. Updates itself as new games are picked.${CAL_DEV==='apple'?'':' In Google Calendar, turn on notifications for it to get reminders.'}</small>`}
+document.addEventListener('click',e=>{const m=$('calMenu'),b=$('calOpen');if(!m||!b)return;if(e.target.closest('#calOpen')){
+    const ts=st.favs.map(t=>[t,teamSlug(t)]).filter(x=>x[1]);
+    if(CAL_DEV&&ts.length===1){const L=calLinks(ts[0][1],ts[0][0]);if(CAL_DEV==='apple')location.href=L.apple;else window.open(L.google,'_blank','noopener');return}
+    const o=m.hidden;if(o){m.innerHTML=calMenuHTML();const h=b.closest('.pin-head');m.style.top=(h.offsetTop+h.offsetHeight+6)+'px'}m.hidden=!o;b.setAttribute('aria-expanded',String(o));return}
+  if(!m.hidden&&!e.target.closest('#calMenu')){m.hidden=true;b.setAttribute('aria-expanded','false')}});
 function renderPinned(){
   if(!st.favs.length){$('pinned').hidden=true;return}
   const rows=[];
@@ -2429,7 +2440,7 @@ function renderPinned(){
     next.forEach(m=>{if(!rows.includes(m))rows.push(m)});
   });
   rows.sort((x,y)=>order(x).localeCompare(order(y)));
-  $('pinned').hidden=false;
+  $('pinned').hidden=false;{const cb=$('calOpen');if(cb){const any=st.favs.some(t=>teamSlug(t));cb.hidden=!any;if(!any)$('calMenu').hidden=true;else if(!$('calMenu').hidden)$('calMenu').innerHTML=calMenuHTML()}}
   $('pinnedTitle').textContent = st.favs.length===1 ? `Next 3 ${short(st.favs[0])} games on TV` : 'Next 3 on TV for each of your teams';
   const btns='<div class="seeall">'+st.favs.map(t=>{const n=data.filter(m=>(m.h===t||m.a===t)&&!isPast(m)).length;const c0=teamColour(t),tc=c0&&1.05/(lum(c0)+.05)>=4.5?c0:'#111',fill=` style="background:#fff;border:2px solid ${tc};color:${tc};padding-top:4px;padding-bottom:4px"`;return `<button class="btn gold" data-all="${esc(t)}"${fill}>All ${esc(short(t))} games (${n}) →</button>`}).join('')+'</div>';
   $('pinnedList').innerHTML = (rows.length? rows.map(m=>card(m,true)).join('') : '<div class="hint">No upcoming games listed for your teams yet.</div>') + btns;
