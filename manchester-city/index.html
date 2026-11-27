@@ -122,6 +122,7 @@ input[type=text]:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(21,12
 .chips.more{-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 40px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 40px),transparent)}
 .chip{flex:none;border:1px solid var(--line2);background:#fff;color:var(--muted);border-radius:999px;padding:7px 13px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;transition:all .15s}
 .chip.on{background:var(--ink);border-color:var(--ink);color:#fff}
+/* Competitions / Channels while their panel is open: same green as the highlighted date (border stays 1px so nothing moves) */.chip[aria-expanded="true"]{background:#f4fbe9;border-color:var(--green);box-shadow:inset 0 0 0 1px var(--green),0 0 0 3px rgba(132,204,22,.25)}
 .chip.fav{color:var(--gold-d)}
 .chip.fav.on{background:var(--gold);border-color:var(--gold);color:#2a1f00}
 label.tog{font-size:13px;color:var(--muted);display:flex;align-items:center;gap:7px;cursor:pointer;font-weight:500}
