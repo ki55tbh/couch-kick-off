@@ -390,7 +390,7 @@ footer ul{margin:0;padding-left:18px}
   <p>Cup and European rounds are listed by date until the ties are drawn.</p>
   <p>A solid channel badge means the broadcaster has confirmed that match. An outlined badge marked <b>Expected</b> means the broadcaster holds the rights to the competition but hasn't confirmed that particular game yet. It turns solid once it's confirmed. <b>TV games only</b> shows both confirmed and expected games, and hides games marked "TV pick TBC" or "Not on UK TV".</p>
   <h3>Confirmed TV picks so far</h3>
-  <p>Broadcasters pick games in batches, usually a few weeks ahead. These are all the picks announced as of 25 Nov 2026:</p>
+  <p>Broadcasters pick games in batches, usually a few weeks ahead. These are all the picks announced as of 27 Nov 2026:</p>
   <ul>
     <li><b>Premier League:</b> every TV pick to 7 Jan. The rest of January is due the week of 30 Nov.</li>
     <li><b>EFL (Sky Sports):</b> to 3 Mar. Sky also streams most 3pm Saturday EFL games on Sky Sports+.</li>
@@ -399,7 +399,7 @@ footer ul{margin:0;padding-left:18px}
     <li><b>Champions League and Europa League:</b> league phase to 27/28 Jan, all on TNT Sports. Prime Video takes one Tuesday Champions League game each week, but most of its picks haven't been announced.</li>
     <li><b>Conference League:</b> to 17 Dec (TNT Sports).</li>
     <li><b>Carabao Cup quarter-finals:</b> 15 to 17 Dec on Sky Sports (Liverpool v Bournemouth and Fleetwood v Everton also on ITV1).</li>
-    <li><b>LaLiga:</b> every fixture to the end of the season is listed. Kick-off times are set to matchday 15 (4 to 7 Dec), plus two matchday 23 games brought forward to 2 Dec; later games show their weekend until LaLiga sets the times. Premier Sports shows most games, Disney+ one Saturday night game. Saturday 3:15pm games can't be shown live.</li>
+    <li><b>LaLiga:</b> every fixture to the end of the season is listed. Kick-off times are set to matchday 16 (11 to 14 Dec), plus two matchday 23 games brought forward to 2 Dec; later games show their weekend until LaLiga sets the times. Premier Sports shows most games, Disney+ one Saturday night game. Saturday 3:15pm games can't be shown live.</li>
     <li><b>Serie A:</b> every fixture to the end of the season is listed, with kick-off times to 11 Jan. All on DAZN. TNT Sports also shows a few, and BBC ALBA and iPlayer about one a week (listed once announced). Saturday 2pm games fall in the blackout.</li>
     <li><b>Bundesliga:</b> every fixture to the end of the season is listed, with kick-off times to 20 Dec. Fridays free on BBC iPlayer (some also on YouTube), Saturday 5:30pm "top match" on Sky Sports, all Sunday games on Prime Video pay-per-view. Saturday 2:30pm games have no UK broadcaster.</li>
     <li><b>Not yet announced:</b> FA Cup third round (January) picks, and the February to May picks for every competition. Internationals resume in late March 2027.</li>
@@ -431,7 +431,7 @@ const CARD_COMP = {'Champions League':'UEFA Champions League','Europa League':'U
 const PRIME_NOTE = "Prime Video shows one Tuesday game a week; its UK pick isn't confirmed";
 // date time | home | away | comp | channels | note
 // Updated by the scheduled task on every run. status: 'ok' or 'failed'.
-const UPDATED = {last_ok:'2026-11-26T09:42', last_attempt:'2026-11-26T09:42', status:'ok', summary:'Wales v Slovenia Nations League play-off added (27 and 30 Mar, 7:45pm, BBC expected); 2 channel changes: Sky Sports Ultra HDR added to Doncaster v Huddersfield, Sky One and Sky Sports Ultra HDR added to Southampton v Middlesbrough; today and the next 2 days checked against FotMob and live-footballontv, no YouTube Bundesliga picks or MLS Game 3s announced yet'};
+const UPDATED = {last_ok:'2026-11-27T09:45', last_attempt:'2026-11-27T09:45', status:'ok', summary:'10 new televised fixtures (Championship midweek games on Sky Sports+, 8 and 9 Dec); LaLiga matchday 16 kick-offs set (11 to 14 Dec, Villarreal v Rayo not on UK TV); exact channels for 23 games incl. Sky Ultra HDR for Swansea v Cardiff, Sunderland v Spurs and Hearts v Celtic; no time changes; today and the next 2 days checked against FotMob and live-footballontv'};
 // Weekly accuracy audit history, written by the Monday audit task (not shown on the page). Newest last.
 // Each entry: {week:'YYYY-MM-DD', checked:N, correct:N, incorrect:N, unverified:N, fixed:N}
 const AUDITS = [{week:'2026-11-16', checked:81, correct:46, incorrect:2, unverified:33, missing:0, fixed:2, expected:0, promoted:0, bcast_confirmed:36}, {week:'2026-11-23', method:2, f_checked:120, f_correct:120, f_incorrect:0, f_unverified:0, b_checked:120, b_correct:79, b_partial:13, b_incorrect:0, b_unverified:28, missing:20, completeness:'partial', fixed:0, expected:0, promoted:0, ppv_exceptions:3, listed:112, note:'Revised 23 Nov after review of the original report (ChatGPT recheck, confirmed by Gareth): 13 of the 41 unverified broadcasts were PARTIAL (7 Sky Sports Ultra HDR not confirmed, 6 additional TNT Sports channels or Ultimate not confirmed), 28 UNVERIFIED. 16 Conference League games streamed only on HBO Max were missing and added (BLANKET basis: hbomax.com/gb/en/sports/football). Completeness before fixes 112/132 (84.8%), 132/132 after all 20 additions; still PARTIAL because some broadcaster schedules could not be checked'}];
@@ -483,16 +483,16 @@ const RAW = `
 2026-12-06 15:15|Athletic Club|Real Madrid|LL|Premier Sports 1
 2026-12-05 17:30|Villarreal|Real Sociedad|LL|PS?
 2026-12-05 15:15|Rayo Vallecano|Levante|LL|NOTV|Saturday 3pm blackout, so it won't be shown live in the UK
-2026-12-13 TBC|Espanyol|Celta Vigo|LL|PS?|Matchday 16, the weekend of 12 to 13 Dec. Exact day and kick-off not set yet. Premier Sports, or Disney+ for its one Saturday night game
-2026-12-13 TBC|Málaga|Barcelona|LL|PS?|Matchday 16, the weekend of 12 to 13 Dec. Exact day and kick-off not set yet. Premier Sports, or Disney+ for its one Saturday night game
-2026-12-13 TBC|Real Madrid|Osasuna|LL|PS?|Matchday 16, the weekend of 12 to 13 Dec. Exact day and kick-off not set yet. Premier Sports, or Disney+ for its one Saturday night game
-2026-12-13 TBC|Deportivo La Coruña|Athletic Club|LL|PS?|Matchday 16, the weekend of 12 to 13 Dec. Exact day and kick-off not set yet. Premier Sports, or Disney+ for its one Saturday night game
-2026-12-13 TBC|Levante|Alavés|LL|PS?|Matchday 16, the weekend of 12 to 13 Dec. Exact day and kick-off not set yet. Premier Sports, or Disney+ for its one Saturday night game
-2026-12-13 TBC|Elche|Sevilla|LL|PS?|Matchday 16, the weekend of 12 to 13 Dec. Exact day and kick-off not set yet. Premier Sports, or Disney+ for its one Saturday night game
-2026-12-13 TBC|Villarreal|Rayo Vallecano|LL|PS?|Matchday 16, the weekend of 12 to 13 Dec. Exact day and kick-off not set yet. Premier Sports, or Disney+ for its one Saturday night game
-2026-12-13 TBC|Real Betis|Racing Santander|LL|PS?|Matchday 16, the weekend of 12 to 13 Dec. Exact day and kick-off not set yet. Premier Sports, or Disney+ for its one Saturday night game
-2026-12-13 TBC|Real Sociedad|Getafe|LL|PS?|Matchday 16, the weekend of 12 to 13 Dec. Exact day and kick-off not set yet. Premier Sports, or Disney+ for its one Saturday night game
-2026-12-13 TBC|Atlético Madrid|Valencia|LL|PS?|Matchday 16, the weekend of 12 to 13 Dec. Exact day and kick-off not set yet. Premier Sports, or Disney+ for its one Saturday night game
+2026-12-14 20:00|Espanyol|Celta Vigo|LL|Premier Sports 1?
+2026-12-12 17:30|Málaga|Barcelona|LL|PS?
+2026-12-13 20:00|Real Madrid|Osasuna|LL|Premier Sports 1?
+2026-12-13 15:15|Deportivo La Coruña|Athletic Club|LL|PS?
+2026-12-12 13:00|Levante|Alavés|LL|PS?
+2026-12-11 20:00|Elche|Sevilla|LL|PS?
+2026-12-12 15:15|Villarreal|Rayo Vallecano|LL|NOTV|Saturday 3pm blackout, so it won't be shown live in the UK
+2026-12-12 20:00|Real Betis|Racing Santander|LL|DIS?|Saturday night game, which Disney+ shows exclusively (not on Premier Sports)
+2026-12-13 17:30|Real Sociedad|Getafe|LL|Premier Sports 1?
+2026-12-13 13:00|Atlético Madrid|Valencia|LL|PS?
 2026-12-20 TBC|Athletic Club|Real Betis|LL|PS?|Matchday 17, the weekend of 19 to 20 Dec. Exact day and kick-off not set yet. Premier Sports, or Disney+ for its one Saturday night game
 2026-12-20 TBC|Getafe|Levante|LL|PS?|Matchday 17, the weekend of 19 to 20 Dec. Exact day and kick-off not set yet. Premier Sports, or Disney+ for its one Saturday night game
 2026-12-20 TBC|Alavés|Elche|LL|PS?|Matchday 17, the weekend of 19 to 20 Dec. Exact day and kick-off not set yet. Premier Sports, or Disney+ for its one Saturday night game
@@ -1469,11 +1469,11 @@ const RAW = `
 2026-11-28 12:30|Exeter City|Crawley Town|L2|Sky Sports+,NOW
 2026-11-28 17:30|Ipswich Town|Aston Villa|PL|Sky Sports Main Event,Sky Sports Premier League,Sky Sports Ultra HDR,NOW
 2026-11-29 12:00|Everton|Liverpool|PL|TNT Sports 1,TNT Sports Ultimate,HBO Max
-2026-11-29 12:00|Swansea City|Cardiff City|CH|Sky Sports Football,NOW
+2026-11-29 12:00|Swansea City|Cardiff City|CH|Sky Sports Main Event,Sky Sports Football,Sky Sports Ultra HDR,NOW
 2026-11-29 14:05|Brighton|Newcastle United|PL|Sky Sports Premier League,NOW
 2026-11-29 14:05|Crystal Palace|Hull City|PL|Sky Sports Cricket,NOW
 2026-11-29 14:05|Fulham|Bournemouth|PL|Sky Sports+,NOW
-2026-11-29 14:05|Sunderland|Tottenham Hotspur|PL|Sky Sports Main Event,NOW
+2026-11-29 14:05|Sunderland|Tottenham Hotspur|PL|Sky Sports Main Event,Sky Sports Ultra HDR,NOW
 2026-11-29 16:30|Arsenal|Manchester City|PL|Sky Sports Main Event,Sky Sports Premier League,Sky Sports Ultra HDR,NOW
 2026-12-01 20:00|Coventry City|Ipswich Town|PL|Sky Sports Main Event,Sky Sports Premier League,Sky Sports Ultra HDR,NOW
 2026-12-02 19:30|Chelsea|Crystal Palace|PL|Sky Sports Cricket,NOW
@@ -1508,7 +1508,7 @@ const RAW = `
 2026-12-08 20:00|Roma|Sporting CP|UCL|T
 2026-12-08 20:00|Bayern Munich|Slavia Prague|UCL|T
 2026-12-08 20:00|Napoli|Club Brugge|UCL|T
-2026-12-08 20:00|West Ham United|Middlesbrough|CH|S
+2026-12-08 20:00|West Ham United|Middlesbrough|CH|Sky Sports Main Event,Sky Sports Football,Sky Sports Ultra HDR,NOW
 2026-12-09 17:45|Real Betis|Como|UCL|T
 2026-12-09 17:45|Slovan Bratislava|Shakhtar Donetsk|UCL|T
 2026-12-09 20:00|Arsenal|Real Madrid|UCL|T
@@ -1518,45 +1518,45 @@ const RAW = `
 2026-12-09 20:00|Lens|Bodø/Glimt|UCL|T
 2026-12-09 20:00|PSV Eindhoven|Atlético Madrid|UCL|T
 2026-12-09 20:00|Stuttgart|Lille|UCL|T
-2026-12-09 20:00|Southampton|Burnley|CH|S
+2026-12-09 20:00|Southampton|Burnley|CH|Sky Sports Main Event,Sky Sports Football,Sky Sports Ultra HDR,NOW
 2026-12-10 17:45|Anderlecht|Hoffenheim|UEL|T
 2026-12-10 17:45|Ararat-Armenia|NEC Nijmegen|UEL|T
 2026-12-10 17:45|AZ Alkmaar|Sturm Graz|UEL|T
 2026-12-10 17:45|Celje|Olympiacos|UEL|T
 2026-12-10 17:45|Marseille|Celta Vigo|UEL|T
-2026-12-10 17:45|Omonia Nicosia|Celtic|UEL|T
-2026-12-10 17:45|Jagiellonia Białystok|Crystal Palace|UEL|T
+2026-12-10 17:45|Omonia Nicosia|Celtic|UEL|TNT Sports 3,HBO Max
+2026-12-10 17:45|Jagiellonia Białystok|Crystal Palace|UEL|TNT Sports 1,HBO Max
 2026-12-10 17:45|Rennes|Dinamo Zagreb|UEL|T
 2026-12-10 17:45|Hapoel Be'er Sheva|Juventus|UEL|T
 2026-12-10 20:00|Benfica|OFI Crete|UEL|T
 2026-12-10 20:00|Bayer Leverkusen|Beşiktaş|UEL|T
-2026-12-10 20:00|Bournemouth|Viktoria Plzeň|UEL|T
+2026-12-10 20:00|Bournemouth|Viktoria Plzeň|UEL|TNT Sports 4,HBO Max
 2026-12-10 20:00|Lech Poznań|Ferencváros|UEL|T
 2026-12-10 20:00|Levski Sofia|Lillestrøm|UEL|T
 2026-12-10 20:00|Lyon|Union Saint-Gilloise|UEL|T
-2026-12-10 20:00|AC Milan|Sunderland|UEL|T
+2026-12-10 20:00|AC Milan|Sunderland|UEL|TNT Sports 1,HBO Max
 2026-12-10 20:00|Real Sociedad|Torreense|UEL|T
 2026-12-10 20:00|RB Salzburg|Sparta Prague|UEL|T
-2026-12-10 20:00|Brighton|Monaco|UECL|T
-2026-12-10 20:00|Hearts|Borac Banja Luka|UECL|T
-2026-12-10 20:00|Leicester City|Sheffield Wednesday|L1|S
+2026-12-10 20:00|Brighton|Monaco|UECL|TNT Sports 2,HBO Max
+2026-12-10 20:00|Hearts|Borac Banja Luka|UECL|TNT Sports 3,HBO Max
+2026-12-10 20:00|Leicester City|Sheffield Wednesday|L1|Sky Sports Main Event,Sky Sports Football,Sky Sports Ultra HDR,NOW
 2026-12-11 20:00|Bolton Wanderers|Wrexham|CH|S
-2026-12-12 12:30|Preston North End|Middlesbrough|CH|S
-2026-12-12 12:30|QPR|Watford|CH|S
-2026-12-12 12:30|Stoke City|West Bromwich Albion|CH|S
-2026-12-12 12:30|Burton Albion|Reading|L1|S
-2026-12-12 12:30|Stevenage|Stockport County|L1|S
-2026-12-12 12:30|Chesterfield|Grimsby Town|L2|S
-2026-12-12 12:30|Tranmere Rovers|York City|L2|S
+2026-12-12 12:30|Preston North End|Middlesbrough|CH|Sky Sports+,NOW
+2026-12-12 12:30|QPR|Watford|CH|Sky Sports+,NOW
+2026-12-12 12:30|Stoke City|West Bromwich Albion|CH|Sky Sports Main Event,Sky Sports Football,Sky Sports Ultra HDR,NOW
+2026-12-12 12:30|Burton Albion|Reading|L1|Sky Sports+,NOW
+2026-12-12 12:30|Stevenage|Stockport County|L1|Sky Sports+,NOW
+2026-12-12 12:30|Chesterfield|Grimsby Town|L2|Sky Sports+,NOW
+2026-12-12 12:30|Tranmere Rovers|York City|L2|Sky Sports+,NOW
 2026-12-12 12:45|Chelsea (W)|London City Lionesses (W)|WSL|BBC One,BBC iPlayer
-2026-12-12 17:30|Manchester City|Chelsea|PL|S
+2026-12-12 17:30|Manchester City|Chelsea|PL|Sky Sports Main Event,Sky Sports Premier League,Sky Sports Ultra HDR,NOW
 2026-12-13 15:00|Hibernian|Rangers|Premier Sports Cup|PS|Final
 2026-12-13 14:00|Arsenal|Bournemouth|PL|S
 2026-12-13 14:00|Brighton|Everton|PL|S
 2026-12-13 14:00|Sunderland|Nottingham Forest|PL|S
-2026-12-13 16:30|Coventry City|Aston Villa|PL|S
-2026-12-13 19:00|Crystal Palace|Manchester United|PL|T
-2026-12-14 20:00|Hull City|Tottenham Hotspur|PL|S
+2026-12-13 16:30|Coventry City|Aston Villa|PL|Sky Sports Main Event,Sky Sports Premier League,Sky Sports Ultra HDR,NOW
+2026-12-13 19:00|Crystal Palace|Manchester United|PL|TNT Sports 1,TNT Sports Ultimate,HBO Max
+2026-12-14 20:00|Hull City|Tottenham Hotspur|PL|Sky Sports Main Event,Sky Sports Premier League,Sky Sports Ultra HDR,NOW
 2026-12-17 20:00|Panathinaikos|Brighton|UECL|T
 2026-12-17 20:00|Pafos|Hearts|UECL|T
 2026-12-17 20:00|Crewe Alexandra|Salford City|L2|S
@@ -1914,7 +1914,7 @@ const RAW = `
 2026-12-16 20:00|Liverpool|Bournemouth|CC|ITV1,ITVX,STV,STV Player,Sky Sports Main Event,Sky Sports Football,Sky Sports Ultra HDR,NOW|Quarter-final
 2026-11-27 20:00|Southampton|Middlesbrough|CH|Sky Sports Football,Sky One,Sky Sports Ultra HDR,NOW
 2026-11-28 17:45|Motherwell|Hibernian|SPL|Premier Sports 1
-2026-11-29 15:00|Hearts|Celtic|SPL|Sky Sports Football,NOW
+2026-11-29 15:00|Hearts|Celtic|SPL|Sky Sports Football,Sky Sports Ultra HDR,NOW
 2026-12-27 12:00|Hearts|Hibernian|SPL|Sky Sports Football,NOW
 2027-01-02 12:30|Dundee|Dundee United|SPL|Sky Sports Main Event,Sky Sports Football,Sky Sports Ultra HDR,NOW
 2027-01-03 14:30|St Mirren|Aberdeen|SPL|PS
@@ -2095,6 +2095,16 @@ const RAW = `
 2026-12-01 20:00|Reading|Doncaster Rovers|L1|Sky Sports+,NOW
 2026-11-27 19:30|Largs Thistle|Ayr United|Scottish Cup|BBC Scotland,BBC iPlayer|Third round
 2026-12-04 19:30|Livingston|Raith Rovers|SCH|BBC Scotland,BBC iPlayer
+2026-12-08 19:45|Blackburn Rovers|Norwich City|CH|Sky Sports+,NOW
+2026-12-08 19:45|Millwall|Sheffield United|CH|Sky Sports+,NOW
+2026-12-08 19:45|QPR|Wolves|CH|Sky Sports+,NOW
+2026-12-08 19:45|Swansea City|Bolton Wanderers|CH|Sky Sports+,NOW
+2026-12-08 19:45|West Bromwich Albion|Cardiff City|CH|Sky Sports+,NOW
+2026-12-08 19:45|Wrexham|Charlton Athletic|CH|Sky Sports+,NOW
+2026-12-08 20:00|Birmingham City|Watford|CH|Sky Sports+,NOW
+2026-12-09 19:45|Derby County|Bristol City|CH|Sky Sports+,NOW
+2026-12-09 19:45|Lincoln City|Stoke City|CH|Sky Sports+,NOW
+2026-12-09 19:45|Preston North End|Portsmouth|CH|Sky Sports+,NOW
 `;
 
 const BIG = ['Premier League','Champions League','Europa League','Conference League','FA Cup','Carabao Cup','UEFA Nations League','Euro 2028 Qualifiers'];

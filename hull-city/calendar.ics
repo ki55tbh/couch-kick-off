@@ -11,7 +11,7 @@ REFRESH-INTERVAL;VALUE=DURATION:PT6H
 X-PUBLISHED-TTL:PT6H
 BEGIN:VEVENT
 UID:crystal-palace-hull-city-premier-league@couchkickoff.co.uk
-DTSTAMP:20261126T094200Z
+DTSTAMP:20261127T094500Z
 DTSTART:20261129T140500Z
 DTEND:20261129T160500Z
 SUMMARY:Crystal Palace v Hull City · Sky Sports Cricket
@@ -28,7 +28,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:hull-city-nottingham-forest-premier-league@couchkickoff.co.uk
-DTSTAMP:20261126T094200Z
+DTSTAMP:20261127T094500Z
 DTSTART:20261202T193000Z
 DTEND:20261202T213000Z
 SUMMARY:Hull City v Nottingham Forest · Sky Sports NFL
@@ -45,24 +45,26 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:hull-city-tottenham-hotspur-premier-league@couchkickoff.co.uk
-DTSTAMP:20261126T094200Z
+DTSTAMP:20261127T094500Z
 DTSTART:20261214T200000Z
 DTEND:20261214T220000Z
-SUMMARY:Hull City v Tottenham Hotspur · Sky Sports
-LOCATION:Sky Sports
-DESCRIPTION:Premier League\nOn TV: Sky Sports\nhttps://couchkickoff.co.uk/h
- ull-city/
+SUMMARY:Hull City v Tottenham Hotspur · Sky Sports Main Event
+LOCATION:Sky Sports Main Event\, Sky Sports Premier League\, Sky Sports Ult
+ ra HDR
+DESCRIPTION:Premier League\nOn TV: Sky Sports Main Event\, Sky Sports Premi
+ er League\, Sky Sports Ultra HDR\nhttps://couchkickoff.co.uk/hull-city/
 URL:https://couchkickoff.co.uk/hull-city/
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Hull City v Tottenham Hotspur on Sky Sports in 1 hour
+DESCRIPTION:Hull City v Tottenham Hotspur on Sky Sports Main Event in 1 hou
+ r
 TRIGGER:-PT1H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:hull-city-liverpool-premier-league@couchkickoff.co.uk
-DTSTAMP:20261126T094200Z
+DTSTAMP:20261127T094500Z
 DTSTART:20261226T173000Z
 DTEND:20261226T193000Z
 SUMMARY:Hull City v Liverpool · Sky Sports
@@ -79,7 +81,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:hull-city-leeds-united-premier-league@couchkickoff.co.uk
-DTSTAMP:20261126T094200Z
+DTSTAMP:20261127T094500Z
 DTSTART:20261229T193000Z
 DTEND:20261229T213000Z
 SUMMARY:Hull City v Leeds United · Sky Sports
@@ -96,7 +98,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:nottingham-forest-hull-city-premier-league@couchkickoff.co.uk
-DTSTAMP:20261126T094200Z
+DTSTAMP:20261127T094500Z
 DTSTART:20270105T193000Z
 DTEND:20270105T213000Z
 SUMMARY:Nottingham Forest v Hull City · Sky Sports
@@ -113,7 +115,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:hull-city-crystal-palace-premier-league@couchkickoff.co.uk
-DTSTAMP:20261126T094200Z
+DTSTAMP:20261127T094500Z
 DTSTART:20270131T140000Z
 DTEND:20270131T160000Z
 SUMMARY:Hull City v Crystal Palace · Sky Sports
@@ -130,7 +132,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:hull-city-sunderland-premier-league@couchkickoff.co.uk
-DTSTAMP:20261126T094200Z
+DTSTAMP:20261127T094500Z
 DTSTART;VALUE=DATE:20270210
 DTEND;VALUE=DATE:20270211
 SUMMARY:Hull City v Sunderland (kick-off TBC) · TNT Sports
@@ -142,7 +144,7 @@ TRANSP:TRANSPARENT
 END:VEVENT
 BEGIN:VEVENT
 UID:leeds-united-hull-city-premier-league@couchkickoff.co.uk
-DTSTAMP:20261126T094200Z
+DTSTAMP:20261127T094500Z
 DTSTART;VALUE=DATE:20270303
 DTEND;VALUE=DATE:20270304
 SUMMARY:Leeds United v Hull City (kick-off TBC) · TNT Sports
@@ -154,7 +156,7 @@ TRANSP:TRANSPARENT
 END:VEVENT
 BEGIN:VEVENT
 UID:hull-city-newcastle-united-premier-league@couchkickoff.co.uk
-DTSTAMP:20261126T094200Z
+DTSTAMP:20261127T094500Z
 DTSTART;VALUE=DATE:20270530
 DTEND;VALUE=DATE:20270531
 SUMMARY:Hull City v Newcastle United (kick-off TBC) · Sky Sports
