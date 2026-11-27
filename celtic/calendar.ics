@@ -10,23 +10,6 @@ X-WR-TIMEZONE:Europe/London
 REFRESH-INTERVAL;VALUE=DURATION:PT6H
 X-PUBLISHED-TTL:PT6H
 BEGIN:VEVENT
-UID:torreense-celtic-europa-league@couchkickoff.co.uk
-DTSTAMP:20261126T094200Z
-DTSTART:20261126T200000Z
-DTEND:20261126T220000Z
-SUMMARY:Torreense v Celtic · TNT Sports 3
-LOCATION:TNT Sports 3
-DESCRIPTION:UEFA Europa League\nOn TV: TNT Sports 3\nhttps://couchkickoff.c
- o.uk/celtic/
-URL:https://couchkickoff.co.uk/celtic/
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-DESCRIPTION:Torreense v Celtic on TNT Sports 3 in 1 hour
-TRIGGER:-PT1H
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
 UID:hearts-celtic-scottish-premiership@couchkickoff.co.uk
 DTSTAMP:20261126T094200Z
 DTSTART:20261129T150000Z

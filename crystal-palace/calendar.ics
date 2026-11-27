@@ -10,23 +10,6 @@ X-WR-TIMEZONE:Europe/London
 REFRESH-INTERVAL;VALUE=DURATION:PT6H
 X-PUBLISHED-TTL:PT6H
 BEGIN:VEVENT
-UID:crystal-palace-real-sociedad-europa-league@couchkickoff.co.uk
-DTSTAMP:20261126T094200Z
-DTSTART:20261126T200000Z
-DTEND:20261126T220000Z
-SUMMARY:Crystal Palace v Real Sociedad · TNT Sports 1
-LOCATION:TNT Sports 1\, TNT Sports Ultimate
-DESCRIPTION:UEFA Europa League\nOn TV: TNT Sports 1\, TNT Sports Ultimate\n
- https://couchkickoff.co.uk/crystal-palace/
-URL:https://couchkickoff.co.uk/crystal-palace/
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-DESCRIPTION:Crystal Palace v Real Sociedad on TNT Sports 1 in 1 hour
-TRIGGER:-PT1H
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
 UID:crystal-palace-hull-city-premier-league@couchkickoff.co.uk
 DTSTAMP:20261126T094200Z
 DTSTART:20261129T140500Z

@@ -163,14 +163,14 @@ ${style}
 .tp{max-width:720px;margin:0 auto;padding:0 14px 40px}
 .tlogo{display:block;max-width:300px;margin:12px auto 4px}.tlogo img{width:100%;height:auto;display:block}
 .crumb{font-size:12.5px;color:var(--muted);margin:10px 2px 6px}.crumb a{color:var(--green);font-weight:700;text-decoration:none}
-.th1{font-family:Outfit,Inter,sans-serif;font-size:30px;line-height:1.15;font-weight:800;letter-spacing:-.015em;margin:4px 2px 8px}
+.th1{font-family:Outfit,'Outfit FbR','Outfit FbA',Inter,'Inter FbR','Inter FbA',sans-serif;font-size:30px;line-height:1.15;font-weight:800;letter-spacing:-.015em;margin:4px 2px 8px}
 .lead{margin:0 2px 14px;color:var(--text)}.lead small{display:block;color:var(--muted);margin-top:4px}
 .nextbox{background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--green);border-radius:12px;padding:12px 14px;margin:0 0 6px;font-weight:600}
 .nextbox b{display:block;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--green);margin-bottom:3px}
 .wherebox{border-left-color:var(--line);font-weight:400}.wherebox b{color:var(--muted)}.otherclubs{margin-top:14px}
 .tfoot{margin:26px 2px 0;font-size:13.5px;color:var(--muted)}.tfoot a{color:var(--green);font-weight:700}
 .tl{color:inherit;text-decoration:underline;text-decoration-color:rgba(20,40,30,.22);text-decoration-thickness:1px;text-underline-offset:3px}.tl:hover,.tl:focus-visible{text-decoration-color:currentColor}
-.calwrap{position:relative;margin:-4px 2px 16px}.calbtn-h{display:inline-flex;align-items:center;gap:4px;border:0;background:none;padding:2px 0;font:700 14px/1.2 Inter,sans-serif;color:var(--green-d,#15803d);cursor:pointer;text-align:left}.calbtn-h svg{display:block;flex:none;transform:translateY(-1.5px)}.calbtn-h:hover{text-decoration:underline;text-underline-offset:3px}.calmenu{position:absolute;left:0;top:100%;margin-top:6px;z-index:5;width:min(300px,100%);background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,.14);padding:10px 12px}.calmenu a{display:inline-block;margin:0 6px 6px 0;font:700 12.5px Inter,sans-serif;color:var(--text);text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:5px 10px}.calmenu small{display:block;margin-top:4px;color:var(--muted);font-size:11.5px;line-height:1.4}
+.calwrap{position:relative;margin:-4px 2px 16px}.calbtn-h{display:inline-flex;align-items:center;gap:4px;border:0;background:none;padding:2px 0;font:700 14px/1.2 Inter,'Inter FbR','Inter FbA',sans-serif;color:var(--green-d,#15803d);cursor:pointer;text-align:left}.calbtn-h svg{display:block;flex:none;transform:translateY(-1.5px)}.calbtn-h:hover{text-decoration:underline;text-underline-offset:3px}.calmenu{position:absolute;left:0;top:100%;margin-top:6px;z-index:5;width:min(300px,100%);background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,.14);padding:10px 12px}.calmenu a{display:inline-block;margin:0 6px 6px 0;font:700 12.5px Inter,'Inter FbR','Inter FbA',sans-serif;color:var(--text);text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:5px 10px}.calmenu small{display:block;margin-top:4px;color:var(--muted);font-size:11.5px;line-height:1.4}
 .cta{display:block;text-align:center;background:var(--green);color:#fff!important;text-decoration:none;border-radius:12px;padding:12px;margin:20px 0 0;font-weight:700}
 </style>
 </head>
@@ -266,7 +266,7 @@ ${style}
 .tp{max-width:720px;margin:0 auto;padding:0 14px 40px}
 .tlogo{display:block;max-width:300px;margin:12px auto 4px}.tlogo img{width:100%;height:auto;display:block}
 .crumb{font-size:12.5px;color:var(--muted);margin:10px 2px 6px}.crumb a{color:var(--green);font-weight:700;text-decoration:none}
-.th1{font-family:Outfit,Inter,sans-serif;font-size:30px;line-height:1.15;font-weight:800;letter-spacing:-.015em;margin:4px 2px 8px}
+.th1{font-family:Outfit,'Outfit FbR','Outfit FbA',Inter,'Inter FbR','Inter FbA',sans-serif;font-size:30px;line-height:1.15;font-weight:800;letter-spacing:-.015em;margin:4px 2px 8px}
 .lead{margin:0 2px 14px;color:var(--text)}.lead small{display:block;color:var(--muted);margin-top:4px}
 .empty{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px;margin:6px 0}
 .tfoot{margin:26px 2px 0;font-size:13.5px;color:var(--muted)}.tfoot a{color:var(--green);font-weight:700}

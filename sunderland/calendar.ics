@@ -10,23 +10,6 @@ X-WR-TIMEZONE:Europe/London
 REFRESH-INTERVAL;VALUE=DURATION:PT6H
 X-PUBLISHED-TTL:PT6H
 BEGIN:VEVENT
-UID:sunderland-jagiellonia-bia-ystok-europa-league@couchkickoff.co.uk
-DTSTAMP:20261126T094200Z
-DTSTART:20261126T200000Z
-DTEND:20261126T220000Z
-SUMMARY:Sunderland v Jagiellonia Białystok · TNT Sports 2
-LOCATION:TNT Sports 2
-DESCRIPTION:UEFA Europa League\nOn TV: TNT Sports 2\nhttps://couchkickoff.c
- o.uk/sunderland/
-URL:https://couchkickoff.co.uk/sunderland/
-TRANSP:TRANSPARENT
-BEGIN:VALARM
-ACTION:DISPLAY
-DESCRIPTION:Sunderland v Jagiellonia Białystok on TNT Sports 2 in 1 hour
-TRIGGER:-PT1H
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
 UID:sunderland-tottenham-hotspur-premier-league@couchkickoff.co.uk
 DTSTAMP:20261126T094200Z
 DTSTART:20261129T140500Z
