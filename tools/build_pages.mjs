@@ -75,7 +75,7 @@ function diffData(oldD, newD, today) {
   const first = []; for (const k of [1, 2, 3, 4, 5, 6]) first.push(...items.filter(x => x[0] === k).slice(0, 2));
   const head6 = first.slice(0, 6), rest = items.filter(x => !head6.includes(x));
   const all = [...head6, ...rest], kept = all.slice(0, 80);
-  return { n: cnt, l: kept.map(x => [x[2], x[3]]), more: all.length - kept.length };
+  return { n: cnt, l: kept.map(x => [x[2], x[3], x[1].d, x[1].t]), more: all.length - kept.length };
 }
 {
   let head = null; try { head = (await import('node:child_process')).execSync('git show HEAD:index.html', { encoding: 'utf8', maxBuffer: 64 << 20, stdio: ['ignore', 'pipe', 'ignore'] }); } catch { }
