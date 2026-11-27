@@ -21,7 +21,7 @@
 <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <meta name="theme-color" content="#f3f6f1">
-<meta name="ck-build" content="4c388990beef">
+<meta name="ck-build" content="417c43bf68fc">
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="preload" href="/fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/inter-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
@@ -258,8 +258,9 @@ main>.month:first-child{margin-top:10px}
 .cshort{display:none}.chips.short .cfull{display:none}.chips.short .cshort{display:inline}
 .chips .chip{transition:background-color .15s,border-color .15s,color .15s}.chips.tight .chip{padding-left:6px;padding-right:6px}.chips.tight .chip[data-g="0"]{padding-left:10px;padding-right:10px}
 /* Phones: draw the arrow as a shape so it is the same size on every phone (font arrows vary a lot) */.chevs{display:none}@media not all and (hover:hover) and (pointer:fine){.chev{display:none}.chevs{display:inline-block;width:8px;height:6px;vertical-align:1px}}
-#compPanel{margin:8px 0 2px;padding:10px 12px;border:1px solid var(--line);border-radius:14px;background:#fff;box-shadow:var(--shadow)}
-#compPanel .cph{font:800 13px Inter,'Inter FbR','Inter FbA',sans-serif;color:var(--ink,#0f172a);margin:0 0 8px}
+#compPanel{position:relative;margin:8px 0 2px;padding:10px 12px;border:1px solid var(--line);border-radius:14px;background:#fff;box-shadow:var(--shadow)}
+#compPanel .cph{font:800 13px Inter,'Inter FbR','Inter FbA',sans-serif;color:var(--ink,#0f172a);margin:0 36px 8px 0}
+#compPanel .x{position:absolute;top:2px;right:2px;width:36px;height:36px;padding:0;display:flex;align-items:center;justify-content:center;border:0;border-radius:50%;background:none;color:var(--muted);cursor:pointer}#compPanel .x:hover{background:#f1f4f1;color:var(--text)}#compPanel .x svg{width:14px;height:14px}
 #compPanel .cpl{display:flex;flex-wrap:wrap;gap:6px}
 #compPanel button{font:700 13px Inter,'Inter FbR','Inter FbA',sans-serif;padding:6px 10px;border-radius:999px;border:1px solid color-mix(in srgb,var(--c,#475569) 35%,#fff);background:#fff;color:var(--c,#334155);cursor:pointer;white-space:nowrap}
 #compPanel button .n{color:var(--muted);margin-left:5px}
@@ -2239,9 +2240,10 @@ function compPanelHTML(all){const counts={};for(const m of data){if(isPast(m))co
   const main=PANEL_MAIN.filter(c=>counts[c]);const head=[...PANEL_MAIN,...PANEL_NEXT];
   const rest=PANEL_NEXT.filter(c=>counts[c]).concat(POPULAR.filter(c=>counts[c]&&!head.includes(c)),Object.keys(counts).filter(c=>!head.includes(c)&&!POPULAR.includes(c)).sort());
   const list=main.concat(rest);const show=all?list:main;
-  return `<div class="cph">Show games for a competition</div><div class="cpl">${show.map(c=>`<button type="button" data-cv="${esc(c)}"${COMPCOL[c]?` style="--c:${COMPCOL[c]}"`:''}>${esc(c)}<span class="n">${counts[c]}</span></button>`).join('')}${!all&&rest.length?`<button type="button" class="more" data-cpmore="1">More ▾</button>`:''}</div>`}
+  return `<button type="button" class="x" id="compClose" aria-label="Close"><svg viewBox="0 0 14 14" aria-hidden="true"><path d="M2 2l10 10M12 2L2 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="cph">Show games for a competition</div><div class="cpl">${show.map(c=>`<button type="button" data-cv="${esc(c)}"${COMPCOL[c]?` style="--c:${COMPCOL[c]}"`:''}>${esc(c)}<span class="n">${counts[c]}</span></button>`).join('')}${!all&&rest.length?`<button type="button" class="more" data-cpmore="1">More ▾</button>`:''}</div>`}
 function toggleCompPanel(force){const p=$('compPanel'),open=force!==undefined?force:p.hidden;if(open)p.innerHTML=compPanelHTML(false);p.hidden=!open;$('compBtn').setAttribute('aria-expanded',String(open));$('compBtn').innerHTML=compBtnHTML(open)}
 document.addEventListener('click',e=>{if(e.target.closest('[data-cpmore]'))$('compPanel').innerHTML=compPanelHTML(true)});
+document.addEventListener('click',e=>{if(e.target.closest('#compClose')){toggleCompPanel(false);$('compBtn').focus({preventScroll:true})}});
 $('days').addEventListener('click',e=>{const b=e.target.closest('[data-day]');if(!b)return;st.day=b.dataset.day;render();try{window.scrollTo({top:$('list').offsetTop-$('days').closest('.controls').offsetHeight-10,behavior:'smooth'})}catch(_){}});
 $('hidePast').checked=st.hidePast; $('hidePast').onchange=e=>{st.hidePast=e.target.checked;save();renderAll()};
 $('confOnly').checked=st.conf; $('confOnly').onchange=e=>{st.conf=e.target.checked;save();render()};
