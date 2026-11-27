@@ -167,7 +167,7 @@ a.bl{text-decoration:none;display:inline-flex}.ext{font-size:9px;margin-left:4px
 .day-c.on{background:var(--ink);border-color:var(--ink);color:#fff;box-shadow:0 6px 16px rgba(14,26,19,.18)}
 section.day{}
 .lazy-end{height:1px}
-.day-c.spy{border:2px solid var(--green);box-shadow:0 0 0 3px rgba(132,204,22,.25);background:#f4fbe9}
+/* thicker green edge drawn as a shadow so the chip (and the sticky bar) never changes size */.day-c.spy{border-color:var(--green);box-shadow:inset 0 0 0 1px var(--green),0 0 0 3px rgba(132,204,22,.25);background:#f4fbe9}
 .day-c.on .dw,.day-c.on .dm{color:#b9c7be}
 .day-c.on .dc{color:var(--lime)}
 .day-c.mstart{margin-left:12px}
