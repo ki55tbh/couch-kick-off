@@ -21,7 +21,7 @@
 <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <meta name="theme-color" content="#f3f6f1">
-<meta name="ck-build" content="672025420d27">
+<meta name="ck-build" content="5ddbaebfef33">
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="preload" href="/fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/inter-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
@@ -2549,8 +2549,10 @@ function updPanelHTML(c,all){const n=c.n,pl=(k,one,many)=>n[k]?`<span>${n[k]} ${
   if(!parts.length)return X+`<h4>${day} update</h4><p style="margin:0;color:var(--muted)">No changes to the listings today. Every game was checked and is still correct.</p>`;
   const when=x=>x[2]&&x[2]!=='TBC'?new Date(x[2]+'T12:00:00Z').toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short',timeZone:'UTC'})+(x[3]&&x[3]!=='TBC'&&!/^(kick-off|moved)/.test(x[1])?', '+x[3]:'')+' · ':'';
   const row=x=>Array.isArray(x)?`<li><b>${esc(x[0])}</b><span>${esc(when(x))}${esc(x[1])}</span></li>`:`<li><span>${esc(x)}</span></li>`;
-  const shown=all?c.l:c.l.slice(0,6),hidden=c.l.length-shown.length+(c.more||0);
-  const btn=hidden>0?(all?'':`<button type="button" class="morebtn" id="updMore">+ ${hidden} more ${hidden===1?'change':'changes'}</button>`):(c.l.length>6?`<button type="button" class="morebtn" id="updLess">Show fewer</button>`:'');
+  // Soonest games first
+  const L=c.l.slice().sort((a,b)=>Array.isArray(a)&&Array.isArray(b)?((a[2]||'')+(a[3]||'')).localeCompare((b[2]||'')+(b[3]||'')):0);
+  const shown=all?L:L.slice(0,6),hidden=L.length-shown.length+(c.more||0);
+  const btn=hidden>0?(all?'':`<button type="button" class="morebtn" id="updMore">+ ${hidden} more ${hidden===1?'change':'changes'}</button>`):(L.length>6?`<button type="button" class="morebtn" id="updLess">Show fewer</button>`:'');
   return X+`<h4>${day} update</h4><div class="pills">${parts.join('')}</div><ul>${shown.map(row).join('')}</ul>${btn}${all&&c.more?`<p style="margin:6px 0 0;color:var(--muted);font-size:13px">and ${c.more} more</p>`:''}`}
 document.addEventListener('click',e=>{if(!e.target.closest('#updClose'))return;const p=$('updPanel'),b=$('updInfo');if(!p)return;
   const above=p.getBoundingClientRect().top<0;p.hidden=true;if(b){b.setAttribute('aria-expanded','false');b.focus({preventScroll:true})}
