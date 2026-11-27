@@ -21,7 +21,7 @@
 <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <meta name="theme-color" content="#f3f6f1">
-<meta name="ck-build" content="5b59690ac9ef">
+<meta name="ck-build" content="c9abf5555b52">
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="preload" href="/fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/inter-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
@@ -2425,6 +2425,8 @@ function renderPinned(){
   const btns='<div class="seeall">'+st.favs.map(t=>{const n=data.filter(m=>(m.h===t||m.a===t)&&!isPast(m)).length;const c0=teamColour(t),tc=c0&&1.05/(lum(c0)+.05)>=4.5?c0:'#111',fill=` style="background:#fff;border:2px solid ${tc};color:${tc};padding-top:4px;padding-bottom:4px"`;return `<button class="btn gold" data-all="${esc(t)}"${fill}>All ${esc(short(t))} games (${n}) →</button>`}).join('')+'</div>';
   $('pinnedList').innerHTML = (rows.length? rows.map(m=>card(m,true)).join('') : '<div class="hint">No upcoming games listed for your teams yet.</div>') + btns;
 }
+// Refresh starts at the top: restoring the old scroll position on a page that builds as you scroll ran away to the bottom
+try{if('scrollRestoration' in history)history.scrollRestoration='manual'}catch(_){}
 // Build-as-you-scroll engine for the fixture list
 const LAZY_FIRST=20, LAZY_STEP=20, LAZY_AHEAD=2000;
 const lazy={key:'',queue:[],built:0,out:null,
@@ -2505,7 +2507,7 @@ function spyDay(){const strip=$('days');if(!strip)return;
   const ctl=strip.closest('.controls');const line=(ctl?ctl.getBoundingClientRect().bottom:0)+40;
   let cur=null;for(const s of secs){if(s.getBoundingClientRect().top<=line)cur=s;else break}
   const d=cur?cur.dataset.d:null;
-  if(!d||window.scrollY<5){clear();return}
+  if(!d||window.scrollY<5){const was=spyLast;clear();if(was){dayNav();try{strip.scrollTo({left:0,behavior:'smooth'})}catch(_){strip.scrollLeft=0}}return}
   if(d===spyLast)return;spyLast=d;
   strip.querySelectorAll('.day-c.spy').forEach(b=>b.classList.remove('spy'));
   const chip=strip.querySelector(`.day-c[data-day="${d}"]`);if(!chip)return;chip.classList.add('spy');
