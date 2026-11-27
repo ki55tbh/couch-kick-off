@@ -21,7 +21,7 @@
 <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <meta name="theme-color" content="#f3f6f1">
-<meta name="ck-build" content="417c43bf68fc">
+<meta name="ck-build" content="1c754cd141e9">
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="preload" href="/fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/inter-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
@@ -243,8 +243,9 @@ main>.month:first-child{margin-top:10px}
 /* Channels dropdown: touch screens only; desktop keeps the channel buttons */
 .chip.chch{display:none}.chbtn{color:var(--green-d,#15803d)}.chbtn.act{border-color:var(--green-d,#15803d);background:color-mix(in srgb,var(--green-d,#15803d) 8%,#fff)}
 @media (hover:hover) and (pointer:fine){.chip.chch{display:inline-block}.chbtn,#chPanel{display:none!important}}
-#chPanel{margin:8px 0 2px;padding:10px 12px;border:1px solid var(--line);border-radius:14px;background:#fff;box-shadow:var(--shadow)}
-#chPanel .cph{font:800 13px Inter,'Inter FbR','Inter FbA',sans-serif;color:var(--ink,#0f172a);margin:0 0 8px}
+#chPanel{position:relative;margin:8px 0 2px;padding:10px 12px;border:1px solid var(--line);border-radius:14px;background:#fff;box-shadow:var(--shadow)}
+#chPanel .cph{font:800 13px Inter,'Inter FbR','Inter FbA',sans-serif;color:var(--ink,#0f172a);margin:0 36px 8px 0}
+#chPanel .x{position:absolute;top:2px;right:2px;width:36px;height:36px;padding:0;display:flex;align-items:center;justify-content:center;border:0;border-radius:50%;background:none;color:var(--muted);cursor:pointer}#chPanel .x:hover{background:#f1f4f1;color:var(--text)}#chPanel .x svg{width:14px;height:14px}
 #chPanel .chl{display:grid;grid-template-columns:1fr 1fr;gap:2px 12px}
 #chPanel label{display:flex;align-items:center;gap:8px;font:600 14px Inter,'Inter FbR','Inter FbA',sans-serif;color:var(--ink,#0f172a);padding:7px 2px;cursor:pointer}
 #chPanel input{width:18px;height:18px;margin:0;accent-color:var(--green-d,#15803d)}
@@ -307,7 +308,7 @@ footer ul{margin:0;padding-left:18px}
   .layout.solo .side{position:static;max-height:none;overflow:visible;padding:0;margin-bottom:16px}
   .layout.solo .myteams{max-width:none;margin:0}
 }
-#teamPill{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;box-sizing:border-box;background:#fff;border:2px solid var(--c);border-left-width:6px;border-radius:14px;padding:9px 9px 9px 14px;color:var(--ink,#0f172a);font-size:16px;font-weight:600;box-shadow:0 2px 10px rgba(0,0,0,.06)}
+#teamPill{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;box-sizing:border-box;background:#fff;border:2px solid var(--cb,var(--c));border-left-width:6px;border-radius:14px;padding:9px 9px 9px 14px;color:var(--ink,#0f172a);font-size:16px;font-weight:600;box-shadow:0 2px 10px rgba(0,0,0,.06)}
 #teamPill .tpt b{color:var(--c);font-weight:800}#teamPill .tpn{white-space:nowrap}#teamPill .tpc{color:var(--muted);font-weight:600;font-size:14px}
 #teamPill button{flex:none;background:var(--c);color:#fff;border:0;border-radius:999px;padding:8px 14px;font:700 13.5px Inter,'Inter FbR','Inter FbA',sans-serif;cursor:pointer;width:auto;height:auto;opacity:1}
 </style>
@@ -2229,7 +2230,7 @@ function chBtnText(open){const n=st.chs.length;return 'Channels'+(n?` (${n})`:''
 // Phones: use the full 'Competitions' label when the filter row fits on one line, otherwise 'Comps'
 function fitChips(){chips.classList.remove('short','tight');if(window.matchMedia('(hover:hover) and (pointer:fine)').matches)return;const v=[...chips.children].filter(e=>e.offsetParent);const wraps=()=>v.length&&v[v.length-1].offsetTop>v[0].offsetTop+4;if(wraps()){chips.classList.add('short');if(wraps())chips.classList.add('tight')}}
 window.addEventListener('resize',fitChips);
-function chPanelHTML(){return `<div class="cph">Show games on any of these</div><div class="chl">${CH_NAMES.map(c=>`<label><input type="checkbox" data-ch="${esc(c)}"${st.chs.includes(c)?' checked':''}> ${esc(c)}</label>`).join('')}</div><div class="chf"><button type="button" data-chclear="1"${st.chs.length?'':' disabled'}>Clear</button><button type="button" class="done" data-chdone="1">Done</button></div>`}
+function chPanelHTML(){return `<button type="button" class="x" data-chdone="1" aria-label="Close"><svg viewBox="0 0 14 14" aria-hidden="true"><path d="M2 2l10 10M12 2L2 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="cph">Show games on any of these</div><div class="chl">${CH_NAMES.map(c=>`<label><input type="checkbox" data-ch="${esc(c)}"${st.chs.includes(c)?' checked':''}> ${esc(c)}</label>`).join('')}</div><div class="chf"><button type="button" data-chclear="1"${st.chs.length?'':' disabled'}>Clear</button><button type="button" class="done" data-chdone="1">Done</button></div>`}
 function toggleChPanel(force){const p=$('chPanel'),open=force!==undefined?force:p.hidden;if(open)p.innerHTML=chPanelHTML();p.hidden=!open;$('chBtn').setAttribute('aria-expanded',String(open));$('chBtn').innerHTML=chBtnText(open)}
 $('chPanel').addEventListener('change',e=>{const b=e.target.closest('[data-ch]');if(!b)return;const c=b.dataset.ch;st.chs=b.checked?[...new Set([...st.chs,c])].sort((x,y)=>CH_NAMES.indexOf(x)-CH_NAMES.indexOf(y)):st.chs.filter(x=>x!==c);save();render();const cl=$('chPanel').querySelector('[data-chclear]');if(cl)cl.disabled=!st.chs.length});
 $('chPanel').addEventListener('click',e=>{if(e.target.closest('[data-chclear]')){st.chs=[];save();render();$('chPanel').innerHTML=chPanelHTML()}else if(e.target.closest('[data-chdone]'))toggleChPanel(false)});
@@ -2389,6 +2390,8 @@ function card(m,showDate){
 }
 const COMPCOL={'LaLiga':'#ff4b44','Serie A':'#024494','Bundesliga':'#d20515','Premier League':'#3d195b','Champions League':'#0b1d5c','FA Cup':'#c8102e','Carabao Cup':'#00843d','Europa League':'#e2620a','Conference League':'#00953a','Championship':'#0b3d91','League One':'#e2001a','League Two':'#1f7a3c','UEFA Nations League':'#0b2a5b','Euro 2028 Qualifiers':'#143cdb','Scottish Premiership':'#4b2d84','EFL Trophy':'#0b3d91','National League':'#a0001e','International Friendly':'#1d3b8b','U21 Friendly':'#1d3b8b','Scottish Championship':'#4b2d84','Scottish League One':'#4b2d84','NIFL Premiership':'#00295f','LaLiga2':'#ff4b44','Serie C':'#0055a4','Brasileirão':'#009c3b'};
 // Favourite competitions on cards use their chip colour when it is dark enough to read as text (4.5:1 on white); lighter ones keep the green
+// Same colour, darkened just enough for white text (and text on white) to reach 4.5:1
+const inkOf=h=>{let r=parseInt(h.substr(1,2),16),g=parseInt(h.substr(3,2),16),b=parseInt(h.substr(5,2),16);for(let i=0;i<40;i++){const x='#'+[r,g,b].map(v=>Math.round(v).toString(16).padStart(2,'0')).join('');if(1.05/(lum(x)+.05)>=4.5)return x;r*=.95;g*=.95;b*=.95}return '#0f172a'};
 const compTxt=c=>{const k=COMPCOL[c];return k&&1.05/(lum(k)+.05)>=4.5?k:''};
 function renderComps(){
   $('mcList').innerHTML = st.favComps.length
@@ -2458,7 +2461,7 @@ addEventListener('resize',()=>lazy.check(),{passive:true});
 function render(){
   {const L=document.querySelector('.layout');if(L)L.classList.toggle('solo',!(st.favs.length||st.favComps.length));}
   if(st.grp===1&&!hasFavs())st.grp=0;
-  const pill=$('teamPill'); pill.hidden=!st.q&&!st.comp; if(!st.q&&st.comp){pill.style.setProperty('--c','var(--green-d,#15803d)');const n=data.filter(m=>m.c===st.comp&&!isPast(m)).length;pill.innerHTML=`<span class="tpt"><span class="tpn"><b>${esc(st.comp)}</b> <span class="tpc">(${n})</span></span></span><button aria-label="Close and go back">✕ Close</button>`;} if(st.q) {const tc=teamColour(st.q)||'#0f172a';pill.style.setProperty('--c',tc);const n=data.filter(m=>(m.h===st.q||m.a===st.q)&&!isPast(m)).length;pill.innerHTML=`<span class="tpt">Showing all <b>${esc(short(st.q))}</b> games <span class="tpc">(${n})</span></span><button aria-label="Close and go back">✕ Close</button>`;}
+  const pill=$('teamPill'); pill.hidden=!st.q&&!st.comp; if(!st.q&&st.comp){{const k=COMPCOL[st.comp];pill.style.setProperty('--c',k?inkOf(k):'#0f172a');pill.style.setProperty('--cb',k||'#0f172a')}const n=data.filter(m=>m.c===st.comp&&!isPast(m)).length;pill.innerHTML=`<span class="tpt"><span class="tpn"><b>${esc(st.comp)}</b> <span class="tpc">(${n})</span></span></span><button aria-label="Close and go back">✕ Close</button>`;} if(st.q) {const tc=teamColour(st.q)||'#0f172a';pill.style.setProperty('--c',tc);pill.style.removeProperty('--cb');const n=data.filter(m=>(m.h===st.q||m.a===st.q)&&!isPast(m)).length;pill.innerHTML=`<span class="tpt">Showing all <b>${esc(short(st.q))}</b> games <span class="tpc">(${n})</span></span><button aria-label="Close and go back">✕ Close</button>`;}
   chips.querySelectorAll('[data-g]').forEach(b=>{const i=+b.dataset.g;b.classList.toggle('on',i>1?st.chs.includes(GROUPS[i][0]):i===1?st.grp===1:st.grp===0&&!st.chs.length)});
   {const cb=$('chBtn');if(cb){cb.innerHTML=chBtnText(!$('chPanel').hidden);cb.classList.toggle('act',st.chs.length>0)}fitChips()}
   {const ab=chips.querySelector(`[data-g="${st.chs.length?CH_NAMES.indexOf(st.chs[0])+2:st.grp}"]`);if(ab&&chips.scrollWidth>chips.clientWidth){const cr=chips.getBoundingClientRect(),br=ab.getBoundingClientRect();if(br.right>cr.right-40)chips.scrollLeft+=br.right-cr.right+48;else if(br.left<cr.left)chips.scrollLeft-=cr.left-br.left+12}chipFade()}
