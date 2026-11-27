@@ -110,7 +110,11 @@ const COMPS = ['Premier League', 'Champions League', 'Europa League', 'Conferenc
   'Scottish Premiership', 'Carabao Cup', 'LaLiga', 'Serie A', 'Bundesliga'];
 const compSlug = c => slugify(c) + '-on-tv';
 // Internal links: a team name links to its team page, a competition name to its competition page (when one exists)
-const teamLink = t => SLUG_OF[t] ? `<a class="tl" href="/${SLUG_OF[t]}/">${esc(t)}</a>` : esc(t);
+// Team colours, the same as the home page (KIT, kit, lum and teamColour taken from index.html)
+const { teamColour: tColour, lum: tLum } = new Function(cut('const KIT=', 'const SHORTN') + '; return {teamColour, lum};')();
+const tStyle = t => { const c = tColour(t); return c && tLum(c) < .9 ? ` style="color:${c}"` : ''; };
+const teamLink = t => SLUG_OF[t] ? `<a class="tl" href="/${SLUG_OF[t]}/"${tStyle(t)}>${esc(t)}</a>` : `<span${tStyle(t)}>${esc(t)}</span>`;
+const teamPlain = t => `<span${tStyle(t)}>${esc(t)}</span>`;
 const compLink = c => COMPS.includes(c) ? `<a class="tl" href="/${compSlug(c)}/">${esc(c)}</a>` : esc(c);
 // Fuller names on fixture cards only (same list as CARD_COMP in index.html)
 const CARD_COMP = {'Champions League':'UEFA Champions League','Europa League':'UEFA Europa League','Conference League':'UEFA Conference League','Championship':'EFL Championship','League One':'EFL League One','League Two':'EFL League Two'};
@@ -144,8 +148,8 @@ function card(m, team) {
   const notv = m.ch.includes('Not on UK TV'), pending = m.ch.includes('TV pick TBC');
   const opp = m.h === team ? m.a : m.h, ha = m.h === team ? 'H' : 'A';
   const ko = m.t === 'TBC' ? '' : ` data-ko="${m.d}T${m.t}:00${ukOffset(m.d, m.t)}"`;
-  return `<div class="m${pending ? ' tbcm' : ''}${notv ? ' notvm' : ''}"${ko}><div class="ko"><span class="dt">${longDate(m.d)}</span>${m.t}${m.t === 'TBC' ? '' : '<small>UK</small>'}</div><div>
-    <div class="teams">${m.h === team ? esc(m.h) : teamLink(m.h)} <span class="vaw"><span class="v">v</span>${m.a === team ? esc(m.a) : teamLink(m.a)}</span></div>
+  return `<div class="m${pending ? ' tbcm' : ''}${notv ? ' notvm' : ''}"${ko}><div class="ko"><span class="dt">${m.d === 'TBC' ? 'TBC' : longDate(m.d).replace(/^(\S+) /, '<span>$1</span> ')}</span>${m.t}${m.t === 'TBC' ? '' : '<small>UK</small>'}</div><div>
+    <div class="teams">${m.h === team ? teamPlain(m.h) : teamLink(m.h)} <span class="vaw"><span class="v">v</span>${m.a === team ? teamPlain(m.a) : teamLink(m.a)}</span></div>
     <div class="comp">${cardCompLink(m.c)}${isRound(m.n) ? ` · ${esc(m.n)}` : ''} · ${VENUES[`${m.d}|${m.h}|${m.a}`] ? esc(VENUES[`${m.d}|${m.h}|${m.a}`]) : (ha === 'H' ? 'Home' : 'Away')}${notv ? `<span class="notvtag"> · ${m.c === 'Premier League' ? '3pm, not on UK TV' : 'Not on UK TV'}</span>` : ''}</div>${notv ? '' : `<div class="ch">${badges(m)}</div>`}
     ${m.n && !notv && !isRound(m.n) ? `<div class="note">${esc(m.n)}</div>` : ''}</div></div>`;
 }
