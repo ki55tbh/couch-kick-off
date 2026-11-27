@@ -34,6 +34,62 @@ let src = fs.readFileSync('index.html', 'utf8');
 const cut = (from, to) => { const i = src.indexOf(from), j = src.indexOf(to, i); if (i < 0 || j < 0) throw new Error('Marker not found: ' + from); return src.slice(i, j); };
 const code = cut('const CH = {', 'const ALLTEAMS') + cut('const BRAND=[', 'function cls(') + cut('const CH_URL=', '// Match venues');
 const { data, UPDATED, expStyle, brandStyle, chURL } = new Function(code + '; return {data, UPDATED, expStyle, brandStyle, chURL};')();
+// ---- "What changed in this morning's update" (shown behind the (i) next to "TV picks updated") ----
+// Worked out from the data, not written by hand: when the daily update sets a new UPDATED.last_ok, compare its
+// fixture list with the last committed one (HEAD). Otherwise keep the summary already committed, so ordinary
+// design publishes never change it.
+function dataFrom(html) {
+  const c = (from, to) => { const i = html.indexOf(from), j = html.indexOf(to, i); if (i < 0 || j < 0) return null; return html.slice(i, j); };
+  const a = c('const CH = {', 'const ALLTEAMS'); if (!a) return null;
+  try { return new Function(a + '; return {data, UPDATED};')(); } catch { return null; }
+}
+function diffData(oldD, newD, today) {
+  const NOTTV = new Set(['TV pick TBC', 'Not on UK TV']);
+  const tv = m => m.ch.filter(c => !NOTTV.has(c));
+  const live = m => m.d !== 'TBC' && m.d >= today;
+  const pool = new Map(); for (const m of oldD) { const k = m.h + '|' + m.a + '|' + m.c; if (!pool.has(k)) pool.set(k, []); pool.get(k).push(m); }
+  const take = m => { const l = pool.get(m.h + '|' + m.a + '|' + m.c); if (!l || !l.length) return null; let i = l.findIndex(o => o.d === m.d); if (i < 0) i = 0; return l.splice(i, 1)[0]; };
+  const cnt = { added: 0, confirmed: 0, channels: 0, times: 0, moved: 0, notv: 0 }, items = [];
+  const nice = l => l.length > 1 ? l.slice(0, -1).join(', ') + ' and ' + l[l.length - 1] : l[0];
+  for (const m of newD) {
+    if (!m.a) continue;
+    const o = take(m); if (!live(m)) continue;
+    const nt = tv(m), game = `${m.h} v ${m.a}`;
+    if (!o) { if (nt.length) { cnt.added++; items.push([1, m, `${game}: added, on ${nice(nt)}`]); } continue; }
+    const ot = tv(o);
+    if (!ot.length && nt.length) { cnt.added++; items.push([1, m, `${game}: picked for TV, on ${nice(nt)}`]); }
+    else if (ot.length && !nt.length && m.ch.includes('Not on UK TV')) { cnt.notv++; items.push([2, m, `${game}: now not on UK TV`]); }
+    else if (nt.length) {
+      const conf = nt.filter(c => o.exp.includes(c) && !m.exp.includes(c) && ot.includes(c));
+      const add = nt.filter(c => !ot.includes(c));
+      if (conf.length) { cnt.confirmed++; items.push([3, m, `${game}: confirmed on ${nice(conf)}`]); }
+      if (add.length) { cnt.channels++; items.push([4, m, `${game}: now also on ${nice(add)}`]); }
+    }
+    if (o.t === 'TBC' && m.t !== 'TBC') { cnt.times++; items.push([6, m, `${game}: kick-off set for ${m.t}`]); }
+    else if (o.d !== m.d || o.t !== m.t) { cnt.moved++; items.push([5, m, `${game}: moved to ${new Date(m.d + 'T12:00:00Z').toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short', timeZone: 'UTC' })}${m.t !== 'TBC' ? ' ' + m.t : ''}`]); }
+  }
+  items.sort((x, y) => x[0] - y[0] || (x[1].d + x[1].t).localeCompare(y[1].d + y[1].t));
+  // A mix of examples: up to 2 of each kind, most important kinds first, 6 at most
+  const pick = []; for (const k of [1, 2, 3, 4, 5, 6]) pick.push(...items.filter(x => x[0] === k).slice(0, 2));
+  const l = pick.slice(0, 6).map(x => x[2]);
+  return { n: cnt, l, more: items.length - l.length };
+}
+{
+  let head = null; try { head = (await import('node:child_process')).execSync('git show HEAD:index.html', { encoding: 'utf8', maxBuffer: 64 << 20, stdio: ['ignore', 'pipe', 'ignore'] }); } catch { }
+  const old = head && dataFrom(head);
+  let changes = old && old.UPDATED && old.UPDATED.changes || null;
+  if (old && UPDATED.status === 'ok' && UPDATED.last_ok && UPDATED.last_ok !== old.UPDATED.last_ok) {
+    const today = UPDATED.last_ok.slice(0, 10);
+    changes = { d: today, ...diffData(old.data, data, today) };
+  }
+  const line = src.match(/const UPDATED = (\{.*?\});\n/s);
+  if (line && changes) {
+    const u = new Function('return ' + line[1])(); u.changes = changes;
+    const ser = '{' + Object.entries(u).map(([k, v]) => k + ':' + (typeof v === 'string' ? `'${v.replace(/\\/g, '\\\\').replace(/'/g, "\\'")}'` : JSON.stringify(v))).join(', ') + '}';
+    src = src.replace(line[0], `const UPDATED = ${ser};\n`);
+    UPDATED.changes = changes;
+  }
+}
 // Neutral or moved venues (e.g. a cup final at Hampden): show the venue instead of Home/Away on team pages
 const VENUES = (() => { const m = src.match(/const VENUES = (\{[\s\S]*?\n\});/); return m ? new Function('return ' + m[1])() : {}; })();
 const ext = c => chURL(c) ? '<span class="ext" aria-hidden="true">↗</span>' : '';
