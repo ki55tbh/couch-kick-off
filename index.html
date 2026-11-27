@@ -21,7 +21,7 @@
 <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <meta name="theme-color" content="#f3f6f1">
-<meta name="ck-build" content="55ee717dfaba">
+<meta name="ck-build" content="39eee731c3cf">
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="preload" href="/fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/inter-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
@@ -2141,7 +2141,7 @@ const BRAND=[
   [/BBC Three/,'#7a1fa2','#fff'],
   [/BBC/,'#000','#fff','#000'],
   [/ITVX/,'#deeb52','#1b1f5e','#c9d63c'],
-  [/ITV/,'#2b3fd6','#fff'],
+  [/ITV/,'#1ccbd4','#1b1f5e'],
   [/STV/,'#0078c8','#fff'],
   [/Prime Video/,'#00a8e1','#fff'],
   [/DAZN/,'#000','#fff'],
@@ -2155,7 +2155,7 @@ const BRAND=[
   [/NIFL/,'#00295f','#fff'],
   [/SPFL/,'#1c2b5a','#fff'],
 ];
-function expStyle(c){const b=BRAND.find(x=>x[0].test(c));const col=b?(/^#/.test(b[1])&&b[1]!=='#fff'?b[1]:(b[3]||'#4b5a52')):'#4b5a52';return `background:#fff;color:${col};border-color:${b&&b[3]||col}`}
+function expStyle(c){const b=BRAND.find(x=>x[0].test(c));let col=b?(/^#/.test(b[1])&&b[1]!=='#fff'?b[1]:(b[3]||'#4b5a52')):'#4b5a52';if(b&&/^#[0-9a-f]{6}$/i.test(col)&&(h=>{const v=[1,3,5].map(i=>{const c=parseInt(h.substr(i,2),16)/255;return c<=.03928?c/12.92:Math.pow((c+.055)/1.055,2.4)});return 1.05/(.2126*v[0]+.7152*v[1]+.0722*v[2]+.05)<4.5})(col))col=b[2];return `background:#fff;color:${col};border-color:${b&&(b[3]||b[1])||col}`}
 function brandStyle(c){const b=BRAND.find(x=>x[0].test(c));return b?`background:${b[1]};color:${b[2]};border-color:${b[3]||b[1]}`:''}
 function cls(c){
   if(/Sky|NOW/.test(c))return'sky'; if(/TNT|HBO/.test(c))return'tnt'; if(/BBC/.test(c))return'bbc';
