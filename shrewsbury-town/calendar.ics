@@ -11,7 +11,7 @@ REFRESH-INTERVAL;VALUE=DURATION:PT6H
 X-PUBLISHED-TTL:PT6H
 BEGIN:VEVENT
 UID:york-city-shrewsbury-town-league-two@couchkickoff.co.uk
-DTSTAMP:20261127T094500Z
+DTSTAMP:20261128T094900Z
 DTSTART:20261201T194500Z
 DTEND:20261201T214500Z
 SUMMARY:York City v Shrewsbury Town · Sky Sports+
@@ -27,8 +27,25 @@ TRIGGER:-PT1H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
+UID:shrewsbury-town-swindon-town-league-two@couchkickoff.co.uk
+DTSTAMP:20261128T094900Z
+DTSTART:20261226T150000Z
+DTEND:20261226T170000Z
+SUMMARY:Shrewsbury Town v Swindon Town · Sky Sports+
+LOCATION:Sky Sports+
+DESCRIPTION:EFL League Two\nOn TV: Sky Sports+\nhttps://couchkickoff.co.uk/
+ shrewsbury-town/
+URL:https://couchkickoff.co.uk/shrewsbury-town/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Shrewsbury Town v Swindon Town on Sky Sports+ in 1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
 UID:accrington-stanley-shrewsbury-town-league-two@couchkickoff.co.uk
-DTSTAMP:20261127T094500Z
+DTSTAMP:20261128T094900Z
 DTSTART:20270101T150000Z
 DTEND:20270101T170000Z
 SUMMARY:Accrington Stanley v Shrewsbury Town · Sky Sports
@@ -45,7 +62,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:shrewsbury-town-walsall-league-two@couchkickoff.co.uk
-DTSTAMP:20261127T094500Z
+DTSTAMP:20261128T094900Z
 DTSTART:20270109T123000Z
 DTEND:20270109T143000Z
 SUMMARY:Shrewsbury Town v Walsall · Sky Sports
@@ -62,7 +79,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:bristol-rovers-shrewsbury-town-league-two@couchkickoff.co.uk
-DTSTAMP:20261127T094500Z
+DTSTAMP:20261128T094900Z
 DTSTART:20270116T123000Z
 DTEND:20270116T143000Z
 SUMMARY:Bristol Rovers v Shrewsbury Town · Sky Sports+
@@ -79,7 +96,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:shrewsbury-town-crawley-town-league-two@couchkickoff.co.uk
-DTSTAMP:20261127T094500Z
+DTSTAMP:20261128T094900Z
 DTSTART:20270119T194500Z
 DTEND:20270119T214500Z
 SUMMARY:Shrewsbury Town v Crawley Town · Sky Sports+
@@ -96,7 +113,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:shrewsbury-town-rochdale-league-two@couchkickoff.co.uk
-DTSTAMP:20261127T094500Z
+DTSTAMP:20261128T094900Z
 DTSTART:20270209T194500Z
 DTEND:20270209T214500Z
 SUMMARY:Shrewsbury Town v Rochdale · Sky Sports+

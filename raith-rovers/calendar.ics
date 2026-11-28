@@ -11,7 +11,7 @@ REFRESH-INTERVAL;VALUE=DURATION:PT6H
 X-PUBLISHED-TTL:PT6H
 BEGIN:VEVENT
 UID:livingston-raith-rovers-scottish-championship@couchkickoff.co.uk
-DTSTAMP:20261127T094500Z
+DTSTAMP:20261128T094900Z
 DTSTART:20261204T193000Z
 DTEND:20261204T213000Z
 SUMMARY:Livingston v Raith Rovers · BBC Scotland
@@ -23,6 +23,24 @@ TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
 DESCRIPTION:Livingston v Raith Rovers on BBC Scotland in 1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:queen-s-park-raith-rovers-scottish-championship@couchkickoff.co.uk
+DTSTAMP:20261128T094900Z
+DTSTART:20261218T193000Z
+DTEND:20261218T213000Z
+SUMMARY:Queen's Park v Raith Rovers · BBC Scotland (expected)
+LOCATION:BBC Scotland (expected)\, BBC iPlayer (expected)
+DESCRIPTION:Scottish Championship\nOn TV: BBC Scotland (expected)\, BBC iPl
+ ayer (expected)\nhttps://couchkickoff.co.uk/raith-rovers/
+URL:https://couchkickoff.co.uk/raith-rovers/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Queen's Park v Raith Rovers on BBC Scotland (expected) in 1 hou
+ r
 TRIGGER:-PT1H
 END:VALARM
 END:VEVENT

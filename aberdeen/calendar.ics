@@ -11,7 +11,7 @@ REFRESH-INTERVAL;VALUE=DURATION:PT6H
 X-PUBLISHED-TTL:PT6H
 BEGIN:VEVENT
 UID:aberdeen-celtic-scottish-premiership@couchkickoff.co.uk
-DTSTAMP:20261127T094500Z
+DTSTAMP:20261128T094900Z
 DTSTART:20261220T120000Z
 DTEND:20261220T140000Z
 SUMMARY:Aberdeen v Celtic · Sky Sports
@@ -28,7 +28,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:st-mirren-aberdeen-scottish-premiership@couchkickoff.co.uk
-DTSTAMP:20261127T094500Z
+DTSTAMP:20261128T094900Z
 DTSTART:20270103T143000Z
 DTEND:20270103T163000Z
 SUMMARY:St Mirren v Aberdeen · Premier Sports
@@ -40,6 +40,23 @@ TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
 DESCRIPTION:St Mirren v Aberdeen on Premier Sports in 1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:aberdeen-rangers-scottish-premiership@couchkickoff.co.uk
+DTSTAMP:20261128T094900Z
+DTSTART:20270129T200000Z
+DTEND:20270129T220000Z
+SUMMARY:Aberdeen v Rangers · Sky Sports (expected)
+LOCATION:Sky Sports (expected)
+DESCRIPTION:Scottish Premiership\nOn TV: Sky Sports (expected)\nhttps://cou
+ chkickoff.co.uk/aberdeen/
+URL:https://couchkickoff.co.uk/aberdeen/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Aberdeen v Rangers on Sky Sports (expected) in 1 hour
 TRIGGER:-PT1H
 END:VALARM
 END:VEVENT

@@ -9,4 +9,21 @@ X-WR-CALDESC:East Kilbride games on UK TV\, from couchkickoff.co.uk. Update
 X-WR-TIMEZONE:Europe/London
 REFRESH-INTERVAL;VALUE=DURATION:PT6H
 X-PUBLISHED-TTL:PT6H
+BEGIN:VEVENT
+UID:east-kilbride-east-fife-scottish-league-one@couchkickoff.co.uk
+DTSTAMP:20261128T094900Z
+DTSTART:20261212T173000Z
+DTEND:20261212T193000Z
+SUMMARY:East Kilbride v East Fife · BBC Alba (expected)
+LOCATION:BBC Alba (expected)\, BBC iPlayer (expected)
+DESCRIPTION:Scottish League One\nOn TV: BBC Alba (expected)\, BBC iPlayer (
+ expected)\nhttps://couchkickoff.co.uk/east-kilbride/
+URL:https://couchkickoff.co.uk/east-kilbride/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:East Kilbride v East Fife on BBC Alba (expected) in 1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
 END:VCALENDAR

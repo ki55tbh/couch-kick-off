@@ -11,7 +11,7 @@ REFRESH-INTERVAL;VALUE=DURATION:PT6H
 X-PUBLISHED-TTL:PT6H
 BEGIN:VEVENT
 UID:blackburn-rovers-charlton-athletic-championship@couchkickoff.co.uk
-DTSTAMP:20261127T094500Z
+DTSTAMP:20261128T094900Z
 DTSTART:20261128T123000Z
 DTEND:20261128T143000Z
 SUMMARY:Blackburn Rovers v Charlton Athletic · Sky Sports+
@@ -28,7 +28,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:wrexham-charlton-athletic-championship@couchkickoff.co.uk
-DTSTAMP:20261127T094500Z
+DTSTAMP:20261128T094900Z
 DTSTART:20261208T194500Z
 DTEND:20261208T214500Z
 SUMMARY:Wrexham v Charlton Athletic · Sky Sports+
@@ -44,8 +44,42 @@ TRIGGER:-PT1H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
+UID:charlton-athletic-southampton-championship@couchkickoff.co.uk
+DTSTAMP:20261128T094900Z
+DTSTART:20261226T150000Z
+DTEND:20261226T170000Z
+SUMMARY:Charlton Athletic v Southampton · Sky Sports+
+LOCATION:Sky Sports+
+DESCRIPTION:EFL Championship\nOn TV: Sky Sports+\nhttps://couchkickoff.co.u
+ k/charlton-athletic/
+URL:https://couchkickoff.co.uk/charlton-athletic/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Charlton Athletic v Southampton on Sky Sports+ in 1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:swansea-city-charlton-athletic-championship@couchkickoff.co.uk
+DTSTAMP:20261128T094900Z
+DTSTART:20270101T150000Z
+DTEND:20270101T170000Z
+SUMMARY:Swansea City v Charlton Athletic · Sky Sports+
+LOCATION:Sky Sports+
+DESCRIPTION:EFL Championship\nOn TV: Sky Sports+\nhttps://couchkickoff.co.u
+ k/charlton-athletic/
+URL:https://couchkickoff.co.uk/charlton-athletic/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Swansea City v Charlton Athletic on Sky Sports+ in 1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
 UID:charlton-athletic-watford-championship@couchkickoff.co.uk
-DTSTAMP:20261127T094500Z
+DTSTAMP:20261128T094900Z
 DTSTART:20270117T120000Z
 DTEND:20270117T140000Z
 SUMMARY:Charlton Athletic v Watford · Sky Sports Football
@@ -62,7 +96,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:bolton-wanderers-charlton-athletic-championship@couchkickoff.co.uk
-DTSTAMP:20261127T094500Z
+DTSTAMP:20261128T094900Z
 DTSTART:20270126T194500Z
 DTEND:20270126T214500Z
 SUMMARY:Bolton Wanderers v Charlton Athletic · Sky Sports+
@@ -79,7 +113,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:charlton-athletic-wolves-championship@couchkickoff.co.uk
-DTSTAMP:20261127T094500Z
+DTSTAMP:20261128T094900Z
 DTSTART:20270206T123000Z
 DTEND:20270206T143000Z
 SUMMARY:Charlton Athletic v Wolves · Sky Sports Football
@@ -96,7 +130,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:portsmouth-charlton-athletic-championship@couchkickoff.co.uk
-DTSTAMP:20261127T094500Z
+DTSTAMP:20261128T094900Z
 DTSTART:20270213T123000Z
 DTEND:20270213T143000Z
 SUMMARY:Portsmouth v Charlton Athletic · Sky Sports Football
@@ -113,7 +147,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:charlton-athletic-burnley-championship@couchkickoff.co.uk
-DTSTAMP:20261127T094500Z
+DTSTAMP:20261128T094900Z
 DTSTART:20270216T194500Z
 DTEND:20270216T214500Z
 SUMMARY:Charlton Athletic v Burnley · Sky Sports+
@@ -130,7 +164,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:bristol-city-charlton-athletic-championship@couchkickoff.co.uk
-DTSTAMP:20261127T094500Z
+DTSTAMP:20261128T094900Z
 DTSTART:20270227T123000Z
 DTEND:20270227T143000Z
 SUMMARY:Bristol City v Charlton Athletic · Sky Sports+

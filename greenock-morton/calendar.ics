@@ -9,4 +9,23 @@ X-WR-CALDESC:Greenock Morton games on UK TV\, from couchkickoff.co.uk. Upda
 X-WR-TIMEZONE:Europe/London
 REFRESH-INTERVAL;VALUE=DURATION:PT6H
 X-PUBLISHED-TTL:PT6H
+BEGIN:VEVENT
+UID:greenock-morton-partick-thistle-scottish-championship@couchkickoff.co.u
+ k
+DTSTAMP:20261128T094900Z
+DTSTART:20270122T193000Z
+DTEND:20270122T213000Z
+SUMMARY:Greenock Morton v Partick Thistle · BBC Scotland (expected)
+LOCATION:BBC Scotland (expected)\, BBC iPlayer (expected)
+DESCRIPTION:Scottish Championship\nOn TV: BBC Scotland (expected)\, BBC iPl
+ ayer (expected)\nhttps://couchkickoff.co.uk/greenock-morton/
+URL:https://couchkickoff.co.uk/greenock-morton/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Greenock Morton v Partick Thistle on BBC Scotland (expected) in
+  1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
 END:VCALENDAR

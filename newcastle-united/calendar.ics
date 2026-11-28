@@ -11,13 +11,13 @@ REFRESH-INTERVAL;VALUE=DURATION:PT6H
 X-PUBLISHED-TTL:PT6H
 BEGIN:VEVENT
 UID:brighton-newcastle-united-premier-league@couchkickoff.co.uk
-DTSTAMP:20261127T094500Z
+DTSTAMP:20261128T094900Z
 DTSTART:20261129T140500Z
 DTEND:20261129T160500Z
 SUMMARY:Brighton v Newcastle United · Sky Sports Premier League
-LOCATION:Sky Sports Premier League
-DESCRIPTION:Premier League\nOn TV: Sky Sports Premier League\nhttps://couch
- kickoff.co.uk/newcastle-united/
+LOCATION:Sky Sports Premier League\, Sky Sports Ultra HDR
+DESCRIPTION:Premier League\nOn TV: Sky Sports Premier League\, Sky Sports U
+ ltra HDR\nhttps://couchkickoff.co.uk/newcastle-united/
 URL:https://couchkickoff.co.uk/newcastle-united/
 TRANSP:TRANSPARENT
 BEGIN:VALARM
@@ -29,13 +29,13 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:newcastle-united-manchester-united-premier-league@couchkickoff.co.uk
-DTSTAMP:20261127T094500Z
+DTSTAMP:20261128T094900Z
 DTSTART:20261202T201500Z
 DTEND:20261202T221500Z
 SUMMARY:Newcastle United v Manchester United · Sky Sports Premier League
-LOCATION:Sky Sports Premier League
-DESCRIPTION:Premier League\nOn TV: Sky Sports Premier League\nhttps://couch
- kickoff.co.uk/newcastle-united/
+LOCATION:Sky Sports Premier League\, Sky Sports Ultra HDR
+DESCRIPTION:Premier League\nOn TV: Sky Sports Premier League\, Sky Sports U
+ ltra HDR\nhttps://couchkickoff.co.uk/newcastle-united/
 URL:https://couchkickoff.co.uk/newcastle-united/
 TRANSP:TRANSPARENT
 BEGIN:VALARM
@@ -47,24 +47,25 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:newcastle-united-sunderland-premier-league@couchkickoff.co.uk
-DTSTAMP:20261127T094500Z
+DTSTAMP:20261128T094900Z
 DTSTART:20261206T140000Z
 DTEND:20261206T160000Z
-SUMMARY:Newcastle United v Sunderland · Sky Sports
-LOCATION:Sky Sports
-DESCRIPTION:Premier League\nOn TV: Sky Sports\nhttps://couchkickoff.co.uk/n
- ewcastle-united/
+SUMMARY:Newcastle United v Sunderland · Sky Sports Main Event
+LOCATION:Sky Sports Main Event\, Sky Sports Ultra HDR
+DESCRIPTION:Premier League\nOn TV: Sky Sports Main Event\, Sky Sports Ultra
+  HDR\nhttps://couchkickoff.co.uk/newcastle-united/
 URL:https://couchkickoff.co.uk/newcastle-united/
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Newcastle United v Sunderland on Sky Sports in 1 hour
+DESCRIPTION:Newcastle United v Sunderland on Sky Sports Main Event in 1 hou
+ r
 TRIGGER:-PT1H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:brentford-newcastle-united-premier-league@couchkickoff.co.uk
-DTSTAMP:20261127T094500Z
+DTSTAMP:20261128T094900Z
 DTSTART:20261219T123000Z
 DTEND:20261219T143000Z
 SUMMARY:Brentford v Newcastle United · TNT Sports
@@ -81,7 +82,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:newcastle-united-manchester-city-premier-league@couchkickoff.co.uk
-DTSTAMP:20261127T094500Z
+DTSTAMP:20261128T094900Z
 DTSTART:20261226T200000Z
 DTEND:20261226T220000Z
 SUMMARY:Newcastle United v Manchester City · Sky Sports
@@ -98,7 +99,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:newcastle-united-nottingham-forest-premier-league@couchkickoff.co.uk
-DTSTAMP:20261127T094500Z
+DTSTAMP:20261128T094900Z
 DTSTART:20261230T193000Z
 DTEND:20261230T213000Z
 SUMMARY:Newcastle United v Nottingham Forest · Sky Sports
@@ -115,7 +116,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:chelsea-newcastle-united-premier-league@couchkickoff.co.uk
-DTSTAMP:20261127T094500Z
+DTSTAMP:20261128T094900Z
 DTSTART:20270103T140000Z
 DTEND:20270103T160000Z
 SUMMARY:Chelsea v Newcastle United · Sky Sports
@@ -132,7 +133,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:manchester-united-newcastle-united-premier-league@couchkickoff.co.uk
-DTSTAMP:20261127T094500Z
+DTSTAMP:20261128T094900Z
 DTSTART:20270107T200000Z
 DTEND:20270107T220000Z
 SUMMARY:Manchester United v Newcastle United · Sky Sports
@@ -149,7 +150,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:arsenal-newcastle-united-premier-league@couchkickoff.co.uk
-DTSTAMP:20261127T094500Z
+DTSTAMP:20261128T094900Z
 DTSTART:20270123T173000Z
 DTEND:20270123T193000Z
 SUMMARY:Arsenal v Newcastle United · Sky Sports
@@ -166,7 +167,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:newcastle-united-chelsea-premier-league@couchkickoff.co.uk
-DTSTAMP:20261127T094500Z
+DTSTAMP:20261128T094900Z
 DTSTART;VALUE=DATE:20270210
 DTEND;VALUE=DATE:20270211
 SUMMARY:Newcastle United v Chelsea (kick-off TBC) · TNT Sports
@@ -178,7 +179,7 @@ TRANSP:TRANSPARENT
 END:VEVENT
 BEGIN:VEVENT
 UID:nottingham-forest-newcastle-united-premier-league@couchkickoff.co.uk
-DTSTAMP:20261127T094500Z
+DTSTAMP:20261128T094900Z
 DTSTART;VALUE=DATE:20270303
 DTEND;VALUE=DATE:20270304
 SUMMARY:Nottingham Forest v Newcastle United (kick-off TBC) · TNT Sports
@@ -190,7 +191,7 @@ TRANSP:TRANSPARENT
 END:VEVENT
 BEGIN:VEVENT
 UID:hull-city-newcastle-united-premier-league@couchkickoff.co.uk
-DTSTAMP:20261127T094500Z
+DTSTAMP:20261128T094900Z
 DTSTART;VALUE=DATE:20270530
 DTEND;VALUE=DATE:20270531
 SUMMARY:Hull City v Newcastle United (kick-off TBC) · Sky Sports

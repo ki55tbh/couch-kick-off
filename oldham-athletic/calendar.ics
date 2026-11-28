@@ -11,7 +11,7 @@ REFRESH-INTERVAL;VALUE=DURATION:PT6H
 X-PUBLISHED-TTL:PT6H
 BEGIN:VEVENT
 UID:oldham-athletic-bristol-rovers-league-two@couchkickoff.co.uk
-DTSTAMP:20261127T094500Z
+DTSTAMP:20261128T094900Z
 DTSTART:20261201T194500Z
 DTEND:20261201T214500Z
 SUMMARY:Oldham Athletic v Bristol Rovers · Sky Sports+
@@ -27,8 +27,42 @@ TRIGGER:-PT1H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
+UID:oldham-athletic-york-city-league-two@couchkickoff.co.uk
+DTSTAMP:20261128T094900Z
+DTSTART:20261226T150000Z
+DTEND:20261226T170000Z
+SUMMARY:Oldham Athletic v York City · Sky Sports+
+LOCATION:Sky Sports+
+DESCRIPTION:EFL League Two\nOn TV: Sky Sports+\nhttps://couchkickoff.co.uk/
+ oldham-athletic/
+URL:https://couchkickoff.co.uk/oldham-athletic/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Oldham Athletic v York City on Sky Sports+ in 1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:crewe-alexandra-oldham-athletic-league-two@couchkickoff.co.uk
+DTSTAMP:20261128T094900Z
+DTSTART:20270101T150000Z
+DTEND:20270101T170000Z
+SUMMARY:Crewe Alexandra v Oldham Athletic · Sky Sports+
+LOCATION:Sky Sports+
+DESCRIPTION:EFL League Two\nOn TV: Sky Sports+\nhttps://couchkickoff.co.uk/
+ oldham-athletic/
+URL:https://couchkickoff.co.uk/oldham-athletic/
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Crewe Alexandra v Oldham Athletic on Sky Sports+ in 1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
 UID:oldham-athletic-walsall-league-two@couchkickoff.co.uk
-DTSTAMP:20261127T094500Z
+DTSTAMP:20261128T094900Z
 DTSTART:20270119T194500Z
 DTEND:20270119T214500Z
 SUMMARY:Oldham Athletic v Walsall · Sky Sports+
@@ -45,7 +79,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:oldham-athletic-fleetwood-town-league-two@couchkickoff.co.uk
-DTSTAMP:20261127T094500Z
+DTSTAMP:20261128T094900Z
 DTSTART:20270209T194500Z
 DTEND:20270209T214500Z
 SUMMARY:Oldham Athletic v Fleetwood Town · Sky Sports+
@@ -62,7 +96,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:oldham-athletic-tranmere-rovers-league-two@couchkickoff.co.uk
-DTSTAMP:20261127T094500Z
+DTSTAMP:20261128T094900Z
 DTSTART:20270213T123000Z
 DTEND:20270213T143000Z
 SUMMARY:Oldham Athletic v Tranmere Rovers · Sky Sports+
